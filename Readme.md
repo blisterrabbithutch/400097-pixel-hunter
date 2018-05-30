@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Денис Чиж](https://up.htmlacademy.ru/ecmascript/5/user/400097).
-* Наставник: `Неизвестно`.
+* Наставник: [Николай Эмрих](https://htmlacademy.ru/profile/id129463).
 
 ---
 
