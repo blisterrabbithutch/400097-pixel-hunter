@@ -1,8 +1,8 @@
 'use strict';
 
-const ARROW = {
-  LEFT: 37,
-  RIGHT: 39
+const KeyCode = {
+  ARROW_LEFT: 37,
+  ARROW_RIGHT: 39
 };
 
 const templateElements = Array.from(document.querySelectorAll(`template`));
@@ -17,8 +17,11 @@ const updatePageContent = (template) => {
 };
 
 const showTemplateByNumber = (pageNumber) => {
-  pageNumber = pageNumber < 0 ? templateElements.length - 1 : pageNumber;
-  pageNumber = pageNumber >= templateElements.length ? 0 : pageNumber;
+  if (pageNumber < 0) {
+    return false;
+  } else if (pageNumber >= templateElements.length) {
+    return false;
+  }
   currentPageNumber = pageNumber;
   const selectedTemplate = templateElements[currentPageNumber].cloneNode(true).content;
   updatePageContent(selectedTemplate);
@@ -27,9 +30,9 @@ const showTemplateByNumber = (pageNumber) => {
 showTemplateByNumber(currentPageNumber);
 
 document.addEventListener(`keydown`, function (evt) {
-  if (evt.keyCode === ARROW.LEFT) {
+  if (evt.keyCode === KeyCode.ARROW_LEFT) {
     showTemplateByNumber(currentPageNumber - 1);
-  } else if (evt.keyCode === ARROW.RIGHT) {
+  } else if (evt.keyCode === KeyCode.ARROW_RIGHT) {
     showTemplateByNumber(currentPageNumber + 1);
   }
 });
