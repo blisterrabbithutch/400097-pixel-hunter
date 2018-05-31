@@ -20,7 +20,7 @@ const showTemplateByNumber = (pageNumber) => {
   pageNumber = pageNumber < 0 ? templateElements.length - 1 : pageNumber;
   pageNumber = pageNumber >= templateElements.length ? 0 : pageNumber;
   currentPageNumber = pageNumber;
-  let selectedTemplate = templateElements[currentPageNumber].cloneNode(true).content;
+  const selectedTemplate = templateElements[currentPageNumber].cloneNode(true).content;
   updatePageContent(selectedTemplate);
 };
 
@@ -38,21 +38,21 @@ const bodyTag = document.querySelector(`body`);
 bodyTag.insertAdjacentHTML(`beforeEnd`, `
 <div class="arrows__wrap">
   <style>
-.arrows__wrap {
-  position: absolute;
-  top: 95px;
-  left: 50%;
-  margin-left: -56px;
-}
-.arrows__btn {
-  background: none;
-  border: 2px solid black;
-  padding: 5px 20px;
-}
-</style>
-<button class="arrows__btn"><-</button>
+    .arrows__wrap {
+      position: absolute;
+      top: 95px;
+      left: 50%;
+      margin-left: -56px;
+    }
+    .arrows__btn {
+      background: none;
+      border: 2px solid black;
+      padding: 5px 20px;
+    }
+  </style>
+  <button class="arrows__btn"><-</button>
   <button class="arrows__btn">-></button>
-  </div>
+</div>
 `);
 
 const arrowWrapper = document.querySelector(`.arrows__wrap`);
