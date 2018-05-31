@@ -17,10 +17,8 @@ const updatePageContent = (template) => {
 };
 
 const showTemplateByNumber = (pageNumber) => {
-  if (pageNumber < 0) {
-    return false;
-  } else if (pageNumber >= templateElements.length) {
-    return false;
+  if (pageNumber < 0 || pageNumber >= templateElements.length) {
+    return;
   }
   currentPageNumber = pageNumber;
   const selectedTemplate = templateElements[currentPageNumber].cloneNode(true).content;
