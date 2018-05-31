@@ -59,8 +59,8 @@ bodyTag.insertAdjacentHTML(`beforeEnd`, `
 `);
 
 const arrowWrapper = document.querySelector(`.arrows__wrap`);
-const leftArrow = document.querySelector(`.arrows__btn:first-of-type`);
-const rightArrow = document.querySelector(`.arrows__btn:last-of-type`);
+const leftArrow = arrowWrapper.querySelector(`.arrows__btn:first-of-type`);
+const rightArrow = arrowWrapper.querySelector(`.arrows__btn:last-of-type`);
 arrowWrapper.addEventListener(`click`, function (evt) {
   if (evt.target === leftArrow) {
     showTemplateByNumber(currentPageNumber - 1);
