@@ -1,6 +1,6 @@
-import {updatePageContent} from './update-page-content.js';
+import {getElementsFromMarkup} from './utils.js';
 
-const rulesScreenElement = updatePageContent(`
+const rulesScreenElement = getElementsFromMarkup(`
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -37,4 +37,4 @@ const rulesScreenElement = updatePageContent(`
   </footer>
 `);
 
-export {rulesScreenElement};
+export default rulesScreenElement;

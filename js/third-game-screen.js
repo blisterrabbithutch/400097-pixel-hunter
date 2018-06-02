@@ -1,6 +1,6 @@
-import {updatePageContent} from './update-page-content.js';
+import {getElementsFromMarkup} from './utils.js';
 
-const thirdGameScreenElement = updatePageContent(`
+const thirdGameScreenElement = getElementsFromMarkup(`
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -55,4 +55,4 @@ const thirdGameScreenElement = updatePageContent(`
   </footer>
 `);
 
-export {thirdGameScreenElement};
+export default thirdGameScreenElement;

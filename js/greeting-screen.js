@@ -1,8 +1,8 @@
-import {updatePageContent} from './update-page-content.js';
+import {getElementsFromMarkup, showScreen} from './utils.js';
 
-import {rulesScreenElement} from './rules-screen.js';
+//import rulesScreenElement from './rules-screen.js';
 
-const greetingScreenElement = updatePageContent(`
+const greetingScreenElement = getElementsFromMarkup(`
   <div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
@@ -28,8 +28,8 @@ const greetingScreenElement = updatePageContent(`
   </footer>
 `);
 
-document.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
-  renderTemplate(rulesScreenElement);
-});
+//document.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
+//  showScreen(rulesScreenElement);
+//});
 
-export {greetingScreenElement};
+export default greetingScreenElement;

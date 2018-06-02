@@ -1,6 +1,6 @@
-import {updatePageContent} from './update-page-content.js';
+import {getElementsFromMarkup} from './utils.js';
 
-const statsScreenElement = updatePageContent(`
+const statsScreenElement = getElementsFromMarkup(`
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -121,4 +121,4 @@ const statsScreenElement = updatePageContent(`
   </footer>
 `);
 
-export {statsScreenElement};
+export default statsScreenElement;

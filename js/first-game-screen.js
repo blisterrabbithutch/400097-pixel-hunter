@@ -1,7 +1,7 @@
-import {updatePageContent} from './update-page-content.js';
+import {getElementsFromMarkup} from './utils.js';
 
 
-const firstGameScreenElement = updatePageContent(`
+const firstGameScreenElement = getElementsFromMarkup(`
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -70,4 +70,4 @@ const firstGameScreenElement = updatePageContent(`
 `);
 
 
-export {firstGameScreenElement};
+export default firstGameScreenElement;
