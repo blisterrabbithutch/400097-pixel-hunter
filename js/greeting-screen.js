@@ -1,5 +1,4 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
-
 import rulesScreenElement from './rules-screen.js';
 
 const greetingScreenElement = getElementsFromMarkup(`

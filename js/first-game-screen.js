@@ -1,6 +1,5 @@
 import {getElementsFromMarkup} from './utils.js';
 
-
 const firstGameScreenElement = getElementsFromMarkup(`
   <header class="header">
     <div class="header__back">
@@ -68,6 +67,5 @@ const firstGameScreenElement = getElementsFromMarkup(`
     </div>
   </footer>
 `);
-
 
 export default firstGameScreenElement;

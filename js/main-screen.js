@@ -1,5 +1,4 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
-
 import greetingScreenElement from './greeting-screen.js';
 
 const mainScreenElement = getElementsFromMarkup(`
@@ -8,7 +7,6 @@ const mainScreenElement = getElementsFromMarkup(`
   <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
 </div>
 `);
-
 
 document.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
   showScreen(greetingScreenElement);
