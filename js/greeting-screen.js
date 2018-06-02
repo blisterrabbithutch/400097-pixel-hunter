@@ -1,6 +1,6 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
 
-//import rulesScreenElement from './rules-screen.js';
+import rulesScreenElement from './rules-screen.js';
 
 const greetingScreenElement = getElementsFromMarkup(`
   <div class="greeting central--blur">
@@ -28,8 +28,8 @@ const greetingScreenElement = getElementsFromMarkup(`
   </footer>
 `);
 
-//document.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
-//  showScreen(rulesScreenElement);
-//});
+document.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
+  showScreen(rulesScreenElement);
+});
 
 export default greetingScreenElement;
