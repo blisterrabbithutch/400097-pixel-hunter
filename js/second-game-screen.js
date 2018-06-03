@@ -61,17 +61,16 @@ const template = `
 export default () => {
   const el = getElementsFromMarkup(template);
 
-  const gameCard = el.querySelector('.game__option');
-  const gameAnswerButtonPhoto = el.querySelector('.game__answer--photo>input');
-  const gameAnswerButtonPaint = el.querySelector('.game__answer--paint>input');
+  const gameCard = el.querySelector(`.game__option`);
+  const gameAnswerButtonPhoto = el.querySelector(`.game__answer--photo>input`);
+  const gameAnswerButtonPaint = el.querySelector(`.game__answer--paint>input`);
   gameCard.addEventListener(`click`, function (evt) {
-    if (evt.target === gameAnswerButtonPaint ) {
+    if (evt.target === gameAnswerButtonPaint) {
       showScreen(getThirdGameScreen());
-    } else if ( evt.target === gameAnswerButtonPhoto) {
+    } else if (evt.target === gameAnswerButtonPhoto) {
       showScreen(getThirdGameScreen());
     }
   });
-// почему не работает общий if вместе с && условием в одну строку?
 
   const backButton = el.querySelector(`button.back`);
   backButton.addEventListener(`click`, function () {

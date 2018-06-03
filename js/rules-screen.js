@@ -47,7 +47,7 @@ export default () => {
 
   rulesFormInput.addEventListener(`change`, function () {
     if (rulesFormInput.value.length > 0) {
-      rulesFormSubmit.removeAttribute("disabled");
+      rulesFormSubmit.removeAttribute(`disabled`);
     }
   });
 
@@ -61,7 +61,5 @@ export default () => {
   });
 
   return el;
-
-  //почему не выводится в консоли greetingScreenElement.content если это контент документ фрагмента?
 
 };

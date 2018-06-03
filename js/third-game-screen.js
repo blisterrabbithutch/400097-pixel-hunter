@@ -59,14 +59,14 @@ const template = `
 export default () => {
   const el = getElementsFromMarkup(template);
 
-  const gameCards = el.querySelectorAll('.game__option');
+  const gameCards = el.querySelectorAll(`.game__option`);
 
 
   for (let i = 0; i < gameCards.length; i++) {
-    gameCards[i].addEventListener(`click`, function (evt) {
+    gameCards[i].addEventListener(`click`, function () {
       showScreen(getStatsScreen());
     });
-  };
+  }
 
   const backButton = el.querySelector(`button.back`);
   backButton.addEventListener(`click`, function () {

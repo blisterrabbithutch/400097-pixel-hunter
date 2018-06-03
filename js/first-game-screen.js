@@ -71,83 +71,51 @@ const template = `
 `;
 export default () => {
   const el = getElementsFromMarkup(template);
+  const gameAnswerButtons = el.querySelectorAll(`.game__answer>input`);
+  const gameCardFirst = el.querySelector(`.game__option:first-child`);
+  const gameCardSecond = el.querySelector(`.game__option:last-child`);
+  const gameAnswerButtonPhotoFirst = gameCardFirst.querySelector(`.game__answer--photo>input`);
+  const gameAnswerButtonPhotoSecond = gameCardSecond.querySelector(`.game__answer--photo>input`);
+  const gameAnswerButtonPaintFirst = gameCardFirst.querySelector(`.game__answer--paint>input`);
+  const gameAnswerButtonPaintSecond = gameCardSecond.querySelector(`.game__answer--paint>input`);
 
-  // здесь событие на radio если оба checked то вызывается функция
+  gameAnswerButtonPhotoFirst.addEventListener(`click`, function () {
+    gameAnswerButtonPhotoFirst.parentElement.classList.remove(`game__answer--checked`);
+    gameAnswerButtonPaintFirst.parentElement.classList.remove(`game__answer--checked`);
+    this.parentElement.classList.add(`game__answer--checked`);
+  });
+  gameAnswerButtonPaintFirst.addEventListener(`click`, function () {
+    gameAnswerButtonPhotoFirst.parentElement.classList.remove(`game__answer--checked`);
+    gameAnswerButtonPaintFirst.parentElement.classList.remove(`game__answer--checked`);
+    this.parentElement.classList.add(`game__answer--checked`);
+  });
 
-  const gameAnswerButtons = el.querySelectorAll('.game__answer>input');
-
-  const gameContentCards = el.querySelector('.game__content');
-  const gameCards = el.querySelectorAll('.game__option');
-  const gameCardFirst = el.querySelector('.game__option:first-child');
-  const gameCardSecond = el.querySelector('.game__option:last-child');
-
-
-
-// первая карточка должна иметь выбранный ответ и вторая должна иметь выбранный ответ
-// событие на карточку - если хотя бы одна кнопка нажата( два события по модификатору на каждую карточку), ей дается класс --checked и если этот класс есть у обоих карточек -
-// рендер следующего экрана
-
-//for (let i = 0; i < gameCard.length; i++) {
-//  console.log(gameCard[i]);
-//  const gameAnswerButtonPhoto = gameCard.querySelector('.game__answer--photo');
-//  const gameAnswerButtonPaint = gameCard.querySelector('.game__answer--paint');
-//  gameAnswerButtonPaint.addEventListener('click', function(evt) {
-//    console.log(evt.target);
-//    console.log('Paint');
-//  });
-//  gameAnswerButtonPhoto.addEventListener('click', function(evt) {
-//    console.log(evt.target);
-//    console.log('Photo');
-//  });
-//
-//};
-
-//как грамотно сделать это место? через for?
-
-  const gameAnswerButtonPhotoFirst = gameCardFirst.querySelector('.game__answer--photo>input');
-  const gameAnswerButtonPhotoSecond = gameCardSecond.querySelector('.game__answer--photo>input');
-  const gameAnswerButtonPaintFirst = gameCardFirst.querySelector('.game__answer--paint>input');
-  const gameAnswerButtonPaintSecond = gameCardSecond.querySelector('.game__answer--paint>input');
-
-  gameAnswerButtonPhotoFirst.addEventListener('click', function(evt) {
-    gameAnswerButtonPhotoFirst.parentElement.classList.remove('game__answer--checked');
-    gameAnswerButtonPaintFirst.parentElement.classList.remove('game__answer--checked');
-    this.parentElement.classList.add('game__answer--checked');
-  }, true);
-  gameAnswerButtonPaintFirst.addEventListener('click', function(evt) {
-    gameAnswerButtonPhotoFirst.parentElement.classList.remove('game__answer--checked');
-    gameAnswerButtonPaintFirst.parentElement.classList.remove('game__answer--checked');
-    this.parentElement.classList.add('game__answer--checked');
-  }, true);
-
-  gameAnswerButtonPhotoSecond.addEventListener('click', function(evt) {
-    gameAnswerButtonPhotoSecond.parentElement.classList.remove('game__answer--checked');
-    gameAnswerButtonPaintSecond.parentElement.classList.remove('game__answer--checked');
-    this.parentElement.classList.add('game__answer--checked');
-  }, true);
-  gameAnswerButtonPaintSecond.addEventListener('click', function(evt) {
-    gameAnswerButtonPhotoSecond.parentElement.classList.remove('game__answer--checked');
-    gameAnswerButtonPaintSecond.parentElement.classList.remove('game__answer--checked');
-    this.parentElement.classList.add('game__answer--checked');
-  }, true);
-
-//теперь если обе карточки содержат по одному такому модификатору - функция рендера
+  gameAnswerButtonPhotoSecond.addEventListener(`click`, function () {
+    gameAnswerButtonPhotoSecond.parentElement.classList.remove(`game__answer--checked`);
+    gameAnswerButtonPaintSecond.parentElement.classList.remove(`game__answer--checked`);
+    this.parentElement.classList.add(`game__answer--checked`);
+  });
+  gameAnswerButtonPaintSecond.addEventListener(`click`, function () {
+    gameAnswerButtonPhotoSecond.parentElement.classList.remove(`game__answer--checked`);
+    gameAnswerButtonPaintSecond.parentElement.classList.remove(`game__answer--checked`);
+    this.parentElement.classList.add(`game__answer--checked`);
+  });
 
   for (let i = 0; i < gameAnswerButtons.length; i++) {
-    gameAnswerButtons[i].addEventListener('change', function() {
+    gameAnswerButtons[i].addEventListener(`change`, function () {
 
-      if ( gameAnswerButtonPhotoFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPhotoSecond.parentElement.classList.contains('game__answer--checked') ) {
+      if (gameAnswerButtonPhotoFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPhotoSecond.parentElement.classList.contains(`game__answer--checked`)) {
         showScreen(secondGameScreen());
-      } else if ( gameAnswerButtonPhotoFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPaintSecond.parentElement.classList.contains('game__answer--checked') ) {
+      } else if (gameAnswerButtonPhotoFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPaintSecond.parentElement.classList.contains(`game__answer--checked`)) {
         showScreen(secondGameScreen());
-      } else if ( gameAnswerButtonPaintFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPaintSecond.parentElement.classList.contains('game__answer--checked') ) {
+      } else if (gameAnswerButtonPaintFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPaintSecond.parentElement.classList.contains(`game__answer--checked`)) {
         showScreen(secondGameScreen());
-      } else if ( gameAnswerButtonPaintFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPhotoSecond.parentElement.classList.contains('game__answer--checked') ) {
+      } else if (gameAnswerButtonPaintFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPhotoSecond.parentElement.classList.contains(`game__answer--checked`)) {
         showScreen(secondGameScreen());
       }
 
     });
-  };
+  }
 
   const backButton = el.querySelector(`button.back`);
   backButton.addEventListener(`click`, function () {
