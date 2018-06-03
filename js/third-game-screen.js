@@ -1,4 +1,5 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementsFromMarkup, showScreen} from './utils.js';
+import statsScreen from './stats-screen.js';
 
 const thirdGameScreenElement = getElementsFromMarkup(`
   <header class="header">
@@ -54,5 +55,14 @@ const thirdGameScreenElement = getElementsFromMarkup(`
     </div>
   </footer>
 `);
+
+const gameCards = thirdGameScreenElement.querySelectorAll('.game__option');
+
+
+for (let i = 0; i < gameCards.length; i++) {
+  gameCards[i].addEventListener(`click`, function (evt) {
+    showScreen(statsScreen);
+  });
+};
 
 export default thirdGameScreenElement;

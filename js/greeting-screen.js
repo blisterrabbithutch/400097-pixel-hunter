@@ -27,7 +27,7 @@ const greetingScreenElement = getElementsFromMarkup(`
   </footer>
 `);
 
-document.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
+greetingScreenElement.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
   showScreen(rulesScreenElement);
 });
 

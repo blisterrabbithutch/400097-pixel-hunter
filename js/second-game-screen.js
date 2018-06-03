@@ -1,4 +1,5 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementsFromMarkup, showScreen} from './utils.js';
+import thirdGameScreen from './third-game-screen.js';
 
 const secondGameScreenElement = getElementsFromMarkup(`
   <header class="header">
@@ -56,5 +57,17 @@ const secondGameScreenElement = getElementsFromMarkup(`
     </div>
   </footer>
 `);
+
+const gameCard = secondGameScreenElement.querySelector('.game__option');
+const gameAnswerButtonPhoto = secondGameScreenElement.querySelector('.game__answer--photo>input');
+const gameAnswerButtonPaint = secondGameScreenElement.querySelector('.game__answer--paint>input');
+gameCard.addEventListener(`click`, function (evt) {
+  if (evt.target === gameAnswerButtonPaint ) {
+    showScreen(thirdGameScreen);
+  } else if ( evt.target === gameAnswerButtonPhoto) {
+    showScreen(thirdGameScreen);
+  }
+});
+// почему не работает общий if вместе с && условием в одну строку?
 
 export default secondGameScreenElement;

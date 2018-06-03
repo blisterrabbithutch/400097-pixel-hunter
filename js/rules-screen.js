@@ -1,4 +1,6 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementsFromMarkup, showScreen} from './utils.js';
+import firstGameScreenElement from './first-game-screen.js';
+import greetingScreenElement from './greeting-screen.js';
 
 const rulesScreenElement = getElementsFromMarkup(`
   <header class="header">
@@ -37,4 +39,25 @@ const rulesScreenElement = getElementsFromMarkup(`
   </footer>
 `);
 
+const rulesFormInput = rulesScreenElement.querySelector(`.rules__input`);
+const rulesFormSubmit = rulesScreenElement.querySelector(`.rules__button`);
+
+rulesFormInput.addEventListener(`change`, function () {
+  if (rulesFormInput.value.length > 0) {
+    rulesFormSubmit.removeAttribute("disabled");
+  }
+});
+
+rulesScreenElement.querySelector(`.rules__button`).addEventListener(`click`, function () {
+  console.log(firstGameScreenElement);
+  showScreen(firstGameScreenElement);
+});
+
+const backButton = rulesScreenElement.querySelector(`button.back`);
+backButton.addEventListener(`click`, function () {
+  showScreen(greetingScreenElement);
+});
+
 export default rulesScreenElement;
+
+//почему не выводится в консоли greetingScreenElement.content если это контент документ фрагмента?

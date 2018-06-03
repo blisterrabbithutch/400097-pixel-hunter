@@ -8,7 +8,7 @@ const mainScreenElement = getElementsFromMarkup(`
 </div>
 `);
 
-document.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
+mainScreenElement.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
   showScreen(greetingScreenElement);
 });
 
