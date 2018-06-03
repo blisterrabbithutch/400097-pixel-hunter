@@ -7,10 +7,7 @@ const getElementsFromMarkup = (markup) => {
 const pageContainer = document.querySelector(`main.central`);
 const showScreen = (templateEl) => {
   pageContainer.innerHTML = ``;
-  console.log(templateEl);
-  const templateElCopy = templateEl.cloneNode(true);
-  console.log(templateElCopy);
-  pageContainer.appendChild(templateElCopy);
+  pageContainer.appendChild(templateEl);
 };
 
 //здесь не работает повторная смена контента, потому что он переносится функцией и удаляется, после того как экран отработает.

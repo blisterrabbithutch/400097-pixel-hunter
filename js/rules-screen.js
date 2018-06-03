@@ -1,8 +1,8 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
-import firstGameScreenElement from './first-game-screen.js';
-import greetingScreenElement from './greeting-screen.js';
+import getFirstGameScreenElement from './first-game-screen.js';
+import getGreetingScreenElement from './greeting-screen.js';
 
-const rulesScreenElement = getElementsFromMarkup(`
+const template = `
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -37,27 +37,31 @@ const rulesScreenElement = getElementsFromMarkup(`
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>
-`);
+`;
 
-const rulesFormInput = rulesScreenElement.querySelector(`.rules__input`);
-const rulesFormSubmit = rulesScreenElement.querySelector(`.rules__button`);
+export default () => {
+  const el = getElementsFromMarkup(template);
 
-rulesFormInput.addEventListener(`change`, function () {
-  if (rulesFormInput.value.length > 0) {
-    rulesFormSubmit.removeAttribute("disabled");
-  }
-});
+  const rulesFormInput = el.querySelector(`.rules__input`);
+  const rulesFormSubmit = el.querySelector(`.rules__button`);
 
-rulesScreenElement.querySelector(`.rules__button`).addEventListener(`click`, function () {
-  console.log(firstGameScreenElement);
-  showScreen(firstGameScreenElement);
-});
+  rulesFormInput.addEventListener(`change`, function () {
+    if (rulesFormInput.value.length > 0) {
+      rulesFormSubmit.removeAttribute("disabled");
+    }
+  });
 
-const backButton = rulesScreenElement.querySelector(`button.back`);
-backButton.addEventListener(`click`, function () {
-  showScreen(greetingScreenElement);
-});
+  el.querySelector(`.rules__button`).addEventListener(`click`, function () {
+    showScreen(getFirstGameScreenElement());
+  });
 
-export default rulesScreenElement;
+  const backButton = el.querySelector(`button.back`);
+  backButton.addEventListener(`click`, function () {
+    showScreen(getGreetingScreenElement());
+  });
 
-//почему не выводится в консоли greetingScreenElement.content если это контент документ фрагмента?
+  return el;
+
+  //почему не выводится в консоли greetingScreenElement.content если это контент документ фрагмента?
+
+};

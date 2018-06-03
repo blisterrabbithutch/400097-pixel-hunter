@@ -1,7 +1,8 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
 import secondGameScreen from './second-game-screen.js';
+import getGreetingScreenElement from './greeting-screen.js';
 
-const firstGameScreenElement = getElementsFromMarkup(`
+const template = `
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -67,16 +68,18 @@ const firstGameScreenElement = getElementsFromMarkup(`
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>
-`);
+`;
+export default () => {
+  const el = getElementsFromMarkup(template);
 
-// здесь событие на radio если оба checked то вызывается функция
+  // здесь событие на radio если оба checked то вызывается функция
 
-const gameAnswerButtons = firstGameScreenElement.querySelectorAll('.game__answer>input');
+  const gameAnswerButtons = el.querySelectorAll('.game__answer>input');
 
-const gameContentCards = firstGameScreenElement.querySelector('.game__content');
-const gameCards = firstGameScreenElement.querySelectorAll('.game__option');
-const gameCardFirst = firstGameScreenElement.querySelector('.game__option:first-child');
-const gameCardSecond = firstGameScreenElement.querySelector('.game__option:last-child');
+  const gameContentCards = el.querySelector('.game__content');
+  const gameCards = el.querySelectorAll('.game__option');
+  const gameCardFirst = el.querySelector('.game__option:first-child');
+  const gameCardSecond = el.querySelector('.game__option:last-child');
 
 
 
@@ -101,49 +104,55 @@ const gameCardSecond = firstGameScreenElement.querySelector('.game__option:last-
 
 //как грамотно сделать это место? через for?
 
-const gameAnswerButtonPhotoFirst = gameCardFirst.querySelector('.game__answer--photo>input');
-const gameAnswerButtonPhotoSecond = gameCardSecond.querySelector('.game__answer--photo>input');
-const gameAnswerButtonPaintFirst = gameCardFirst.querySelector('.game__answer--paint>input');
-const gameAnswerButtonPaintSecond = gameCardSecond.querySelector('.game__answer--paint>input');
+  const gameAnswerButtonPhotoFirst = gameCardFirst.querySelector('.game__answer--photo>input');
+  const gameAnswerButtonPhotoSecond = gameCardSecond.querySelector('.game__answer--photo>input');
+  const gameAnswerButtonPaintFirst = gameCardFirst.querySelector('.game__answer--paint>input');
+  const gameAnswerButtonPaintSecond = gameCardSecond.querySelector('.game__answer--paint>input');
 
-gameAnswerButtonPhotoFirst.addEventListener('click', function(evt) {
-  gameAnswerButtonPhotoFirst.parentElement.classList.remove('game__answer--checked');
-  gameAnswerButtonPaintFirst.parentElement.classList.remove('game__answer--checked');
-  this.parentElement.classList.add('game__answer--checked');
-}, true);
-gameAnswerButtonPaintFirst.addEventListener('click', function(evt) {
-  gameAnswerButtonPhotoFirst.parentElement.classList.remove('game__answer--checked');
-  gameAnswerButtonPaintFirst.parentElement.classList.remove('game__answer--checked');
-  this.parentElement.classList.add('game__answer--checked');
-}, true);
+  gameAnswerButtonPhotoFirst.addEventListener('click', function(evt) {
+    gameAnswerButtonPhotoFirst.parentElement.classList.remove('game__answer--checked');
+    gameAnswerButtonPaintFirst.parentElement.classList.remove('game__answer--checked');
+    this.parentElement.classList.add('game__answer--checked');
+  }, true);
+  gameAnswerButtonPaintFirst.addEventListener('click', function(evt) {
+    gameAnswerButtonPhotoFirst.parentElement.classList.remove('game__answer--checked');
+    gameAnswerButtonPaintFirst.parentElement.classList.remove('game__answer--checked');
+    this.parentElement.classList.add('game__answer--checked');
+  }, true);
 
-gameAnswerButtonPhotoSecond.addEventListener('click', function(evt) {
-  gameAnswerButtonPhotoSecond.parentElement.classList.remove('game__answer--checked');
-  gameAnswerButtonPaintSecond.parentElement.classList.remove('game__answer--checked');
-  this.parentElement.classList.add('game__answer--checked');
-}, true);
-gameAnswerButtonPaintSecond.addEventListener('click', function(evt) {
-  gameAnswerButtonPhotoSecond.parentElement.classList.remove('game__answer--checked');
-  gameAnswerButtonPaintSecond.parentElement.classList.remove('game__answer--checked');
-  this.parentElement.classList.add('game__answer--checked');
-}, true);
+  gameAnswerButtonPhotoSecond.addEventListener('click', function(evt) {
+    gameAnswerButtonPhotoSecond.parentElement.classList.remove('game__answer--checked');
+    gameAnswerButtonPaintSecond.parentElement.classList.remove('game__answer--checked');
+    this.parentElement.classList.add('game__answer--checked');
+  }, true);
+  gameAnswerButtonPaintSecond.addEventListener('click', function(evt) {
+    gameAnswerButtonPhotoSecond.parentElement.classList.remove('game__answer--checked');
+    gameAnswerButtonPaintSecond.parentElement.classList.remove('game__answer--checked');
+    this.parentElement.classList.add('game__answer--checked');
+  }, true);
 
 //теперь если обе карточки содержат по одному такому модификатору - функция рендера
 
-for (let i = 0; i < gameAnswerButtons.length; i++) {
-  gameAnswerButtons[i].addEventListener('change', function() {
+  for (let i = 0; i < gameAnswerButtons.length; i++) {
+    gameAnswerButtons[i].addEventListener('change', function() {
 
-    if ( gameAnswerButtonPhotoFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPhotoSecond.parentElement.classList.contains('game__answer--checked') ) {
-      showScreen(secondGameScreen);
-    } else if ( gameAnswerButtonPhotoFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPaintSecond.parentElement.classList.contains('game__answer--checked') ) {
-      showScreen(secondGameScreen);
-    } else if ( gameAnswerButtonPaintFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPaintSecond.parentElement.classList.contains('game__answer--checked') ) {
-      showScreen(secondGameScreen);
-    } else if ( gameAnswerButtonPaintFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPhotoSecond.parentElement.classList.contains('game__answer--checked') ) {
-      showScreen(secondGameScreen);
-    }
+      if ( gameAnswerButtonPhotoFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPhotoSecond.parentElement.classList.contains('game__answer--checked') ) {
+        showScreen(secondGameScreen());
+      } else if ( gameAnswerButtonPhotoFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPaintSecond.parentElement.classList.contains('game__answer--checked') ) {
+        showScreen(secondGameScreen());
+      } else if ( gameAnswerButtonPaintFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPaintSecond.parentElement.classList.contains('game__answer--checked') ) {
+        showScreen(secondGameScreen());
+      } else if ( gameAnswerButtonPaintFirst.parentElement.classList.contains('game__answer--checked') && gameAnswerButtonPhotoSecond.parentElement.classList.contains('game__answer--checked') ) {
+        showScreen(secondGameScreen());
+      }
 
+    });
+  };
+
+  const backButton = el.querySelector(`button.back`);
+  backButton.addEventListener(`click`, function () {
+    showScreen(getGreetingScreenElement());
   });
-};
 
-export default firstGameScreenElement;
+  return el;
+};

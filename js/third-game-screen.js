@@ -1,7 +1,8 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
-import statsScreen from './stats-screen.js';
+import getStatsScreen from './stats-screen.js';
+import getGreetingScreenElement from './greeting-screen.js';
 
-const thirdGameScreenElement = getElementsFromMarkup(`
+const template = `
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -54,15 +55,23 @@ const thirdGameScreenElement = getElementsFromMarkup(`
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>
-`);
+`;
+export default () => {
+  const el = getElementsFromMarkup(template);
 
-const gameCards = thirdGameScreenElement.querySelectorAll('.game__option');
+  const gameCards = el.querySelectorAll('.game__option');
 
 
-for (let i = 0; i < gameCards.length; i++) {
-  gameCards[i].addEventListener(`click`, function (evt) {
-    showScreen(statsScreen);
+  for (let i = 0; i < gameCards.length; i++) {
+    gameCards[i].addEventListener(`click`, function (evt) {
+      showScreen(getStatsScreen());
+    });
+  };
+
+  const backButton = el.querySelector(`button.back`);
+  backButton.addEventListener(`click`, function () {
+    showScreen(getGreetingScreenElement());
   });
-};
 
-export default thirdGameScreenElement;
+  return el;
+};

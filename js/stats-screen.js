@@ -1,6 +1,7 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementsFromMarkup, showScreen} from './utils.js';
+import getGreetingScreenElement from './greeting-screen.js';
 
-const statsScreenElement = getElementsFromMarkup(`
+const template = `
   <header class="header">
     <div class="header__back">
       <button class="back">
@@ -119,6 +120,14 @@ const statsScreenElement = getElementsFromMarkup(`
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>
-`);
+`;
+export default () => {
+  const el = getElementsFromMarkup(template);
 
-export default statsScreenElement;
+  const backButton = el.querySelector(`button.back`);
+  backButton.addEventListener(`click`, function () {
+    showScreen(getGreetingScreenElement());
+  });
+
+  return el;
+};

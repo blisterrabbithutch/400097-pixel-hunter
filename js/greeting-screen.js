@@ -1,7 +1,7 @@
 import {getElementsFromMarkup, showScreen} from './utils.js';
-import rulesScreenElement from './rules-screen.js';
+import getRulesScreenElement from './rules-screen.js';
 
-const greetingScreenElement = getElementsFromMarkup(`
+const template = `
   <div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
@@ -25,10 +25,13 @@ const greetingScreenElement = getElementsFromMarkup(`
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>
-`);
+`;
+export default () => {
+  const el = getElementsFromMarkup(template);
 
-greetingScreenElement.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
-  showScreen(rulesScreenElement);
-});
+  el.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
+    showScreen(getRulesScreenElement());
+  });
 
-export default greetingScreenElement;
+  return el;
+};
