@@ -58,9 +58,6 @@ const template = `
 `;
 export default () => {
   const el = getElementsFromMarkup(template);
-
-  const cardsEl = el.querySelectorAll(`.game__option`);
-
   const formEl = el.querySelector(`.game__content`);
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
