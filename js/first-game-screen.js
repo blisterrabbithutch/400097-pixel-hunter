@@ -71,9 +71,9 @@ const template = `
 `;
 export default () => {
   const el = getElementsFromMarkup(template);
-
-  const firstCardRadioInputs = el.querySelector(`.game__content`).elements.question1;
-  const secondCardRadioInputs = el.querySelector(`.game__content`).elements.question2;
+  const formEl = el.querySelector(`.game__content`);
+  const firstCardRadioInputs = formEl.elements.question1;
+  const secondCardRadioInputs = formEl.elements.question2;
   const form = el.querySelector(`.game__content`);
   form.addEventListener(`change`, function () {
     if (firstCardRadioInputs.value && secondCardRadioInputs.value) {

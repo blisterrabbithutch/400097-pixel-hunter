@@ -63,7 +63,7 @@ export default () => {
 
   const formEl = el.querySelector(`.game__content`);
   formEl.addEventListener(`click`, function (evt) {
-    if (evt.target.getAttribute(`class`) === `game__option`) {
+    if (evt.target.classList.contains(`game__option`)) {
       showScreen(getStatsScreen());
     }
   });
