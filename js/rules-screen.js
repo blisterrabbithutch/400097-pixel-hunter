@@ -51,7 +51,8 @@ export default () => {
     }
   });
 
-  el.querySelector(`.rules__button`).addEventListener(`click`, function () {
+  el.querySelector(`.rules__form`).addEventListener(`submit`, function (evt) {
+    evt.preventDefault();
     showScreen(getFirstGameScreenElement());
   });
 
