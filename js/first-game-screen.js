@@ -80,25 +80,21 @@ export default () => {
   const gameAnswerButtonPaintSecond = gameCardSecond.querySelector(`.game__answer--paint>input`);
 
   gameAnswerButtonPhotoFirst.addEventListener(`click`, function () {
-    gameAnswerButtonPhotoFirst.parentElement.classList.remove(`game__answer--checked`);
     gameAnswerButtonPaintFirst.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.add(`game__answer--checked`);
+    this.parentElement.classList.toggle(`game__answer--checked`);
   });
   gameAnswerButtonPaintFirst.addEventListener(`click`, function () {
     gameAnswerButtonPhotoFirst.parentElement.classList.remove(`game__answer--checked`);
-    gameAnswerButtonPaintFirst.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.add(`game__answer--checked`);
+    this.parentElement.classList.toggle(`game__answer--checked`);
   });
 
   gameAnswerButtonPhotoSecond.addEventListener(`click`, function () {
-    gameAnswerButtonPhotoSecond.parentElement.classList.remove(`game__answer--checked`);
     gameAnswerButtonPaintSecond.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.add(`game__answer--checked`);
+    this.parentElement.classList.toggle(`game__answer--checked`);
   });
   gameAnswerButtonPaintSecond.addEventListener(`click`, function () {
     gameAnswerButtonPhotoSecond.parentElement.classList.remove(`game__answer--checked`);
-    gameAnswerButtonPaintSecond.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.add(`game__answer--checked`);
+    this.parentElement.classList.toggle(`game__answer--checked`);
   });
 
   for (let i = 0; i < gameAnswerButtons.length; i++) {
