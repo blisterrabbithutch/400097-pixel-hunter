@@ -59,11 +59,11 @@ const template = `
 export default () => {
   const el = getElementsFromMarkup(template);
 
-  const gameCards = el.querySelectorAll(`.game__option`);
+  const cardsEl = el.querySelectorAll(`.game__option`);
 
 
-  for (let i = 0; i < gameCards.length; i++) {
-    gameCards[i].addEventListener(`click`, function () {
+  for (let i = 0; i < cardsEl.length; i++) {
+    cardsEl[i].addEventListener(`click`, function () {
       showScreen(getStatsScreen());
     });
   }

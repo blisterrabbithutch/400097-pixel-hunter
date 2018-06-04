@@ -71,52 +71,17 @@ const template = `
 `;
 export default () => {
   const el = getElementsFromMarkup(template);
-  const gameAnswerButtons = el.querySelectorAll(`.game__answer>input`);
-  const gameCardFirst = el.querySelector(`.game__option:first-child`);
-  const gameCardSecond = el.querySelector(`.game__option:last-child`);
-  const gameAnswerButtonPhotoFirst = gameCardFirst.querySelector(`.game__answer--photo>input`);
-  const gameAnswerButtonPhotoSecond = gameCardSecond.querySelector(`.game__answer--photo>input`);
-  const gameAnswerButtonPaintFirst = gameCardFirst.querySelector(`.game__answer--paint>input`);
-  const gameAnswerButtonPaintSecond = gameCardSecond.querySelector(`.game__answer--paint>input`);
 
-  gameAnswerButtonPhotoFirst.addEventListener(`click`, function () {
-    gameAnswerButtonPaintFirst.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.toggle(`game__answer--checked`);
-  });
-  gameAnswerButtonPaintFirst.addEventListener(`click`, function () {
-    gameAnswerButtonPhotoFirst.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.toggle(`game__answer--checked`);
-  });
-
-  gameAnswerButtonPhotoSecond.addEventListener(`click`, function () {
-    gameAnswerButtonPaintSecond.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.toggle(`game__answer--checked`);
-  });
-  gameAnswerButtonPaintSecond.addEventListener(`click`, function () {
-    gameAnswerButtonPhotoSecond.parentElement.classList.remove(`game__answer--checked`);
-    this.parentElement.classList.toggle(`game__answer--checked`);
-  });
-
-  for (let i = 0; i < gameAnswerButtons.length; i++) {
-    gameAnswerButtons[i].addEventListener(`change`, function () {
-
-      if (gameAnswerButtonPhotoFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPhotoSecond.parentElement.classList.contains(`game__answer--checked`)) {
-        showScreen(secondGameScreen());
-      } else if (gameAnswerButtonPhotoFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPaintSecond.parentElement.classList.contains(`game__answer--checked`)) {
-        showScreen(secondGameScreen());
-      } else if (gameAnswerButtonPaintFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPaintSecond.parentElement.classList.contains(`game__answer--checked`)) {
-        showScreen(secondGameScreen());
-      } else if (gameAnswerButtonPaintFirst.parentElement.classList.contains(`game__answer--checked`) && gameAnswerButtonPhotoSecond.parentElement.classList.contains(`game__answer--checked`)) {
+  const firstCardRadioInputs = el.querySelector(`.game__content`).elements.question1;
+  const secondCardRadioInputs = el.querySelector(`.game__content`).elements.question2;
+  const cardElements = el.querySelector(`.game__content`).elements;
+  for (let i = 0; i < cardElements.length; i++) {
+    cardElements[i].addEventListener(`change`, function () {
+      if (firstCardRadioInputs.value !== 0 && secondCardRadioInputs.value !== 0) {
         showScreen(secondGameScreen());
       }
-
     });
   }
-
-  const backButton = el.querySelector(`.back`);
-  backButton.addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
-  });
 
   return el;
 };

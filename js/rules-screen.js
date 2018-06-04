@@ -42,14 +42,14 @@ const template = `
 export default () => {
   const el = getElementsFromMarkup(template);
 
-  const rulesFormInput = el.querySelector(`.rules__input`);
-  const rulesFormSubmit = el.querySelector(`.rules__button`);
+  const inputEl = el.querySelector(`.rules__input`);
+  const submitEl = el.querySelector(`.rules__button`);
 
-  rulesFormInput.addEventListener(`input`, function () {
-    if (rulesFormInput.value.length > 0) {
-      rulesFormSubmit.removeAttribute(`disabled`);
-    } else if (rulesFormInput.value.length === 0) {
-      rulesFormSubmit.setAttribute(`disabled`, ``);
+  inputEl.addEventListener(`input`, function () {
+    if (inputEl.value.length > 0) {
+      submitEl.removeAttribute(`disabled`);
+    } else if (inputEl.value.length === 0) {
+      submitEl.setAttribute(`disabled`, ``);
     }
   });
 

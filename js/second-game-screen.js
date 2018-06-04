@@ -61,13 +61,13 @@ const template = `
 export default () => {
   const el = getElementsFromMarkup(template);
 
-  const gameCard = el.querySelector(`.game__option`);
-  const gameAnswerButtonPhoto = el.querySelector(`.game__answer--photo>input`);
-  const gameAnswerButtonPaint = el.querySelector(`.game__answer--paint>input`);
-  gameCard.addEventListener(`click`, function (evt) {
-    if (evt.target === gameAnswerButtonPaint) {
+  const cardEl = el.querySelector(`.game__option`);
+  const buttonPhoto = el.querySelector(`.game__answer--photo>input`);
+  const buttonPaint = el.querySelector(`.game__answer--paint>input`);
+  cardEl.addEventListener(`click`, function (evt) {
+    if (evt.target === buttonPaint) {
       showScreen(getThirdGameScreen());
-    } else if (evt.target === gameAnswerButtonPhoto) {
+    } else if (evt.target === buttonPhoto) {
       showScreen(getThirdGameScreen());
     }
   });
