@@ -45,9 +45,11 @@ export default () => {
   const rulesFormInput = el.querySelector(`.rules__input`);
   const rulesFormSubmit = el.querySelector(`.rules__button`);
 
-  rulesFormInput.addEventListener(`change`, function () {
+  rulesFormInput.addEventListener(`input`, function () {
     if (rulesFormInput.value.length > 0) {
       rulesFormSubmit.removeAttribute(`disabled`);
+    } else if (rulesFormInput.value.length === 0) {
+      rulesFormSubmit.setAttribute(`disabled`, ``);
     }
   });
 
