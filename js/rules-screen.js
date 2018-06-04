@@ -56,7 +56,7 @@ export default () => {
     showScreen(getFirstGameScreenElement());
   });
 
-  const backButton = el.querySelector(`button.back`);
+  const backButton = el.querySelector(`.back`);
   backButton.addEventListener(`click`, function () {
     showScreen(getGreetingScreenElement());
   });
