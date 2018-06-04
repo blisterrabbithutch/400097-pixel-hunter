@@ -76,7 +76,7 @@ export default () => {
   const secondCardRadioInputs = el.querySelector(`.game__content`).elements.question2;
   const form = el.querySelector(`.game__content`);
   form.addEventListener(`change`, function () {
-    if (Boolean(firstCardRadioInputs.value) === true && Boolean(secondCardRadioInputs.value) === true) {
+    if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
       showScreen(secondGameScreen());
     }
   });
