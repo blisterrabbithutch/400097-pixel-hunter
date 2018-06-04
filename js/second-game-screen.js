@@ -64,10 +64,8 @@ export default () => {
   const cardEl = el.querySelector(`.game__option`);
   const buttonPhoto = el.querySelector(`.game__answer--photo>input`);
   const buttonPaint = el.querySelector(`.game__answer--paint>input`);
-  cardEl.addEventListener(`click`, function (evt) {
-    if (evt.target === buttonPaint) {
-      showScreen(getThirdGameScreen());
-    } else if (evt.target === buttonPhoto) {
+  cardEl.addEventListener(`change`, function (evt) {
+    if (evt.target === buttonPaint || evt.target === buttonPhoto) {
       showScreen(getThirdGameScreen());
     }
   });
