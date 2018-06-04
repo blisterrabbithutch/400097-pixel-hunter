@@ -4,7 +4,7 @@ const getElementsFromMarkup = (markup) => {
   return pageElement.content;
 };
 
-const pageContainer = document.querySelector(`main.central`);
+const pageContainer = document.querySelector(`.central`);
 const showScreen = (templateEl) => {
   pageContainer.innerHTML = ``;
   pageContainer.appendChild(templateEl);
