@@ -74,14 +74,12 @@ export default () => {
 
   const firstCardRadioInputs = el.querySelector(`.game__content`).elements.question1;
   const secondCardRadioInputs = el.querySelector(`.game__content`).elements.question2;
-  const cardElements = el.querySelector(`.game__content`).elements;
-  for (let i = 0; i < cardElements.length; i++) {
-    cardElements[i].addEventListener(`change`, function () {
-      if (firstCardRadioInputs.value !== 0 && secondCardRadioInputs.value !== 0) {
-        showScreen(secondGameScreen());
-      }
-    });
-  }
+  const form = el.querySelector(`.game__content`);
+  form.addEventListener(`change`, function () {
+    if (Boolean(firstCardRadioInputs.value) === true && Boolean(secondCardRadioInputs.value) === true) {
+      showScreen(secondGameScreen());
+    }
+  });
 
   return el;
 };
