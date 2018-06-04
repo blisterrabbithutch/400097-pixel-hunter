@@ -62,12 +62,8 @@ export default () => {
   const el = getElementsFromMarkup(template);
 
   const cardEl = el.querySelector(`.game__option`);
-  const buttonPhoto = el.querySelector(`.game__answer--photo>input`);
-  const buttonPaint = el.querySelector(`.game__answer--paint>input`);
-  cardEl.addEventListener(`change`, function (evt) {
-    if (evt.target === buttonPaint || evt.target === buttonPhoto) {
-      showScreen(getThirdGameScreen());
-    }
+  cardEl.addEventListener(`change`, function () {
+    showScreen(getThirdGameScreen());
   });
 
   const backButton = el.querySelector(`.back`);
