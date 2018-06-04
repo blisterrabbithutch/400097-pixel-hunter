@@ -61,12 +61,12 @@ export default () => {
 
   const cardsEl = el.querySelectorAll(`.game__option`);
 
-
-  for (let i = 0; i < cardsEl.length; i++) {
-    cardsEl[i].addEventListener(`click`, function () {
+  const formEl = el.querySelector(`.game__content`);
+  formEl.addEventListener(`click`, function (evt) {
+    if (evt.target.getAttribute(`class`) === `game__option`) {
       showScreen(getStatsScreen());
-    });
-  }
+    }
+  });
 
   const backButton = el.querySelector(`.back`);
   backButton.addEventListener(`click`, function () {

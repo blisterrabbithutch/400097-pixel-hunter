@@ -81,5 +81,10 @@ export default () => {
     }
   });
 
+  const backButton = el.querySelector(`.back`);
+  backButton.addEventListener(`click`, function () {
+    showScreen(getGreetingScreenElement());
+  });
+
   return el;
 };
