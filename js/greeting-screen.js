@@ -1,4 +1,5 @@
-import {getElementsFromMarkup, showScreen} from './utils.js';
+import {getElementsFromMarkup} from './utils.js';
+import showScreen from './main.js';
 import getRulesScreenElement from './rules-screen.js';
 
 const template = `

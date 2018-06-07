@@ -1,4 +1,12 @@
 import getMainScreenElement from './main-screen.js';
-import {showScreen} from './utils.js';
+
+const pageContainer = document.querySelector(`.central`);
+
+const showScreen = (templateEl) => {
+  pageContainer.innerHTML = ``;
+  pageContainer.appendChild(templateEl);
+};
 
 showScreen(getMainScreenElement());
+
+export default showScreen;
