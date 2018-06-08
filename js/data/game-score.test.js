@@ -1,6 +1,216 @@
 import {assert} from 'chai';
 import {getScore} from '../utils.js';
-import {resultFirst, resultSecond, resultThird, resultFour, resultFifth} from '../enums.js';
+
+let resultFirst = [
+  {
+    solved: true,
+    time: 35000
+  },
+  {
+    solved: true,
+    time: 32000
+  },
+  {
+    solved: true,
+    time: 7000
+  },
+  {
+    solved: true,
+    time: 25000
+  },
+  {
+    solved: true,
+    time: 12000
+  },
+  {
+    solved: true,
+    time: 17000
+  },
+  {
+    solved: true,
+    time: 22000
+  },
+  {
+    solved: true,
+    time: 12000
+  },
+  {
+    solved: true,
+    time: 25000
+  },
+  {
+    solved: true,
+    time: 11000
+  }
+];
+
+let resultSecond = [
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 7000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  }
+];
+
+let resultThird = [
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 7000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  }
+];
+
+let resultFour = [
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 7000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  }
+];
+
+let resultFifth = [
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 7000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 8000
+  },
+  {
+    solved: true,
+    time: 5000
+  },
+  {
+    solved: true,
+    time: 38000
+  },
+  {
+    solved: false,
+    time: 8000
+  },
+  {
+    solved: false,
+    time: 8000
+  }
+];
 
 describe(`Score user points after game`, () => {
 

@@ -14,12 +14,12 @@ const getScore = (userResult, remainingLifes) => {
   } else {
     for (let i = 0; i < userResult.length; i++) {
       let currentUser = userResult[i];
-      if (currentUser.truth) {
+      if (currentUser.solved) {
         userPoints = userPoints + AnswerPoints.NORMAL;
         if (currentUser.time < AnswerTime.FAST) {
           userPoints = userPoints + AnswerPoints.BONUS;
         } else if (currentUser.time > AnswerTime.SLOW && currentUser.time < AnswerTime.TIMEOUT) {
-          userPoints = userPoints - AnswerPoints.BONUS
+          userPoints = userPoints - AnswerPoints.BONUS;
         } else if (currentUser.time > AnswerTime.TIMEOUT) {
           userPoints = userPoints - AnswerPoints.NORMAL;
         }
@@ -40,11 +40,11 @@ function createTimer(duration) {
         done = true;
       }
       return {
-        "timeRemain": timeRemain,
-        "done": done
+        'timeRemain': timeRemain,
+        'done': done
       };
     },
-    "timer": timeRemain
+    'timer': timeRemain
   };
 }
 

@@ -9,4 +9,8 @@ const showScreen = (templateEl) => {
 
 showScreen(getMainScreenElement());
 
-export default showScreen;
+export {showScreen};
+
+
+
+
