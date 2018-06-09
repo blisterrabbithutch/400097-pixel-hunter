@@ -1,4 +1,5 @@
-import {getElementsFromMarkup, showScreen} from './utils.js';
+import {getElementsFromMarkup} from './utils.js';
+import {showScreen} from './main.js';
 import getThirdGameScreen from './third-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
