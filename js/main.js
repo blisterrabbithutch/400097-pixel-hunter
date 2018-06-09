@@ -10,7 +10,3 @@ const showScreen = (templateEl) => {
 showScreen(getMainScreenElement());
 
 export {showScreen};
-
-
-
-

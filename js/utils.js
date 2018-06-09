@@ -40,11 +40,11 @@ function createTimer(duration) {
         done = true;
       }
       return {
-        'timeRemain': timeRemain,
-        'done': done
+        timeRemain,
+        done
       };
     },
-    'timer': timeRemain
+    time: timeRemain
   };
 }
 

@@ -1,5 +1,5 @@
 import {getElementsFromMarkup} from './utils.js';
-import showScreen from './main.js';
+import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
 const template = `

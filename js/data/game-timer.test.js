@@ -5,7 +5,7 @@ import {createTimer} from '../utils.js';
 describe(`Game timer`, () => {
 
   it(`Time must be considered`, () => {
-    assert.equal(createTimer(3).timer, 3);
+    assert.equal(createTimer(3).time, 3);
   });
 
   it(`Timer tick method check`, () => {
