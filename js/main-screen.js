@@ -1,6 +1,7 @@
 import {getElementsFromMarkup} from './utils.js';
 import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
+//import getFooterScreenElement from './footer.js';
 
 const template = `
   <div id="intro" class="intro">
