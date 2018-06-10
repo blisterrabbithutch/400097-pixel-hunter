@@ -1,9 +1,9 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
 
-const getElementsFromMarkup = (markup) => {
-  const pageElement = document.createElement(`template`);
-  pageElement.innerHTML = markup;
-  return pageElement.content;
+const getElementsFromMarkup = (template) => {
+  const pageElement = document.createElement(`div`);
+  pageElement.innerHTML = template;
+  return pageElement.firstElementChild;
 };
 
 

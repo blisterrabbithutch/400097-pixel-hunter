@@ -64,23 +64,9 @@
 
 const levels = [
   {
-    levelType: `one-card`,
+    levelType: `two-cards`,
     levelNumber: `level-1`,
     levelOrder: 1,
-    cards: [
-      {
-        cardContent: `http://placehold.it/468x458`,
-        answers: {
-          'photo': null,
-          'paint': `level-2`
-        }
-      }
-    ]
-  },
-  {
-    levelType: `two-cards`,
-    levelNumber: `level-2`,
-    levelOrder: 2,
     cards: [
       {
         cardContent: `http://placehold.it/468x458`,
@@ -94,6 +80,20 @@ const levels = [
         answers: {
           'photo': null,
           'paint': `level-3`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `one-card`,
+    levelNumber: `level-2`,
+    levelOrder: 2,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-2`
         }
       }
     ]
@@ -129,7 +129,7 @@ const levels = [
 ];
 
 const initialState = {
-  level: `level-1`,
+  level: 1,
   levelNumbers: 10,
   lives: 3,
   time: 30

@@ -1,10 +1,20 @@
 import {getElementsFromMarkup} from './utils.js';
 import {showScreen} from './main.js';
 import getRulesScreenElement from './rules-screen.js';
-import getFooterElement from './footer.js';
+import getHeader from './header.js';
+import getFooter from './footer.js';
 import {initialState, levels} from './data.js';
 
 const template = `
+  <main class="central">
+  <header class="header">
+    <div class="header__back">
+      <button class="back">
+        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+        <img src="img/logo_small.svg" width="101" height="44">
+      </button>
+    </div>
+  </header>
   <div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
@@ -18,6 +28,8 @@ const template = `
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
   </div>
+  ${getFooter().outerHTML}
+  </main>
 `;
 export default () => {
   const el = getElementsFromMarkup(template);

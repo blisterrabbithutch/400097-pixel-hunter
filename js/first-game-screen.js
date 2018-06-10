@@ -1,13 +1,18 @@
 import {getElementsFromMarkup} from './utils.js';
 import {showScreen} from './main.js';
 import secondGameScreen from './second-game-screen.js';
-import getGreetingScreenElement from './greeting-screen.js';
+import getHeader from './header.js';
+import getFooter from './footer.js';
 import {initialState, levels} from './data.js';
+import getGreetingScreenElement from './greeting-screen.js';
+
 
 //здесь вместо экспортирования дом элемента нужно написать функцию принимающую данные и возвращающий дом элемент
 
 const template = (level) => `
-  <div class="game">
+  <main class="central">
+    ${getHeader(initialState).outerHTML}
+    <div class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
       <div class="game__option">
@@ -35,8 +40,7 @@ const template = (level) => `
     </form>
     <div class="stats">
       <ul class="stats">
-        ${new Array(level.levelOrder)
-        .fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
+        ${new Array(level.levelOrder).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
         <!--<li class="stats__result stats__result&#45;&#45;wrong"></li>-->
         <!--<li class="stats__result stats__result&#45;&#45;slow"></li>-->
         <!--<li class="stats__result stats__result&#45;&#45;fast"></li>-->
@@ -44,9 +48,12 @@ const template = (level) => `
       </ul>
     </div>
   </div>
+  ${getFooter().outerHTML}
+  </main>
 `;
 export default () => {
-  const el = getElementsFromMarkup(template(levels[1]));
+  const el = getElementsFromMarkup(template(levels[0]));
+  //el.insertAdjacentElement('afterbegin', getHeader(initialState));
   const formEl = el.querySelector(`.game__content`);
   const firstCardRadioInputs = formEl.elements.question1;
   const secondCardRadioInputs = formEl.elements.question2;
@@ -57,10 +64,10 @@ export default () => {
     }
   });
 
-  //const backButton = el.querySelector(`.back`);
-  //backButton.addEventListener(`click`, function () {
-  //  showScreen(getGreetingScreenElement());
-  //});
+  const backButton = el.querySelector(`.back`);
+  backButton.addEventListener(`click`, function () {
+    showScreen(getGreetingScreenElement());
+  });
 
   return el;
 };
