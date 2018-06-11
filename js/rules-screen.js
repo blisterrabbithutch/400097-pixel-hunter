@@ -1,8 +1,9 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
-import getFirstGameScreenElement from './first-game-screen.js';
+import {getGameScreen} from './first-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooter from './footer.js';
+import {initialState, levels} from './data.js';
 
 const template = `
   <main class="central">
@@ -35,7 +36,7 @@ const template = `
 `;
 
 export default () => {
-  const el = getElementsFromMarkup(template);
+  const el = getElementFromTemplate(template);
 
   const inputEl = el.querySelector(`.rules__input`);
   const submitEl = el.querySelector(`.rules__button`);
@@ -50,7 +51,7 @@ export default () => {
 
   el.querySelector(`.rules__form`).addEventListener(`submit`, function (evt) {
     evt.preventDefault();
-    showScreen(getFirstGameScreenElement());
+    showScreen(getGameScreen(levels[0], initialState));
   });
 
   const backButton = el.querySelector(`.back`);

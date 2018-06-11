@@ -1,4 +1,4 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import getRulesScreenElement from './rules-screen.js';
 import getHeader from './header.js';
@@ -32,7 +32,7 @@ const template = `
   </main>
 `;
 export default () => {
-  const el = getElementsFromMarkup(template);
+  const el = getElementFromTemplate(template);
 
   el.querySelector(`.greeting__continue`).addEventListener(`click`, function () {
     showScreen(getRulesScreenElement());

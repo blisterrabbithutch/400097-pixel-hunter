@@ -1,6 +1,6 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
 
-const getElementsFromMarkup = (template) => {
+const getElementFromTemplate = (template) => {
   const pageElement = document.createElement(`div`);
   pageElement.innerHTML = template;
   return pageElement.firstElementChild;
@@ -93,4 +93,4 @@ function createTimer(duration) {
   };
 }
 
-export {getElementsFromMarkup, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar};
+export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar};

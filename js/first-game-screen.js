@@ -1,14 +1,11 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import secondGameScreen from './second-game-screen.js';
 import getHeader from './header.js';
 import getFooter from './footer.js';
+import getStatsScreenElement from './stats-screen.js';
 import {initialState, levels} from './data.js';
 import getGreetingScreenElement from './greeting-screen.js';
-
-//на вход приходит объект с уровнем. в нем может быть 1, 2, 3 экрана.
-//в зависимости от типа экрана будет меняться верстка. (верстка под одну карточку, под две, под три)
-//вместо захардкоженных столбиков (1 2 или 3) надо внутрь запихнуть КОЛИЧЕСТВО этих карточек, то есть через length
 
 const oneCardGrid = (level) => {
   let string = ``;
@@ -34,11 +31,11 @@ const twoCardsGrid = (level) => {
     string += `<div class="game__option">
       <img src="${level.cards[i].cardContent}" alt="Option 1" width="468" height="458">
       <label class="game__answer game__answer--photo">
-        <input name="question1" type="radio" value="photo">
+        <input name=${`question` + (i + 1)} type="radio" value="photo">
         <span>Фото</span>
       </label>
       <label class="game__answer game__answer--paint">
-        <input name="question1" type="radio" value="paint">
+        <input name=${`question` + (i + 1)} type="radio" value="paint">
         <span>Рисунок</span>
       </label>
     </div>`;
@@ -56,7 +53,7 @@ const threeCardsGrid = (level) => {
   return string;
 };
 
-const template = (level) => {
+const template = (level, state) => {
   const twoCardsTemplate = `
   <main class="central">
     <div class="game">
@@ -126,17 +123,75 @@ const template = (level) => {
   }
   return `Bad Case`;
 };
-export default () => {
-  const el = getElementsFromMarkup(template(levels[0]));
-  el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
+//export default () => {
+//  let levelNumber = 0;
+//  const el = getElementFromTemplate(template(levels[levelNumber], initialState));
+//
+//  el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
+//  const formEl = el.querySelector(`.game__content`);
+//  const firstCardRadioInputs = formEl.elements.question1;
+//  const secondCardRadioInputs = formEl.elements.question2;
+//  const form = el.querySelector(`.game__content`);
+//  form.addEventListener(`change`, function () {
+//    if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
+//
+//      if (levels[levelNumber + 1]) {
+//        console.log(levels[levelNumber + 1]);
+//        showScreen( getElementFromTemplate(template(levels[levelNumber + 1], initialState)) );
+//
+//        if ((levels[levelNumber + 1]).levelType == 'one-card') {
+//          form.addEventListener(`change`, function () {
+//            showScreen( getElementFromTemplate(template(levels[levelNumber + 1], initialState)) );
+//          });
+//        }
+//      }
+//      else {
+//        showScreen(getStatsScreenElement());
+//      }
+//    }
+//  });
+//  return el;
+//};
+const getGameScreen = (data, state) => {
+  const el = getElementFromTemplate(template(data, state));
+  el.insertAdjacentElement(`afterbegin`, getHeader(state));
   const formEl = el.querySelector(`.game__content`);
   const firstCardRadioInputs = formEl.elements.question1;
   const secondCardRadioInputs = formEl.elements.question2;
+  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
   const form = el.querySelector(`.game__content`);
-  form.addEventListener(`change`, function () {
-    if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
-      showScreen(secondGameScreen());
-    }
-  });
+  //if  тип экрана === такой, то вешаем событие на форму чейндж
+  if (data.levelType == 'two-cards') {
+    form.addEventListener(`change`, function () {
+      if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
+        if (levels[numberOfScreen + 1]) {
+          showScreen(getGameScreen(levels[numberOfScreen + 1], initialState));
+        } else {
+          showScreen(getStatsScreenElement());
+        }
+      }
+    });
+  } else if (data.levelType == 'one-card') {
+    const cardEl = el.querySelector(`.game__option`);
+    cardEl.addEventListener(`change`, function () {
+      if (levels[numberOfScreen + 1]) {
+        showScreen(getGameScreen(levels[numberOfScreen + 1], initialState));
+      } else {
+        showScreen(getStatsScreenElement());
+      }
+    });
+  } else if (data.levelType == 'three-cards') {
+    formEl.addEventListener(`click`, function (evt) {
+      if (evt.target.classList.contains(`game__option`)) {
+        if (levels[numberOfScreen + 1]) {
+          showScreen(getGameScreen(levels[numberOfScreen + 1], initialState));
+        } else {
+          showScreen(getStatsScreenElement());
+        }
+      }
+    });
+  }
   return el;
 };
+
+export {getGameScreen};

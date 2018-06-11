@@ -1,4 +1,4 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getHeader from './header.js';
@@ -14,7 +14,7 @@ const template = `
   </main>
 `;
 export default () => {
-  const el = getElementsFromMarkup(template);
+  const el = getElementFromTemplate(template);
 
   el.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
     showScreen(getGreetingScreenElement());

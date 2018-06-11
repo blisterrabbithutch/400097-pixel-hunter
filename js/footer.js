@@ -1,4 +1,4 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 
 const template = `
   <footer class="footer">
@@ -14,6 +14,6 @@ const template = `
 `;
 
 export default () => {
-  const el = getElementsFromMarkup(template);
+  const el = getElementFromTemplate(template);
   return el;
 };

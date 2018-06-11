@@ -1,4 +1,4 @@
-import {getElementsFromMarkup, getFastAnswersValue, getSlowAnswersValue, getScore, getCompletedLevelsValue, getLevelProgressBar} from './utils.js';
+import {getElementFromTemplate, getFastAnswersValue, getSlowAnswersValue, getScore, getCompletedLevelsValue, getLevelProgressBar} from './utils.js';
 import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooter from './footer.js';
@@ -129,7 +129,7 @@ const template = (answers) => `
 </main>
 `;
 export default () => {
-  const el = getElementsFromMarkup(template(answers));
+  const el = getElementFromTemplate(template(answers));
   el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
   return el;
 };

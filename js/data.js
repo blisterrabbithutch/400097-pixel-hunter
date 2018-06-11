@@ -125,6 +125,153 @@ const levels = [
         }
       }
     ]
+  },
+  {
+    levelType: `two-cards`,
+    levelNumber: `level-4`,
+    levelOrder: 3,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `one-card`,
+    levelNumber: `level-5`,
+    levelOrder: 4,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `three-cards`,
+    levelNumber: `level-6`,
+    levelOrder: 5,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-4`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-4`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-4`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `two-cards`,
+    levelNumber: `level-7`,
+    levelOrder: 6,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `one-card`,
+    levelNumber: `level-8`,
+    levelOrder: 7,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-2`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `three-cards`,
+    levelNumber: `level-9`,
+    levelOrder: 8,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-4`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-4`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-4`
+        }
+      }
+    ]
+  },
+  {
+    levelType: `two-cards`,
+    levelNumber: `level-10`,
+    levelOrder: 9,
+    cards: [
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      },
+      {
+        cardContent: `http://placehold.it/468x458`,
+        answers: {
+          'photo': null,
+          'paint': `level-3`
+        }
+      }
+    ]
   }
 ];
 
@@ -178,5 +325,10 @@ let answers = [
     time: 11000
   }
 ];
+
+//let state = {
+//  questions: [],
+//  answers: []
+//};
 
 export {initialState, levels, answers};

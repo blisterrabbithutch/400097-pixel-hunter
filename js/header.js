@@ -1,4 +1,4 @@
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
@@ -19,7 +19,7 @@ const template = (state) => `
 `;
 
 export default (data) => {
-  const el = getElementsFromMarkup(template(data));
+  const el = getElementFromTemplate(template(data));
 
   const backButton = el.querySelector(`.back`);
   backButton.addEventListener(`click`, function () {

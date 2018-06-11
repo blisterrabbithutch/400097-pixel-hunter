@@ -1,7 +1,7 @@
 import getMainScreenElement from './main-screen.js';
-import getFirstGameScreenElement from './first-game-screen.js';
+import {getGameScreen} from './first-game-screen.js';
 import getStatsScreenElement from './stats-screen.js';
-import {getElementsFromMarkup} from './utils.js';
+import {getElementFromTemplate} from './utils.js';
 import {initialState, levels} from './data.js';
 
 const pageContainer = document.querySelector(`.central`);
@@ -11,9 +11,8 @@ const showScreen = (el) => {
   const oldScreen = bodyTag.querySelector('.central');
   bodyTag.replaceChild(el, oldScreen);
 };
-
 //showScreen(getMainScreenElement());
-showScreen(getFirstGameScreenElement());
+showScreen(getGameScreen(levels[0], initialState));
 //game render
 
 //let game;
