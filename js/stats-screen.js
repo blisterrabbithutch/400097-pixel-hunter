@@ -113,10 +113,5 @@ const template = `
 export default () => {
   const el = getElementsFromMarkup(template);
   el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
-  const backButton = el.querySelector(`.back`);
-  backButton.addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
-  });
-
   return el;
 };

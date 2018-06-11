@@ -8,7 +8,6 @@ import {initialState, levels} from './data.js';
 
 const template = (level) => `
   <main class="central">
-  ${getHeader(initialState).outerHTML}
   <div class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">
@@ -43,17 +42,12 @@ const template = (level) => `
 `;
 export default () => {
   const el = getElementsFromMarkup(template(levels[2]));
+  el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
   const formEl = el.querySelector(`.game__content`);
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
       showScreen(getStatsScreen());
     }
   });
-
-  const backButton = el.querySelector(`.back`);
-  backButton.addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
-  });
-
   return el;
 };

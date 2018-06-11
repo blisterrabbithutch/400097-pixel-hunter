@@ -6,23 +6,12 @@ import {initialState, levels} from './data.js';
 const pageContainer = document.querySelector(`.central`);
 const bodyTag = document.querySelector(`body`);
 
-const showScreen = (templateEl) => {
-  pageContainer.innerHTML = ``;
-  let childs = templateEl.children;
-  let childsArr = [];
-  for (let i = 0; i < childs.length; i++) {
-    childsArr[i] = childs[i];
-  }
-  for (let j = 0; j < childsArr.length; j++) {
-    pageContainer.appendChild(childsArr[j]);
-  }
+const showScreen = (el) => {
+  const oldScreen = bodyTag.querySelector('.central');
+  bodyTag.replaceChild(el, oldScreen);
 };
 
 showScreen(getMainScreenElement());
-
-
-
-
 
 //game render
 

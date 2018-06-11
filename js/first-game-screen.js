@@ -11,7 +11,6 @@ import getGreetingScreenElement from './greeting-screen.js';
 
 const template = (level) => `
   <main class="central">
-    ${getHeader(initialState).outerHTML}
     <div class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
@@ -53,7 +52,7 @@ const template = (level) => `
 `;
 export default () => {
   const el = getElementsFromMarkup(template(levels[0]));
-  //el.insertAdjacentElement('afterbegin', getHeader(initialState));
+  el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
   const formEl = el.querySelector(`.game__content`);
   const firstCardRadioInputs = formEl.elements.question1;
   const secondCardRadioInputs = formEl.elements.question2;
@@ -63,11 +62,5 @@ export default () => {
       showScreen(secondGameScreen());
     }
   });
-
-  const backButton = el.querySelector(`.back`);
-  backButton.addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
-  });
-
   return el;
 };
