@@ -13,7 +13,7 @@ const showScreen = (el) => {
 };
 
 //showScreen(getMainScreenElement());
-showScreen(getStatsScreenElement());
+showScreen(getFirstGameScreenElement());
 //game render
 
 //let game;

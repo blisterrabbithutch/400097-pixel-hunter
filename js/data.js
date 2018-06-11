@@ -66,7 +66,7 @@ const levels = [
   {
     levelType: `two-cards`,
     levelNumber: `level-1`,
-    levelOrder: 1,
+    levelOrder: 0,
     cards: [
       {
         cardContent: `http://placehold.it/468x458`,
@@ -87,7 +87,7 @@ const levels = [
   {
     levelType: `one-card`,
     levelNumber: `level-2`,
-    levelOrder: 2,
+    levelOrder: 1,
     cards: [
       {
         cardContent: `http://placehold.it/468x458`,
@@ -101,7 +101,7 @@ const levels = [
   {
     levelType: `three-cards`,
     levelNumber: `level-3`,
-    levelOrder: 3,
+    levelOrder: 2,
     cards: [
       {
         cardContent: `http://placehold.it/468x458`,
