@@ -135,4 +135,48 @@ const initialState = {
   time: 30
 };
 
-export {initialState, levels};
+
+let answers = [
+  {
+    solved: false,
+    time: 5000
+  },
+  {
+    solved: true,
+    time: 22000
+  },
+  {
+    solved: true,
+    time: 7000
+  },
+  {
+    solved: true,
+    time: 15000
+  },
+  {
+    solved: true,
+    time: 12000
+  },
+  {
+    solved: true,
+    time: 17000
+  },
+  {
+    solved: true,
+    time: 26000
+  },
+  {
+    solved: true,
+    time: 12000
+  },
+  {
+    solved: true,
+    time: 7000
+  },
+  {
+    solved: true,
+    time: 11000
+  }
+];
+
+export {initialState, levels, answers};

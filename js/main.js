@@ -1,5 +1,6 @@
 import getMainScreenElement from './main-screen.js';
 import getFirstGameScreenElement from './first-game-screen.js';
+import getStatsScreenElement from './stats-screen.js';
 import {getElementsFromMarkup} from './utils.js';
 import {initialState, levels} from './data.js';
 
@@ -11,8 +12,8 @@ const showScreen = (el) => {
   bodyTag.replaceChild(el, oldScreen);
 };
 
-showScreen(getMainScreenElement());
-
+//showScreen(getMainScreenElement());
+showScreen(getStatsScreenElement());
 //game render
 
 //let game;
