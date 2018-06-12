@@ -94,7 +94,7 @@ function createTimer(duration) {
 }
 
 const getStatsTitle = (answers, state) => {
-  if (getScore(answers, state.lives) == -1) {
+  if (getScore(answers, state.lives) === -1) {
     return `Проигрыш!`;
   } else {
     return `Победа!`;
@@ -102,7 +102,7 @@ const getStatsTitle = (answers, state) => {
 };
 
 const getStatsResult = (answers, state) => {
-  if (getScore(answers, state.lives) == -1) {
+  if (getScore(answers, state.lives) === -1) {
     return `Fail!`;
   } else {
     return getScore(answers, state.lives);

@@ -1,10 +1,7 @@
-import {getElementFromTemplate, getFastAnswersValue, getSlowAnswersValue, getScore, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult} from './utils.js';
-import {showScreen} from './main.js';
-import getGreetingScreenElement from './greeting-screen.js';
+import {getElementFromTemplate, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult} from './utils.js';
 import getFooter from './footer.js';
 import getHeader from './header.js';
-import {initialState, levels, answers, userState} from './data.js';
-import {AnswerTime, AnswerPoints} from './enums.js';
+import {AnswerPoints} from './enums.js';
 
 const template = (answers, state) => `
 <main class="central">

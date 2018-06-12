@@ -1,9 +1,7 @@
 import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import getRulesScreenElement from './rules-screen.js';
-import getHeader from './header.js';
 import getFooter from './footer.js';
-import {initialState, levels} from './data.js';
 
 const template = `
   <main class="central">

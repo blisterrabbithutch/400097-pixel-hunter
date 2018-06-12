@@ -1,9 +1,6 @@
 import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
-import getHeader from './header.js';
-import getFooter from './footer.js';
-//import getFooterScreenElement from './footer.js';
 
 const template = `
   <main class="central">
