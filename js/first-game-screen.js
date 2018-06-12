@@ -4,7 +4,7 @@ import secondGameScreen from './second-game-screen.js';
 import getHeader from './header.js';
 import getFooter from './footer.js';
 import getStatsScreenElement from './stats-screen.js';
-import {initialState, levels} from './data.js';
+import {initialState, levels, answers, userState} from './data.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
 const oneCardGrid = (level) => {
@@ -47,7 +47,7 @@ const threeCardsGrid = (level) => {
   let string = ``;
   for (let i = 0; i < level.cards.length; i++) {
     string += `<div class="game__option">
-                 <img src="${level.cards[0].cardContent}" alt="Option 1" width="304" height="455">
+                 <img src="${level.cards[i].cardContent}" alt="Option 1" width="304" height="455">
                </div>`;
   }
   return string;
@@ -123,35 +123,7 @@ const template = (level, state) => {
   }
   return `Bad Case`;
 };
-//export default () => {
-//  let levelNumber = 0;
-//  const el = getElementFromTemplate(template(levels[levelNumber], initialState));
-//
-//  el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
-//  const formEl = el.querySelector(`.game__content`);
-//  const firstCardRadioInputs = formEl.elements.question1;
-//  const secondCardRadioInputs = formEl.elements.question2;
-//  const form = el.querySelector(`.game__content`);
-//  form.addEventListener(`change`, function () {
-//    if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
-//
-//      if (levels[levelNumber + 1]) {
-//        console.log(levels[levelNumber + 1]);
-//        showScreen( getElementFromTemplate(template(levels[levelNumber + 1], initialState)) );
-//
-//        if ((levels[levelNumber + 1]).levelType == 'one-card') {
-//          form.addEventListener(`change`, function () {
-//            showScreen( getElementFromTemplate(template(levels[levelNumber + 1], initialState)) );
-//          });
-//        }
-//      }
-//      else {
-//        showScreen(getStatsScreenElement());
-//      }
-//    }
-//  });
-//  return el;
-//};
+
 const getGameScreen = (data, state) => {
   const el = getElementFromTemplate(template(data, state));
   el.insertAdjacentElement(`afterbegin`, getHeader(state));
@@ -164,29 +136,165 @@ const getGameScreen = (data, state) => {
   if (data.levelType == 'two-cards') {
     form.addEventListener(`change`, function () {
       if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
-        if (levels[numberOfScreen + 1]) {
-          showScreen(getGameScreen(levels[numberOfScreen + 1], initialState));
+        //здесь логика оценки ответа
+        //надо оба значения сравнить с теми что на уровне ПРАВДА ИЛИ ЛОЖЬ
+        const leftCardIsPhoto = data.cards[0].answers.photo;
+        const leftCardIsPaint = data.cards[0].answers.paint;
+        const rightCardIsPhoto = data.cards[1].answers.photo;
+        const rightCardIsPaint = data.cards[1].answers.paint;
+        const cardAnswer = (photoAnswer, paintAnswer) => {
+          if (photoAnswer) {
+            return `photo`;
+          } else if (paintAnswer) {
+            return `paint`;
+          }
+          return 0;
+        };
+        //у нас есть значение правильного ответа карточки. теперь его надо сравнить со значением нашим выбранным
+        const returnLevelResult = () => {
+          let answerOnCard = {};
+          if (firstCardRadioInputs.value === cardAnswer(leftCardIsPhoto, leftCardIsPaint) && secondCardRadioInputs.value === cardAnswer(rightCardIsPhoto, rightCardIsPaint)) {
+            //    сюда надо записать правильный ответ в массив ответов. и время. создать объект
+            answerOnCard = {
+              time: 15000,
+              solved: true
+            };
+          } else {
+            userState.lives = userState.lives - 1;
+            answerOnCard = {
+              time: 15000,
+              solved: false
+            };
+          }
+          return answerOnCard;
+        };
+        //returnLevelResult();
+        //const userAnswer = ...
+        //создать объект с этим значением и временем
+        //запушить в массив ответов
+        answers.push(returnLevelResult());
+        console.log(answers);
+
+        //конец логики оценки ответа
+
+        if (levels[numberOfScreen + 1] && userState.lives > 0) {
+          showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
         } else {
-          showScreen(getStatsScreenElement());
+          showScreen(getStatsScreenElement(answers, userState));
         }
       }
     });
   } else if (data.levelType == 'one-card') {
     const cardEl = el.querySelector(`.game__option`);
     cardEl.addEventListener(`change`, function () {
-      if (levels[numberOfScreen + 1]) {
-        showScreen(getGameScreen(levels[numberOfScreen + 1], initialState));
+
+      //здесь логика оценки ответа
+      //надо оба значения сравнить с теми что на уровне ПРАВДА ИЛИ ЛОЖЬ
+      const cardIsPhoto = data.cards[0].answers.photo;
+      const cardIsPaint = data.cards[0].answers.paint;
+      const cardAnswer = (photoAnswer, paintAnswer) => {
+        if (photoAnswer) {
+          return `photo`;
+        } else if (paintAnswer) {
+          return `paint`;
+        }
+        return 0;
+      };
+      //у нас есть значение правильного ответа карточки. теперь его надо сравнить со значением нашим выбранным
+      const returnLevelResult = () => {
+        let answerOnCard = {};
+        if (firstCardRadioInputs.value === cardAnswer(cardIsPhoto, cardIsPaint)) {
+          //    сюда надо записать правильный ответ в массив ответов. и время. создать объект
+          answerOnCard = {
+            time: 15000,
+            solved: true
+          };
+        } else {
+          userState.lives = userState.lives - 1;
+          answerOnCard = {
+            time: 15000,
+            solved: false
+          };
+        }
+        return answerOnCard;
+      };
+      //returnLevelResult();
+      //const userAnswer = ...
+      //создать объект с этим значением и временем
+      //запушить в массив ответов
+      answers.push(returnLevelResult());
+      console.log(answers);
+
+      //конец логики оценки ответа
+
+      if (levels[numberOfScreen + 1] && userState.lives > 0) {
+        showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
       } else {
-        showScreen(getStatsScreenElement());
+        showScreen(getStatsScreenElement(answers, userState));
       }
     });
   } else if (data.levelType == 'three-cards') {
+    const cardEl = el.querySelector(`.game__option`);
     formEl.addEventListener(`click`, function (evt) {
       if (evt.target.classList.contains(`game__option`)) {
-        if (levels[numberOfScreen + 1]) {
-          showScreen(getGameScreen(levels[numberOfScreen + 1], initialState));
+
+        //здесь логика оценки ответа
+        //надо оба значения сравнить с теми что на уровне ПРАВДА ИЛИ ЛОЖЬ
+        const firstCardIsPhoto = data.cards[0].answers.photo;
+        const firstCardIsPaint = data.cards[0].answers.paint;
+        const secondCardIsPhoto = data.cards[1].answers.photo;
+        const secondCardIsPaint = data.cards[1].answers.paint;
+        const thirdCardIsPhoto = data.cards[2].answers.photo;
+        const thirdCardIsPaint = data.cards[2].answers.paint;
+        const findDifferentCard = (firstPhoto, firstPaint, secondPhoto, secondPaint, thirdPhoto, thirdPaint) => {
+          if (firstPhoto !== secondPhoto && firstPhoto !== thirdPhoto || firstPaint !== secondPaint && firstPaint !== thirdPaint) {
+            return `first image different`;
+          } else if (secondPhoto !== firstPhoto && secondPhoto !== thirdPhoto || secondPaint !== firstPaint && secondPaint !== thirdPaint) {
+            return `second image different`;
+          } else if (thirdPhoto !== firstPhoto && thirdPhoto !== firstPhoto || thirdPaint !== firstPaint && thirdPaint !== firstPaint) {
+            return `third image different`;
+          }
+          return 0;
+        };
+
+        let answerOnCard = {};
+        const returnLevelResult = () => {
+
+          if (evt.target == document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `first image different`) {
+            answerOnCard = {
+              time: 15000,
+              solved: true
+            };
+          } else if (evt.target == document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `second image different`) {
+            answerOnCard = {
+              time: 15000,
+              solved: true
+            };
+          } else if (evt.target == document.querySelector(`.game__option:first-child:last-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `third image different`) {
+            answerOnCard = {
+              time: 15000,
+              solved: true
+            };
+          } else {
+            userState.lives = userState.lives - 1;
+            answerOnCard = {
+              time: 15000,
+              solved: false
+            };
+          }
+
+          return answerOnCard;
+        };
+        //returnLevelResult();
+
+        answers.push(returnLevelResult());
+        console.log(answers);
+        console.log(findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint));
+        //конец логики оценки ответа
+        if (levels[numberOfScreen + 1] && userState.lives > 0) {
+          showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
         } else {
-          showScreen(getStatsScreenElement());
+          showScreen(getStatsScreenElement(answers, userState));
         }
       }
     });

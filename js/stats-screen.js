@@ -3,10 +3,10 @@ import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooter from './footer.js';
 import getHeader from './header.js';
-import {initialState, levels, answers} from './data.js';
+import {initialState, levels, answers, userState} from './data.js';
 import {AnswerTime, AnswerPoints} from './enums.js';
 
-const template = (answers) => `
+const template = (answers, state) => `
 <main class="central">
   <div class="result">
     <h1>Победа!</h1>
@@ -42,13 +42,13 @@ const template = (answers) => `
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
         <td class="result__extra">
-        ${initialState.lives}
+        ${state.lives}
         &nbsp;<span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">×&nbsp;
         ${AnswerPoints.BONUS}
         </td>
         <td class="result__total">
-        ${initialState.lives * AnswerPoints.BONUS}
+        ${state.lives * AnswerPoints.BONUS}
         </td>
       </tr>
       <tr>
@@ -66,7 +66,7 @@ const template = (answers) => `
       </tr>
       <tr>
         <td colspan="5" class="result__total  result__total--final">
-        ${getScore(answers, initialState.lives)}
+        ${getScore(answers, state.lives)}
         </td>
       </tr>
     </table>
@@ -128,8 +128,8 @@ const template = (answers) => `
   ${getFooter().outerHTML}
 </main>
 `;
-export default () => {
-  const el = getElementFromTemplate(template(answers));
-  el.insertAdjacentElement(`afterbegin`, getHeader(initialState));
+export default (answers, state) => {
+  const el = getElementFromTemplate(template(answers, state));
+  el.insertAdjacentElement(`afterbegin`, getHeader(state));
   return el;
 };

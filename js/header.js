@@ -20,7 +20,6 @@ const template = (state) => `
 
 export default (data) => {
   const el = getElementFromTemplate(template(data));
-
   const backButton = el.querySelector(`.back`);
   backButton.addEventListener(`click`, function () {
     showScreen(getGreetingScreenElement());

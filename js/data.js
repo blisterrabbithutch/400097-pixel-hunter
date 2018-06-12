@@ -66,20 +66,20 @@ const levels = [
   {
     levelType: `two-cards`,
     levelNumber: `level-1`,
-    levelOrder: 0,
+    levelOrder: 1,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k32.kn3.net/5C7060EC5.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -87,13 +87,13 @@ const levels = [
   {
     levelType: `one-card`,
     levelNumber: `level-2`,
-    levelOrder: 1,
+    levelOrder: 2,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-2`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -101,27 +101,27 @@ const levels = [
   {
     levelType: `three-cards`,
     levelNumber: `level-3`,
-    levelOrder: 2,
+    levelOrder: 3,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://i.imgur.com/DiHM5Zb.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': true,
+          'paint': false
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k32.kn3.net/5C7060EC5.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': false,
+          'paint': true
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `http://i.imgur.com/1KegWPz.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': true,
+          'paint': false
         }
       }
     ]
@@ -129,20 +129,20 @@ const levels = [
   {
     levelType: `two-cards`,
     levelNumber: `level-4`,
-    levelOrder: 3,
+    levelOrder: 4,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k32.kn3.net/5C7060EC5.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -150,13 +150,13 @@ const levels = [
   {
     levelType: `one-card`,
     levelNumber: `level-5`,
-    levelOrder: 4,
+    levelOrder: 5,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k32.kn3.net/5C7060EC5.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -164,27 +164,27 @@ const levels = [
   {
     levelType: `three-cards`,
     levelNumber: `level-6`,
-    levelOrder: 5,
+    levelOrder: 6,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `http://i.imgur.com/DKR1HtB.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': true,
+          'paint': false
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `http://i.imgur.com/1KegWPz.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': true,
+          'paint': false
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/CF42609C8.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -192,20 +192,20 @@ const levels = [
   {
     levelType: `two-cards`,
     levelNumber: `level-7`,
-    levelOrder: 6,
+    levelOrder: 7,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/CF42609C8.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -213,13 +213,13 @@ const levels = [
   {
     levelType: `one-card`,
     levelNumber: `level-8`,
-    levelOrder: 7,
+    levelOrder: 8,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-2`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -227,27 +227,27 @@ const levels = [
   {
     levelType: `three-cards`,
     levelNumber: `level-9`,
-    levelOrder: 8,
+    levelOrder: 9,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': false,
+          'paint': true
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://i.imgur.com/DiHM5Zb.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': true,
+          'paint': false
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `http://i.imgur.com/DKR1HtB.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-4`
+          'photo': true,
+          'paint': false
         }
       }
     ]
@@ -255,20 +255,20 @@ const levels = [
   {
     levelType: `two-cards`,
     levelNumber: `level-10`,
-    levelOrder: 9,
+    levelOrder: 10,
     cards: [
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/CF42609C8.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       },
       {
-        cardContent: `http://placehold.it/468x458`,
+        cardContent: `https://k42.kn3.net/D2F0370D6.jpg`,
         answers: {
-          'photo': null,
-          'paint': `level-3`
+          'photo': false,
+          'paint': true
         }
       }
     ]
@@ -282,53 +282,59 @@ const initialState = {
   time: 30
 };
 
+let userState = {
+  time: 30,
+  lives: 3
+};
 
-let answers = [
-  {
-    solved: false,
-    time: 5000
-  },
-  {
-    solved: true,
-    time: 22000
-  },
-  {
-    solved: true,
-    time: 7000
-  },
-  {
-    solved: true,
-    time: 15000
-  },
-  {
-    solved: true,
-    time: 12000
-  },
-  {
-    solved: true,
-    time: 17000
-  },
-  {
-    solved: true,
-    time: 26000
-  },
-  {
-    solved: true,
-    time: 12000
-  },
-  {
-    solved: true,
-    time: 7000
-  },
-  {
-    solved: true,
-    time: 11000
-  }
-];
+//let answers = [
+//  {
+//    solved: false,
+//    time: 5000
+//  },
+//  {
+//    solved: true,
+//    time: 22000
+//  },
+//  {
+//    solved: true,
+//    time: 7000
+//  },
+//  {
+//    solved: true,
+//    time: 15000
+//  },
+//  {
+//    solved: true,
+//    time: 12000
+//  },
+//  {
+//    solved: true,
+//    time: 17000
+//  },
+//  {
+//    solved: true,
+//    time: 26000
+//  },
+//  {
+//    solved: true,
+//    time: 12000
+//  },
+//  {
+//    solved: true,
+//    time: 7000
+//  },
+//  {
+//    solved: true,
+//    time: 11000
+//  }
+//];
+
+let answers = [];
 
 //let state = {
 //  questions: [],
 //  answers: []
 //};
 
-export {initialState, levels, answers};
+export {initialState, levels, answers, userState};
