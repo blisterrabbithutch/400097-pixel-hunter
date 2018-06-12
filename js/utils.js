@@ -93,4 +93,20 @@ function createTimer(duration) {
   };
 }
 
-export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar};
+const getStatsTitle = (answers, state) => {
+  if (getScore(answers, state.lives) == -1) {
+    return `Проигрыш!`;
+  } else {
+    return `Победа!`;
+  }
+};
+
+const getStatsResult = (answers, state) => {
+  if (getScore(answers, state.lives) == -1) {
+    return `Fail!`;
+  } else {
+    return getScore(answers, state.lives);
+  }
+};
+
+export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult};

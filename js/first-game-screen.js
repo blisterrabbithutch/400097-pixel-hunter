@@ -1,4 +1,4 @@
-import {getElementFromTemplate} from './utils.js';
+import {getElementFromTemplate, getLevelProgressBar} from './utils.js';
 import {showScreen} from './main.js';
 import secondGameScreen from './second-game-screen.js';
 import getHeader from './header.js';
@@ -63,7 +63,7 @@ const template = (level, state) => {
     </form>
     <div class="stats">
       <ul class="stats">
-        ${new Array(level.levelOrder).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
+        ${getLevelProgressBar(answers)}
       </ul>
     </div>
   </div>
@@ -79,7 +79,7 @@ const template = (level, state) => {
     </form>
     <div class="stats">
       <ul class="stats">
-        ${new Array(level.levelOrder).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
+        ${getLevelProgressBar(answers)}
         <!--<li class="stats__result stats__result&#45;&#45;wrong"></li>-->
         <!--<li class="stats__result stats__result&#45;&#45;slow"></li>-->
         <!--<li class="stats__result stats__result&#45;&#45;fast"></li>-->
@@ -105,7 +105,7 @@ const template = (level, state) => {
     </form>
     <div class="stats">
       <ul class="stats">
-        ${new Array(level.levelOrder).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
+        ${getLevelProgressBar(answers)}
       </ul>
     </div>
   </div>
@@ -270,7 +270,7 @@ const getGameScreen = (data, state) => {
               time: 15000,
               solved: true
             };
-          } else if (evt.target == document.querySelector(`.game__option:first-child:last-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `third image different`) {
+          } else if (evt.target == document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `third image different`) {
             answerOnCard = {
               time: 15000,
               solved: true

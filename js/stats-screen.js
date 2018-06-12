@@ -1,4 +1,4 @@
-import {getElementFromTemplate, getFastAnswersValue, getSlowAnswersValue, getScore, getCompletedLevelsValue, getLevelProgressBar} from './utils.js';
+import {getElementFromTemplate, getFastAnswersValue, getSlowAnswersValue, getScore, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult} from './utils.js';
 import {showScreen} from './main.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooter from './footer.js';
@@ -9,7 +9,7 @@ import {AnswerTime, AnswerPoints} from './enums.js';
 const template = (answers, state) => `
 <main class="central">
   <div class="result">
-    <h1>Победа!</h1>
+    <h1>${getStatsTitle(answers, state)}</h1>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
@@ -66,7 +66,7 @@ const template = (answers, state) => `
       </tr>
       <tr>
         <td colspan="5" class="result__total  result__total--final">
-        ${getScore(answers, state.lives)}
+        ${getStatsResult(answers, state)}
         </td>
       </tr>
     </table>
