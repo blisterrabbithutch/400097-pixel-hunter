@@ -11,38 +11,6 @@ const showScreen = (el) => {
   const oldScreen = bodyTag.querySelector('.central');
   bodyTag.replaceChild(el, oldScreen);
 };
-//showScreen(getMainScreenElement());
-showScreen(getGameScreen(levels[0], initialState));
-//game render
-
-//let game;
-//
-//const startGame = () => {
-//  game = Object.assign({}, initialState);
-//
-//  const gameContainerElement = document.createElement(`div`);
-//  const headerElement = getElementsFromMarkup();
-//  const levelElement = getElementsFromMarkup();
-//  const footer = getElementsFromMarkup();
-//
-//  // init game content
-//  gameContainerElement.appendChild(headerElement);
-//  gameContainerElement.appendChild(levelElement);
-//  gameContainerElement.appendChild(footer);
-//  //здесь хранится название уровня
-//  const getLevel = () => levels[game.level];
-//  console.log(getLevel());
-//
-//  const updateGame = (state) => {
-//    headerElement.innerHTML = renderHeader(state);
-//    levelElement.innerHTML = renderLevel(getLevel(state.level));
-//  };
-//
-//  updateGame(game);
-//
-//  showScreen(gameContainerElement);
-//};
-//
-//startGame();
+showScreen(getMainScreenElement());
 
 export {showScreen};

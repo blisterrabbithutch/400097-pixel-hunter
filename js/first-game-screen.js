@@ -132,12 +132,10 @@ const getGameScreen = (data, state) => {
   const secondCardRadioInputs = formEl.elements.question2;
   const numberOfScreen = Array.prototype.indexOf.call(levels, data);
   const form = el.querySelector(`.game__content`);
-  //if  тип экрана === такой, то вешаем событие на форму чейндж
   if (data.levelType == 'two-cards') {
     form.addEventListener(`change`, function () {
       if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
         //здесь логика оценки ответа
-        //надо оба значения сравнить с теми что на уровне ПРАВДА ИЛИ ЛОЖЬ
         const leftCardIsPhoto = data.cards[0].answers.photo;
         const leftCardIsPaint = data.cards[0].answers.paint;
         const rightCardIsPhoto = data.cards[1].answers.photo;
@@ -150,7 +148,7 @@ const getGameScreen = (data, state) => {
           }
           return 0;
         };
-        //у нас есть значение правильного ответа карточки. теперь его надо сравнить со значением нашим выбранным
+
         const returnLevelResult = () => {
           let answerOnCard = {};
           if (firstCardRadioInputs.value === cardAnswer(leftCardIsPhoto, leftCardIsPaint) && secondCardRadioInputs.value === cardAnswer(rightCardIsPhoto, rightCardIsPaint)) {
@@ -168,15 +166,8 @@ const getGameScreen = (data, state) => {
           }
           return answerOnCard;
         };
-        //returnLevelResult();
-        //const userAnswer = ...
-        //создать объект с этим значением и временем
-        //запушить в массив ответов
         answers.push(returnLevelResult());
-        console.log(answers);
-
         //конец логики оценки ответа
-
         if (levels[numberOfScreen + 1] && userState.lives > 0) {
           showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
         } else {
@@ -187,9 +178,7 @@ const getGameScreen = (data, state) => {
   } else if (data.levelType == 'one-card') {
     const cardEl = el.querySelector(`.game__option`);
     cardEl.addEventListener(`change`, function () {
-
       //здесь логика оценки ответа
-      //надо оба значения сравнить с теми что на уровне ПРАВДА ИЛИ ЛОЖЬ
       const cardIsPhoto = data.cards[0].answers.photo;
       const cardIsPaint = data.cards[0].answers.paint;
       const cardAnswer = (photoAnswer, paintAnswer) => {
@@ -200,7 +189,6 @@ const getGameScreen = (data, state) => {
         }
         return 0;
       };
-      //у нас есть значение правильного ответа карточки. теперь его надо сравнить со значением нашим выбранным
       const returnLevelResult = () => {
         let answerOnCard = {};
         if (firstCardRadioInputs.value === cardAnswer(cardIsPhoto, cardIsPaint)) {
@@ -218,15 +206,8 @@ const getGameScreen = (data, state) => {
         }
         return answerOnCard;
       };
-      //returnLevelResult();
-      //const userAnswer = ...
-      //создать объект с этим значением и временем
-      //запушить в массив ответов
       answers.push(returnLevelResult());
-      console.log(answers);
-
       //конец логики оценки ответа
-
       if (levels[numberOfScreen + 1] && userState.lives > 0) {
         showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
       } else {
@@ -237,9 +218,7 @@ const getGameScreen = (data, state) => {
     const cardEl = el.querySelector(`.game__option`);
     formEl.addEventListener(`click`, function (evt) {
       if (evt.target.classList.contains(`game__option`)) {
-
         //здесь логика оценки ответа
-        //надо оба значения сравнить с теми что на уровне ПРАВДА ИЛИ ЛОЖЬ
         const firstCardIsPhoto = data.cards[0].answers.photo;
         const firstCardIsPaint = data.cards[0].answers.paint;
         const secondCardIsPhoto = data.cards[1].answers.photo;
@@ -260,17 +239,7 @@ const getGameScreen = (data, state) => {
         let answerOnCard = {};
         const returnLevelResult = () => {
 
-          if (evt.target == document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `first image different`) {
-            answerOnCard = {
-              time: 15000,
-              solved: true
-            };
-          } else if (evt.target == document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `second image different`) {
-            answerOnCard = {
-              time: 15000,
-              solved: true
-            };
-          } else if (evt.target == document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `third image different`) {
+          if ((evt.target == document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `first image different`) || (evt.target == document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `second image different`) || (evt.target == document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) == `third image different`)) {
             answerOnCard = {
               time: 15000,
               solved: true
@@ -285,11 +254,7 @@ const getGameScreen = (data, state) => {
 
           return answerOnCard;
         };
-        //returnLevelResult();
-
         answers.push(returnLevelResult());
-        console.log(answers);
-        console.log(findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint));
         //конец логики оценки ответа
         if (levels[numberOfScreen + 1] && userState.lives > 0) {
           showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
