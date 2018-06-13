@@ -1,9 +1,9 @@
-import {getElementFromTemplate} from './utils.js';
+import {getElementFromTemplate, resetGamedata} from './utils.js';
 import {showScreen} from './main.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooter from './footer.js';
-import {initialState, levels} from './data.js';
+import {initialState, levels, answers} from './data.js';
 
 const template = `
   <main class="central">
@@ -51,6 +51,7 @@ export default () => {
 
   el.querySelector(`.rules__form`).addEventListener(`submit`, function (evt) {
     evt.preventDefault();
+    resetGamedata(answers);
     showScreen(getTwoCardsGameScreen(levels[0], initialState));
   });
 

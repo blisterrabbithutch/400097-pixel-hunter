@@ -114,4 +114,8 @@ const getStatsResult = (answers, state) => {
   }
 };
 
-export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult};
+const resetGamedata = (answers) => {
+  answers.length = 0;
+};
+
+export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult, resetGamedata};
