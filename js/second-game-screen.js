@@ -38,7 +38,7 @@ const template = (level) => `
       </ul>
     </div>
   </div>
-  ${getFooter().outerHTML}
+  ${getFooter()}
   </main>`;
 
 const getSecondGameScreen = (data, state) => {
@@ -48,14 +48,15 @@ const getSecondGameScreen = (data, state) => {
   const firstCardRadioInputs = formEl.elements.question1;
   const numberOfScreen = Array.prototype.indexOf.call(levels, data);
   const cardEl = el.querySelector(`.game__option`);
-
   const cardIsPhoto = data.cards[0].answers.photo;
   const cardIsPaint = data.cards[0].answers.paint;
+  const cardAnswerStringPhoto = `photo`;
+  const cardAnswerStringPaint = `paint`;
   const cardAnswer = (photoAnswer, paintAnswer) => {
     if (photoAnswer) {
-      return `photo`;
+      return cardAnswerStringPhoto;
     } else if (paintAnswer) {
-      return `paint`;
+      return cardAnswerStringPaint;
     }
     return 0;
   };

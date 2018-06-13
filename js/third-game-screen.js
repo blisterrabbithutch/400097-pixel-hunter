@@ -30,7 +30,7 @@ const template = (level) => `
       </ul>
     </div>
   </div>
-  ${getFooter().outerHTML}
+  ${getFooter()}
   </main>`;
 
 const getThirdGameScreen = (data, state) => {
@@ -40,7 +40,6 @@ const getThirdGameScreen = (data, state) => {
   const numberOfScreen = Array.prototype.indexOf.call(levels, data);
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
-
       const firstCardIsPhoto = data.cards[0].answers.photo;
       const firstCardIsPaint = data.cards[0].answers.paint;
       const secondCardIsPhoto = data.cards[1].answers.photo;
@@ -57,10 +56,8 @@ const getThirdGameScreen = (data, state) => {
         }
         return 0;
       };
-
       let answerOnCard = {};
       const addLevelResult = () => {
-
         if ((evt.target === document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) === `first image different`) || (evt.target === document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) === `second image different`) || (evt.target === document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) === `third image different`)) {
           answerOnCard = {
             time: 15000,
@@ -77,7 +74,6 @@ const getThirdGameScreen = (data, state) => {
         return answerOnCard;
       };
       answers.push(addLevelResult());
-
       if (levels[numberOfScreen + 1].levelType === `one-card` && userState.lives > 0) {
         showScreen(getSecondGameScreen(levels[numberOfScreen + 1], userState));
       } else if (levels[numberOfScreen + 1].levelType === `two-cards` && userState.lives > 0) {

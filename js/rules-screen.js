@@ -31,7 +31,7 @@ const template = `
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </div>
-  ${getFooter().outerHTML}
+  ${getFooter()}
   </main>
 `;
 

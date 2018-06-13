@@ -122,7 +122,7 @@ const template = (answers, state) => `
     </table>
     --!>
   </div>
-  ${getFooter().outerHTML}
+  ${getFooter()}
 </main>
 `;
 export default (answers, state) => {

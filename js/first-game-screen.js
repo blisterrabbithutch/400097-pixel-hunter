@@ -38,7 +38,7 @@ const template = (level) => `
       </ul>
     </div>
   </div>
-  ${getFooter().outerHTML}
+  ${getFooter()}
   </main>
   `;
 
@@ -54,11 +54,13 @@ const getGameScreen = (data, state) => {
   const leftCardIsPaint = data.cards[0].answers.paint;
   const rightCardIsPhoto = data.cards[1].answers.photo;
   const rightCardIsPaint = data.cards[1].answers.paint;
+  const cardAnswerStringPhoto = `photo`;
+  const cardAnswerStringPaint = `paint`;
   const cardAnswer = (photoAnswer, paintAnswer) => {
     if (photoAnswer) {
-      return `photo`;
+      return cardAnswerStringPhoto;
     } else if (paintAnswer) {
-      return `paint`;
+      return cardAnswerStringPaint;
     }
     return 0;
   };

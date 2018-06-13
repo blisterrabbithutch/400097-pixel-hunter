@@ -26,7 +26,7 @@ const template = `
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
   </div>
-  ${getFooter().outerHTML}
+  ${getFooter()}
   </main>
 `;
 export default () => {

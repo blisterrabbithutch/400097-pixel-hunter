@@ -15,5 +15,5 @@ const template = `
 
 export default () => {
   const el = getElementFromTemplate(template);
-  return el;
+  return el.outerHTML;
 };
