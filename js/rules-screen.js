@@ -1,6 +1,6 @@
 import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
-import {getGameScreen} from './first-game-screen.js';
+import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooter from './footer.js';
 import {initialState, levels} from './data.js';
@@ -51,7 +51,7 @@ export default () => {
 
   el.querySelector(`.rules__form`).addEventListener(`submit`, function (evt) {
     evt.preventDefault();
-    showScreen(getGameScreen(levels[0], initialState));
+    showScreen(getTwoCardsGameScreen(levels[0], initialState));
   });
 
   const backButton = el.querySelector(`.back`);

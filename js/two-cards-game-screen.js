@@ -1,28 +1,11 @@
 import {getElementFromTemplate, getLevelProgressBar} from './utils.js';
 import {showScreen} from './main.js';
+import {getOneCardGameScreen} from './one-card-game-screen.js';
+import {getThreeCardsGameScreen} from './three-cards-game-screen.js';
 import getHeader from './header.js';
 import getFooter from './footer.js';
 import getStatsScreenElement from './stats-screen.js';
 import {levels, answers, userState} from './data.js';
-import {getSecondGameScreen} from './second-game-screen.js';
-import {getThirdGameScreen} from './third-game-screen.js';
-//const twoCardsGrid = (level) => {
-//  let string = ``;
-//  for (let i = 0; i < level.cards.length; i++) {
-//    string += `<div class="game__option">
-//      <img src="${level.cards[i].cardContent}" alt="Option 1" width="468" height="458">
-//      <label class="game__answer game__answer--photo">
-//        <input name=${`question` + (i + 1)} type="radio" value="photo">
-//        <span>Фото</span>
-//      </label>
-//      <label class="game__answer game__answer--paint">
-//        <input name=${`question` + (i + 1)} type="radio" value="paint">
-//        <span>Рисунок</span>
-//      </label>
-//    </div>`;
-//  }
-//  return string;
-//};
 
 const template = (level) => `
   <main class="central">
@@ -52,7 +35,7 @@ const template = (level) => `
   </main>
   `;
 
-const getGameScreen = (data, state) => {
+const getTwoCardsGameScreen = (data, state) => {
   const el = getElementFromTemplate(template(data));
   el.insertAdjacentElement(`afterbegin`, getHeader(state));
   const formEl = el.querySelector(`.game__content`);
@@ -82,9 +65,9 @@ const getGameScreen = (data, state) => {
       answers.push(addLevelResult());
       if (nextLevel && userState.lives > 0) {
         if (nextLevel.levelType === `one-card`) {
-          showScreen(getSecondGameScreen(nextLevel, userState));
+          showScreen(getOneCardGameScreen(nextLevel, userState));
         } else if (nextLevel.levelType === `three-cards`) {
-          showScreen(getThirdGameScreen(nextLevel, userState));
+          showScreen(getThreeCardsGameScreen(nextLevel, userState));
         }
       } else {
         showScreen(getStatsScreenElement(answers, userState));
@@ -94,4 +77,4 @@ const getGameScreen = (data, state) => {
   return el;
 };
 
-export {getGameScreen};
+export {getTwoCardsGameScreen};
