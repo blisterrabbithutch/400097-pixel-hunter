@@ -62,7 +62,7 @@ const getGameScreen = (data, state) => {
     } else if (paintAnswer) {
       return cardAnswerStringPaint;
     }
-    return 0;
+    return false;
   };
   form.addEventListener(`change`, function () {
     if (firstCardRadioInputs.value && secondCardRadioInputs.value) {

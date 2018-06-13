@@ -58,7 +58,7 @@ const getSecondGameScreen = (data, state) => {
     } else if (paintAnswer) {
       return cardAnswerStringPaint;
     }
-    return 0;
+    return false;
   };
   cardEl.addEventListener(`change`, function () {
 

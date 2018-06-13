@@ -54,7 +54,7 @@ const getThirdGameScreen = (data, state) => {
         } else if (thirdPhoto !== firstPhoto && thirdPhoto !== firstPhoto || thirdPaint !== firstPaint && thirdPaint !== firstPaint) {
           return `third image different`;
         }
-        return 0;
+        return false;
       };
       let answerOnCard = {};
       const addLevelResult = () => {
