@@ -1,11 +1,7 @@
-import {getElementFromTemplate, getLevelProgressBar} from './utils.js';
-import {showScreen} from './main.js';
-import {getThreeCardsGameScreen} from './three-cards-game-screen.js';
-import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
-import getStatsScreenElement from './stats-screen.js';
+import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './utils.js';
 import getHeader from './header.js';
-import getFooter from './footer.js';
-import {levels, answers, userState} from './data.js';
+import getFooterMarkup from './footer.js';
+import {answers, userState} from './data.js';
 
 const addLevelResult = (data, firstCardInputsValue) => {
   let answerOnCard = {};
@@ -21,21 +17,10 @@ const addLevelResult = (data, firstCardInputsValue) => {
       solved: false
     };
   }
+  answers.push(answerOnCard);
   return answerOnCard;
 };
 
-const checkSelectedAnswer = (data, firstCardInputsValue) => {
-  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-  const nextLevel = levels[numberOfScreen + 1];
-  answers.push(addLevelResult(data, firstCardInputsValue));
-  if (nextLevel.levelType === `three-cards` && userState.lives > 0) {
-    showScreen(getThreeCardsGameScreen(nextLevel, userState));
-  } else if (nextLevel.levelType === `two-cards` && userState.lives > 0) {
-    showScreen(getTwoCardsGameScreen(nextLevel, userState));
-  } else {
-    showScreen(getStatsScreenElement(answers, userState));
-  }
-};
 
 const template = (level) => `
   <main class="central">
@@ -63,7 +48,7 @@ const template = (level) => `
       </ul>
     </div>
   </div>
-  ${getFooter()}
+  ${getFooterMarkup()}
   </main>`;
 
 const getOneCardGameScreen = (data, state) => {
@@ -73,7 +58,8 @@ const getOneCardGameScreen = (data, state) => {
   const firstCardRadioInputs = formEl.elements.question1;
   const cardEl = el.querySelector(`.game__option`);
   cardEl.addEventListener(`change`, function () {
-    checkSelectedAnswer(data, firstCardRadioInputs.value);
+    addLevelResult(data, firstCardRadioInputs.value);
+    enterNextLevel(data, firstCardRadioInputs.value);
   });
   return el;
 };

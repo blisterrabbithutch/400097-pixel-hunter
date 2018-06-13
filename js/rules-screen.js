@@ -2,7 +2,7 @@ import {getElementFromTemplate, resetGamedata} from './utils.js';
 import {showScreen} from './main.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
-import getFooter from './footer.js';
+import getFooterMarkup from './footer.js';
 import {initialState, levels, answers} from './data.js';
 
 const template = `
@@ -31,7 +31,7 @@ const template = `
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </div>
-  ${getFooter()}
+  ${getFooterMarkup()}
   </main>
 `;
 

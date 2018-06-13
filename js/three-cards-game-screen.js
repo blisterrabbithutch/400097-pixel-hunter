@@ -1,11 +1,7 @@
-import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
-import {getOneCardGameScreen} from './one-card-game-screen.js';
-import getStatsScreenElement from './stats-screen.js';
 import getHeader from './header.js';
-import getFooter from './footer.js';
-import {getElementFromTemplate, getLevelProgressBar} from './utils.js';
-import {showScreen} from './main.js';
-import {levels, answers, userState} from './data.js';
+import getFooterMarkup from './footer.js';
+import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './utils.js';
+import {answers, userState} from './data.js';
 
 const findDifferentCard = (firstCard, secondCard, thirdCard) => {
   if (firstCard !== secondCard && firstCard !== thirdCard) {
@@ -32,20 +28,8 @@ const addLevelResult = (evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer)
       solved: false
     };
   }
+  answers.push(answerOnCard);
   return answerOnCard;
-};
-
-const checkSelectedAnswer = (evt, data, firstCardAnswer, secondCardAnswer, thirdCardAnswer) => {
-  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-  const nextLevel = levels[numberOfScreen + 1];
-  answers.push(addLevelResult(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer));
-  if (nextLevel.levelType === `one-card` && userState.lives > 0) {
-    showScreen(getOneCardGameScreen(nextLevel, userState));
-  } else if (nextLevel.levelType === `two-cards` && userState.lives > 0) {
-    showScreen(getTwoCardsGameScreen(nextLevel, userState));
-  } else {
-    showScreen(getStatsScreenElement(answers, userState));
-  }
 };
 
 const template = (level) => `
@@ -65,7 +49,7 @@ const template = (level) => `
       </ul>
     </div>
   </div>
-  ${getFooter()}
+  ${getFooterMarkup()}
   </main>`;
 
 const getThreeCardsGameScreen = (data, state) => {
@@ -77,7 +61,8 @@ const getThreeCardsGameScreen = (data, state) => {
   const thirdCardAnswer = data.cards[2].rightAnswer;
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
-      checkSelectedAnswer(evt, data, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
+      addLevelResult(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
+      enterNextLevel(evt, data, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
     }
   });
 

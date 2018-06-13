@@ -1,5 +1,6 @@
 import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
+import getFooterMarkup from './footer.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
 const template = `
@@ -8,6 +9,7 @@ const template = `
       <h1 class="intro__asterisk">*</h1>
       <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
     </div>
+    ${getFooterMarkup()}
   </main>
 `;
 export default () => {

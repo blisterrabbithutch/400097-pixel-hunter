@@ -1,7 +1,7 @@
 import {getElementFromTemplate} from './utils.js';
 import {showScreen} from './main.js';
 import getRulesScreenElement from './rules-screen.js';
-import getFooter from './footer.js';
+import getFooterMarkup from './footer.js';
 
 const template = `
   <main class="central">
@@ -26,7 +26,7 @@ const template = `
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
   </div>
-  ${getFooter()}
+  ${getFooterMarkup()}
   </main>
 `;
 export default () => {

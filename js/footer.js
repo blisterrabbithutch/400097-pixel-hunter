@@ -1,5 +1,3 @@
-import {getElementFromTemplate} from './utils.js';
-
 const template = `
   <footer class="footer">
     <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
@@ -14,6 +12,6 @@ const template = `
 `;
 
 export default () => {
-  const el = getElementFromTemplate(template);
-  return el.outerHTML;
+  const el = template;
+  return el;
 };

@@ -1,10 +1,10 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
-
-const getElementFromTemplate = (template) => {
-  const pageElement = document.createElement(`div`);
-  pageElement.innerHTML = template;
-  return pageElement.firstElementChild;
-};
+import {levels, userState, answers} from './data.js';
+import {showScreen} from './main.js';
+import {getThreeCardsGameScreen} from './three-cards-game-screen.js';
+import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
+import {getOneCardGameScreen} from './one-card-game-screen.js';
+import getStatsScreenElement from './stats-screen.js';
 
 const getLevelProgressBar = (arrayWithAnswers) => {
   let levelsArray = [];
@@ -98,24 +98,46 @@ function createTimer(duration) {
   };
 }
 
-const getStatsTitle = (answers, state) => {
-  if (getScore(answers, state.lives) === -1) {
+const getStatsTitle = (userAnswers, state) => {
+  if (getScore(userAnswers, state.lives) === -1) {
     return `Проигрыш!`;
   } else {
     return `Победа!`;
   }
 };
 
-const getStatsResult = (answers, state) => {
-  if (getScore(answers, state.lives) === -1) {
+const getStatsResult = (userAnswers, state) => {
+  if (getScore(userAnswers, state.lives) === -1) {
     return `Fail!`;
   } else {
-    return getScore(answers, state.lives);
+    return getScore(userAnswers, state.lives);
   }
 };
 
-const resetGamedata = (answers) => {
-  answers.length = 0;
+const resetGamedata = (userAnswers) => {
+  userAnswers.length = 0;
 };
 
-export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult, resetGamedata};
+const enterNextLevel = (data) => {
+  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const nextLevel = levels[numberOfScreen + 1];
+  if (nextLevel && userState.lives > 0) {
+    if (nextLevel.levelType === `one-card`) {
+      showScreen(getOneCardGameScreen(nextLevel, userState));
+    } else if (nextLevel.levelType === `three-cards`) {
+      showScreen(getThreeCardsGameScreen(nextLevel, userState));
+    } else if (nextLevel.levelType === `two-cards`) {
+      showScreen(getTwoCardsGameScreen(nextLevel, userState));
+    }
+  } else {
+    showScreen(getStatsScreenElement(answers, userState));
+  }
+};
+
+const getElementFromTemplate = (template) => {
+  const pageElement = document.createElement(`div`);
+  pageElement.innerHTML = template;
+  return pageElement.firstElementChild;
+};
+
+export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult, resetGamedata, enterNextLevel};
