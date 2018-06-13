@@ -53,10 +53,10 @@ const template = (level) => `
   <div class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">
-      ${level.cards.map((card) => {
+  ${level.cards.map((card) => {
     return `<div class="game__option">
-                <img src="${card.cardContent}" alt="Option 1" width="304" height="455">
-              </div>`;
+              <img src="${card.cardContent}" alt="Option 1" width="304" height="455">
+            </div>`;
   }).join(``)}
     </form>
     <div class="stats">

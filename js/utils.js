@@ -19,6 +19,11 @@ const getLevelProgressBar = (arrayWithAnswers) => {
       levelsArray.push(`<li class="stats__result stats__result--correct"></li>`);
     }
   }
+  let levelsRemain = [];
+  for (let i = 0; i < 10 - arrayWithAnswers.length; i++) {
+    levelsRemain.push(`<li class="stats__result stats__result--unknown"></li>`);
+  }
+  levelsArray.push(levelsRemain);
   return levelsArray;
 };
 
