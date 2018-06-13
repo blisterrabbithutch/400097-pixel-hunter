@@ -47,25 +47,12 @@ const getSecondGameScreen = (data, state) => {
   const formEl = el.querySelector(`.game__content`);
   const firstCardRadioInputs = formEl.elements.question1;
   const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const nextLevel = levels[numberOfScreen + 1];
   const cardEl = el.querySelector(`.game__option`);
-  const cardIsPhoto = data.cards[0].answers.photo;
-  const cardIsPaint = data.cards[0].answers.paint;
-  const cardAnswerStringPhoto = `photo`;
-  const cardAnswerStringPaint = `paint`;
-  const cardAnswer = (photoAnswer, paintAnswer) => {
-    if (photoAnswer) {
-      return cardAnswerStringPhoto;
-    } else if (paintAnswer) {
-      return cardAnswerStringPaint;
-    }
-    throw new Error(`Incorrect type of parameters. (paint or photo string)`);
-  };
   cardEl.addEventListener(`change`, function () {
-
     const addLevelResult = () => {
       let answerOnCard = {};
-      if (firstCardRadioInputs.value === cardAnswer(cardIsPhoto, cardIsPaint)) {
-
+      if (firstCardRadioInputs.value === data.cards[0].rightAnswer) {
         answerOnCard = {
           time: 15000,
           solved: true
@@ -80,16 +67,14 @@ const getSecondGameScreen = (data, state) => {
       return answerOnCard;
     };
     answers.push(addLevelResult());
-
-    if (levels[numberOfScreen + 1].levelType === `three-cards` && userState.lives > 0) {
-      showScreen(getThirdGameScreen(levels[numberOfScreen + 1], userState));
-    } else if (levels[numberOfScreen + 1].levelType === `two-cards` && userState.lives > 0) {
-      showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
+    if (nextLevel.levelType === `three-cards` && userState.lives > 0) {
+      showScreen(getThirdGameScreen(nextLevel, userState));
+    } else if (nextLevel.levelType === `two-cards` && userState.lives > 0) {
+      showScreen(getGameScreen(nextLevel, userState));
     } else {
       showScreen(getStatsScreenElement(answers, userState));
     }
   });
-
   return el;
 };
 export {getSecondGameScreen};

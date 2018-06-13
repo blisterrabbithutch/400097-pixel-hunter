@@ -38,27 +38,25 @@ const getThirdGameScreen = (data, state) => {
   el.insertAdjacentElement(`afterbegin`, getHeader(state));
   const formEl = el.querySelector(`.game__content`);
   const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const nextLevel = levels[numberOfScreen + 1];
+  const firstCardAnswer = data.cards[0].rightAnswer;
+  const secondCardAnswer = data.cards[1].rightAnswer;
+  const thirdCardAnswer = data.cards[2].rightAnswer;
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
-      const firstCardIsPhoto = data.cards[0].answers.photo;
-      const firstCardIsPaint = data.cards[0].answers.paint;
-      const secondCardIsPhoto = data.cards[1].answers.photo;
-      const secondCardIsPaint = data.cards[1].answers.paint;
-      const thirdCardIsPhoto = data.cards[2].answers.photo;
-      const thirdCardIsPaint = data.cards[2].answers.paint;
-      const findDifferentCard = (firstPhoto, firstPaint, secondPhoto, secondPaint, thirdPhoto, thirdPaint) => {
-        if (firstPhoto !== secondPhoto && firstPhoto !== thirdPhoto || firstPaint !== secondPaint && firstPaint !== thirdPaint) {
+      const findDifferentCard = (firstCard, secondCard, thirdCard) => {
+        if (firstCard !== secondCard && firstCard !== thirdCard) {
           return `first image different`;
-        } else if (secondPhoto !== firstPhoto && secondPhoto !== thirdPhoto || secondPaint !== firstPaint && secondPaint !== thirdPaint) {
+        } else if (secondCard !== firstCard && secondCard !== thirdCard) {
           return `second image different`;
-        } else if (thirdPhoto !== firstPhoto && thirdPhoto !== firstPhoto || thirdPaint !== firstPaint && thirdPaint !== firstPaint) {
+        } else if (thirdCard !== firstCard && thirdCard !== firstCard) {
           return `third image different`;
         }
-        throw new Error(`Incorrect type of parameters. (paint or photo string)`);
+        throw new Error(`Incorrect type of parameters. (need paint or photo string)`);
       };
       let answerOnCard = {};
       const addLevelResult = () => {
-        if ((evt.target === document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) === `first image different`) || (evt.target === document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) === `second image different`) || (evt.target === document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardIsPhoto, firstCardIsPaint, secondCardIsPhoto, secondCardIsPaint, thirdCardIsPhoto, thirdCardIsPaint) === `third image different`)) {
+        if ((evt.target === document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer) === `first image different`) || (evt.target === document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer) === `second image different`) || (evt.target === document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer) === `third image different`)) {
           answerOnCard = {
             time: 15000,
             solved: true
@@ -70,14 +68,13 @@ const getThirdGameScreen = (data, state) => {
             solved: false
           };
         }
-
         return answerOnCard;
       };
       answers.push(addLevelResult());
-      if (levels[numberOfScreen + 1].levelType === `one-card` && userState.lives > 0) {
-        showScreen(getSecondGameScreen(levels[numberOfScreen + 1], userState));
-      } else if (levels[numberOfScreen + 1].levelType === `two-cards` && userState.lives > 0) {
-        showScreen(getGameScreen(levels[numberOfScreen + 1], userState));
+      if (nextLevel.levelType === `one-card` && userState.lives > 0) {
+        showScreen(getSecondGameScreen(nextLevel, userState));
+      } else if (nextLevel.levelType === `two-cards` && userState.lives > 0) {
+        showScreen(getGameScreen(nextLevel, userState));
       } else {
         showScreen(getStatsScreenElement(answers, userState));
       }
