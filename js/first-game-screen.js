@@ -62,7 +62,7 @@ const getGameScreen = (data, state) => {
     } else if (paintAnswer) {
       return cardAnswerStringPaint;
     }
-    return false;
+    throw new Error(`Incorrect type of parameters. (paint or photo string)`);
   };
   form.addEventListener(`change`, function () {
     if (firstCardRadioInputs.value && secondCardRadioInputs.value) {

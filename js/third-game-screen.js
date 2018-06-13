@@ -54,7 +54,7 @@ const getThirdGameScreen = (data, state) => {
         } else if (thirdPhoto !== firstPhoto && thirdPhoto !== firstPhoto || thirdPaint !== firstPaint && thirdPaint !== firstPaint) {
           return `third image different`;
         }
-        return false;
+        throw new Error(`Incorrect type of parameters. (paint or photo string)`);
       };
       let answerOnCard = {};
       const addLevelResult = () => {

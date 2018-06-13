@@ -58,7 +58,7 @@ const getSecondGameScreen = (data, state) => {
     } else if (paintAnswer) {
       return cardAnswerStringPaint;
     }
-    return false;
+    throw new Error(`Incorrect type of parameters. (paint or photo string)`);
   };
   cardEl.addEventListener(`change`, function () {
 
