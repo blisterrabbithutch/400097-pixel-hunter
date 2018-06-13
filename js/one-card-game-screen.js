@@ -7,6 +7,36 @@ import getHeader from './header.js';
 import getFooter from './footer.js';
 import {levels, answers, userState} from './data.js';
 
+const addLevelResult = (data, firstCardInputsValue) => {
+  let answerOnCard = {};
+  if (firstCardInputsValue === data.cards[0].rightAnswer) {
+    answerOnCard = {
+      time: 15000,
+      solved: true
+    };
+  } else {
+    userState.lives = userState.lives - 1;
+    answerOnCard = {
+      time: 15000,
+      solved: false
+    };
+  }
+  return answerOnCard;
+};
+
+const checkSelectedAnswer = (data, firstCardInputsValue) => {
+  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const nextLevel = levels[numberOfScreen + 1];
+  answers.push(addLevelResult(data, firstCardInputsValue));
+  if (nextLevel.levelType === `three-cards` && userState.lives > 0) {
+    showScreen(getThreeCardsGameScreen(nextLevel, userState));
+  } else if (nextLevel.levelType === `two-cards` && userState.lives > 0) {
+    showScreen(getTwoCardsGameScreen(nextLevel, userState));
+  } else {
+    showScreen(getStatsScreenElement(answers, userState));
+  }
+};
+
 const template = (level) => `
   <main class="central">
   <div class="game">
@@ -39,34 +69,9 @@ const getOneCardGameScreen = (data, state) => {
   el.insertAdjacentElement(`afterbegin`, getHeader(state));
   const formEl = el.querySelector(`.game__content`);
   const firstCardRadioInputs = formEl.elements.question1;
-  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-  const nextLevel = levels[numberOfScreen + 1];
   const cardEl = el.querySelector(`.game__option`);
   cardEl.addEventListener(`change`, function () {
-    const addLevelResult = () => {
-      let answerOnCard = {};
-      if (firstCardRadioInputs.value === data.cards[0].rightAnswer) {
-        answerOnCard = {
-          time: 15000,
-          solved: true
-        };
-      } else {
-        userState.lives = userState.lives - 1;
-        answerOnCard = {
-          time: 15000,
-          solved: false
-        };
-      }
-      return answerOnCard;
-    };
-    answers.push(addLevelResult());
-    if (nextLevel.levelType === `three-cards` && userState.lives > 0) {
-      showScreen(getThreeCardsGameScreen(nextLevel, userState));
-    } else if (nextLevel.levelType === `two-cards` && userState.lives > 0) {
-      showScreen(getTwoCardsGameScreen(nextLevel, userState));
-    } else {
-      showScreen(getStatsScreenElement(answers, userState));
-    }
+    checkSelectedAnswer(data, firstCardRadioInputs.value);
   });
   return el;
 };

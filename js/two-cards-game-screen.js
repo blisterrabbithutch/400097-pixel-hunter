@@ -7,6 +7,38 @@ import getFooter from './footer.js';
 import getStatsScreenElement from './stats-screen.js';
 import {levels, answers, userState} from './data.js';
 
+const addLevelResult = (data, firstCardInputsValue, secondCardInputsValue) => {
+  let answerOnCard = {};
+  if (firstCardInputsValue === data.cards[0].rightAnswer && secondCardInputsValue === data.cards[1].rightAnswer) {
+    answerOnCard = {
+      time: 15000,
+      solved: true
+    };
+  } else {
+    userState.lives = userState.lives - 1;
+    answerOnCard = {
+      time: 15000,
+      solved: false
+    };
+  }
+  return answerOnCard;
+};
+
+const checkSelectedAnswer = (data, firstCardInputsValue, secondCardInputsValue) => {
+  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const nextLevel = levels[numberOfScreen + 1];
+  answers.push(addLevelResult(data, firstCardInputsValue, secondCardInputsValue));
+  if (nextLevel && userState.lives > 0) {
+    if (nextLevel.levelType === `one-card`) {
+      showScreen(getOneCardGameScreen(nextLevel, userState));
+    } else if (nextLevel.levelType === `three-cards`) {
+      showScreen(getThreeCardsGameScreen(nextLevel, userState));
+    }
+  } else {
+    showScreen(getStatsScreenElement(answers, userState));
+  }
+};
+
 const template = (level) => `
   <main class="central">
     <div class="game">
@@ -38,40 +70,12 @@ const template = (level) => `
 const getTwoCardsGameScreen = (data, state) => {
   const el = getElementFromTemplate(template(data));
   el.insertAdjacentElement(`afterbegin`, getHeader(state));
-  const formEl = el.querySelector(`.game__content`);
-  const firstCardRadioInputs = formEl.elements.question1;
-  const secondCardRadioInputs = formEl.elements.question2;
-  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-  const nextLevel = levels[numberOfScreen + 1];
   const form = el.querySelector(`.game__content`);
+  const firstCardRadioInputs = form.elements.question1;
+  const secondCardRadioInputs = form.elements.question2;
   form.addEventListener(`change`, function () {
     if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
-      const addLevelResult = () => {
-        let answerOnCard = {};
-        if (firstCardRadioInputs.value === data.cards[0].rightAnswer && secondCardRadioInputs.value === data.cards[1].rightAnswer) {
-          answerOnCard = {
-            time: 15000,
-            solved: true
-          };
-        } else {
-          userState.lives = userState.lives - 1;
-          answerOnCard = {
-            time: 15000,
-            solved: false
-          };
-        }
-        return answerOnCard;
-      };
-      answers.push(addLevelResult());
-      if (nextLevel && userState.lives > 0) {
-        if (nextLevel.levelType === `one-card`) {
-          showScreen(getOneCardGameScreen(nextLevel, userState));
-        } else if (nextLevel.levelType === `three-cards`) {
-          showScreen(getThreeCardsGameScreen(nextLevel, userState));
-        }
-      } else {
-        showScreen(getStatsScreenElement(answers, userState));
-      }
+      checkSelectedAnswer(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
     }
   });
   return el;
