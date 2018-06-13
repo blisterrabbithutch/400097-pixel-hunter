@@ -55,7 +55,8 @@ const template = (level) => `
         <input name="${`question` + (i + 1)}" type="radio" value="paint">
         <span>Рисунок</span>
       </label>
-    </div>`;}).join(``)}
+    </div>`;
+  }).join(``)}
     </form>
     <div class="stats">
       <ul class="stats">

@@ -1,5 +1,4 @@
 import getMainScreenElement from './main-screen.js';
-import {initialState, levels} from './data.js';
 
 const bodyTag = document.querySelector(`body`);
 
