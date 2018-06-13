@@ -59,7 +59,7 @@ const getTwoCardsGameScreen = (data, state) => {
   form.addEventListener(`change`, function () {
     if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
       addLevelResult(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
-      enterNextLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
+      enterNextLevel(data);
     }
   });
   return el;

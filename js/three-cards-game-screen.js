@@ -62,7 +62,7 @@ const getThreeCardsGameScreen = (data, state) => {
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
       addLevelResult(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
-      enterNextLevel(evt, data, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
+      enterNextLevel(data);
     }
   });
 
