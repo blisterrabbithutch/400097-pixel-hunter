@@ -3,7 +3,8 @@ import {showScreen} from './main.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooterMarkup from './footer.js';
-import {initialState, levels, answers} from './data.js';
+import {levels} from './data.js';
+import {initialState, userState} from './game-settings.js';
 
 const template = `
   <main class="central">
@@ -42,16 +43,12 @@ export default () => {
   const submitEl = el.querySelector(`.rules__button`);
 
   inputEl.addEventListener(`input`, function () {
-    if (inputEl.value.length > 0) {
-      submitEl.removeAttribute(`disabled`);
-    } else if (inputEl.value.length === 0) {
-      submitEl.setAttribute(`disabled`, ``);
-    }
+    submitEl.disabled = !inputEl.value;
   });
 
   el.querySelector(`.rules__form`).addEventListener(`submit`, function (evt) {
     evt.preventDefault();
-    resetGamedata(answers);
+    resetGamedata(userState.answers);
     showScreen(getTwoCardsGameScreen(levels[0], initialState));
   });
 

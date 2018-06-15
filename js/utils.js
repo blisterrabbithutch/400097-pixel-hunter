@@ -1,5 +1,6 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
-import {levels, userState, answers} from './data.js';
+import {levels} from './data.js';
+import {userState} from './game-settings.js';
 import {showScreen} from './main.js';
 import {getThreeCardsGameScreen} from './three-cards-game-screen.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
@@ -7,24 +8,27 @@ import {getOneCardGameScreen} from './one-card-game-screen.js';
 import getStatsScreenElement from './stats-screen.js';
 
 const getLevelProgressBar = (arrayWithAnswers) => {
-  let levelsArray = [];
-  for (let i = 0; i < arrayWithAnswers.length; i++) {
-    if (!arrayWithAnswers[i].solved || arrayWithAnswers[i].time > AnswerTime.TIMEOUT) {
-      levelsArray.push(`<li class="stats__result stats__result--wrong"></li>`);
-    } else if (arrayWithAnswers[i].solved && arrayWithAnswers[i].time > AnswerTime.SLOW && arrayWithAnswers[i].time < AnswerTime.TIMEOUT) {
-      levelsArray.push(`<li class="stats__result stats__result--slow"></li>`);
-    } else if (arrayWithAnswers[i].solved && arrayWithAnswers[i].time < AnswerTime.FAST) {
-      levelsArray.push(`<li class="stats__result stats__result--fast"></li>`);
-    } else if (arrayWithAnswers[i].solved && arrayWithAnswers[i].time > AnswerTime.FAST && arrayWithAnswers[i].time < AnswerTime.SLOW) {
-      levelsArray.push(`<li class="stats__result stats__result--correct"></li>`);
+  let userLevels = [];
+  let answerType;
+  userLevels = arrayWithAnswers.map((answer) => {
+    if (!answer.solved || answer.time > AnswerTime.TIMEOUT) {
+      answerType = `wrong`;
+    } else if (answer.solved && answer.time > AnswerTime.SLOW && answer.time < AnswerTime.TIMEOUT) {
+      answerType = `slow`;
+    } else if (answer.solved && answer.time < AnswerTime.FAST) {
+      answerType = `fast`;
+    } else if (answer.solved && answer.time > AnswerTime.FAST && answer.time < AnswerTime.SLOW) {
+      answerType = `correct`;
     }
-  }
-  let levelsRemain = [];
+    let type = answerType;
+    return `<li class="stats__result stats__result--${type}"></li>`;
+  });
+  let userRemainedLevels = [];
   for (let i = 0; i < 10 - arrayWithAnswers.length; i++) {
-    levelsRemain.push(`<li class="stats__result stats__result--unknown"></li>`);
+    userRemainedLevels.push(`<li class="stats__result stats__result--unknown"></li>`);
   }
-  levelsArray.push(levelsRemain);
-  return levelsArray;
+  userLevels.push(userRemainedLevels);
+  return userLevels;
 };
 
 const getFastAnswersValue = (arrayWithAnswers) => {
@@ -130,7 +134,7 @@ const enterNextLevel = (data) => {
       showScreen(getTwoCardsGameScreen(nextLevel, userState));
     }
   } else {
-    showScreen(getStatsScreenElement(answers, userState));
+    showScreen(getStatsScreenElement(userState.answers, userState));
   }
 };
 

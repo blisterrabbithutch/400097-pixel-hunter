@@ -12,6 +12,5 @@ const template = `
 `;
 
 export default () => {
-  const el = template;
-  return el;
+  return template;
 };

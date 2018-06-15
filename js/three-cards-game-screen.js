@@ -1,34 +1,38 @@
 import getHeader from './header.js';
 import getFooterMarkup from './footer.js';
 import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './utils.js';
-import {answers, userState} from './data.js';
+import {userState} from './game-settings.js';
+import {AnswerTime} from './enums.js';
+
+
 
 const findDifferentCard = (firstCard, secondCard, thirdCard) => {
+  const firstCardEl = document.querySelector(`.game__option:first-child`);
+  const secondCardEl = document.querySelector(`.game__option:nth-child(2)`);
+  const thirdCardEl = document.querySelector(`.game__option:nth-child(3)`);
   if (firstCard !== secondCard && firstCard !== thirdCard) {
-    return `first image different`;
+    return firstCardEl;
   } else if (secondCard !== firstCard && secondCard !== thirdCard) {
-    return `second image different`;
+    return secondCardEl;
   } else if (thirdCard !== firstCard && thirdCard !== firstCard) {
-    return `third image different`;
+    return thirdCardEl;
   }
   throw new Error(`Incorrect type of parameters. (need paint or photo string)`);
 };
 
 const addLevelResult = (evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) => {
-  let answerOnCard = {};
-  if ((evt.target === document.querySelector(`.game__option:first-child`) && findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer) === `first image different`) || (evt.target === document.querySelector(`.game__option:nth-child(2)`) && findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer) === `second image different`) || (evt.target === document.querySelector(`.game__option:nth-child(3)`) && findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer) === `third image different`)) {
-    answerOnCard = {
-      time: 15000,
-      solved: true
-    };
+  let answerIsSolved;
+  if (evt.target === findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer)) {
+    answerIsSolved = true;
   } else {
     userState.lives = userState.lives - 1;
-    answerOnCard = {
-      time: 15000,
-      solved: false
-    };
+    answerIsSolved = false;
   }
-  answers.push(answerOnCard);
+  let answerOnCard = {
+    time: AnswerTime.NORMAL,
+    solved: answerIsSolved
+  };
+  userState.answers.push(answerOnCard);
   return answerOnCard;
 };
 
@@ -45,7 +49,7 @@ const template = (level) => `
     </form>
     <div class="stats">
       <ul class="stats">
-        ${getLevelProgressBar(answers)}
+        ${getLevelProgressBar(userState.answers)}
       </ul>
     </div>
   </div>

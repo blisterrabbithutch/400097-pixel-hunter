@@ -1,23 +1,22 @@
 import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './utils.js';
 import getHeader from './header.js';
 import getFooterMarkup from './footer.js';
-import {answers, userState} from './data.js';
+import {userState} from './game-settings.js';
+import {AnswerTime} from './enums.js';
 
 const addLevelResult = (data, firstCardInputsValue, secondCardInputsValue) => {
-  let answerOnCard = {};
+  let answerIsSolved;
   if (firstCardInputsValue === data.cards[0].rightAnswer && secondCardInputsValue === data.cards[1].rightAnswer) {
-    answerOnCard = {
-      time: 15000,
-      solved: true
-    };
+    answerIsSolved = true;
   } else {
     userState.lives = userState.lives - 1;
-    answerOnCard = {
-      time: 15000,
-      solved: false
-    };
+    answerIsSolved = false;
   }
-  answers.push(answerOnCard);
+  let answerOnCard = {
+    time: AnswerTime.NORMAL,
+    solved: answerIsSolved
+  };
+  userState.answers.push(answerOnCard);
   return answerOnCard;
 };
 
@@ -42,7 +41,7 @@ const template = (level) => `
     </form>
     <div class="stats">
       <ul class="stats">
-        ${getLevelProgressBar(answers)}
+        ${getLevelProgressBar(userState.answers)}
       </ul>
     </div>
   </div>
