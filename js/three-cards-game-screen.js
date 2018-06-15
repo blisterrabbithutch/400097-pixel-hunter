@@ -4,8 +4,6 @@ import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './uti
 import {userState} from './game-settings.js';
 import {AnswerTime} from './enums.js';
 
-
-
 const findDifferentCard = (firstCard, secondCard, thirdCard) => {
   const firstCardEl = document.querySelector(`.game__option:first-child`);
   const secondCardEl = document.querySelector(`.game__option:nth-child(2)`);

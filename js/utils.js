@@ -7,10 +7,10 @@ import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import {getOneCardGameScreen} from './one-card-game-screen.js';
 import getStatsScreenElement from './stats-screen.js';
 
-const getLevelProgressBar = (arrayWithAnswers) => {
-  let userLevels = [];
+const getLevelProgressBar = (userAnswers) => {
+  let userLevels;
   let answerType;
-  userLevels = arrayWithAnswers.map((answer) => {
+  userLevels = userAnswers.map((answer) => {
     if (!answer.solved || answer.time > AnswerTime.TIMEOUT) {
       answerType = `wrong`;
     } else if (answer.solved && answer.time > AnswerTime.SLOW && answer.time < AnswerTime.TIMEOUT) {
@@ -24,7 +24,7 @@ const getLevelProgressBar = (arrayWithAnswers) => {
     return `<li class="stats__result stats__result--${type}"></li>`;
   });
   let userRemainedLevels = [];
-  for (let i = 0; i < 10 - arrayWithAnswers.length; i++) {
+  for (let i = 0; i < 10 - userAnswers.length; i++) {
     userRemainedLevels.push(`<li class="stats__result stats__result--unknown"></li>`);
   }
   userLevels.push(userRemainedLevels);
