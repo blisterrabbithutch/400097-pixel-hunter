@@ -1,11 +1,65 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
+import {initialState} from './game-settings.js';
 
-const getElementsFromMarkup = (markup) => {
-  const pageElement = document.createElement(`template`);
-  pageElement.innerHTML = markup;
-  return pageElement.content;
+let userState;
+const createUserdata = () => {
+  userState = Object.assign({}, initialState);
+  userState[`answers`] = [];
 };
 
+const getLevelProgressBar = (userAnswers) => {
+  let userLevels;
+  let answerType;
+  userLevels = userAnswers.map((answer) => {
+    if (!answer.solved || answer.time > AnswerTime.TIMEOUT) {
+      answerType = `wrong`;
+    } else if (answer.solved && answer.time > AnswerTime.SLOW && answer.time < AnswerTime.TIMEOUT) {
+      answerType = `slow`;
+    } else if (answer.solved && answer.time < AnswerTime.FAST) {
+      answerType = `fast`;
+    } else if (answer.solved && answer.time > AnswerTime.FAST && answer.time < AnswerTime.SLOW) {
+      answerType = `correct`;
+    }
+    let type = answerType;
+    return `<li class="stats__result stats__result--${type}"></li>`;
+  });
+  let userRemainedLevels = [];
+  for (let i = 0; i < 10 - userAnswers.length; i++) {
+    userRemainedLevels.push(`<li class="stats__result stats__result--unknown"></li>`);
+  }
+  userLevels.push(userRemainedLevels);
+  return userLevels;
+};
+
+const getFastAnswersValue = (arrayWithAnswers) => {
+  let fastAnswersValue = 0;
+  for (let i = 0; i < arrayWithAnswers.length; i++) {
+    if (arrayWithAnswers[i].time < AnswerTime.FAST && arrayWithAnswers[i].solved) {
+      fastAnswersValue++;
+    }
+  }
+  return fastAnswersValue;
+};
+
+const getSlowAnswersValue = (arrayWithAnswers) => {
+  let slowAnswersValue = 0;
+  for (let i = 0; i < arrayWithAnswers.length; i++) {
+    if (arrayWithAnswers[i].time > AnswerTime.SLOW && arrayWithAnswers[i].time < AnswerTime.TIMEOUT && arrayWithAnswers[i].solved) {
+      slowAnswersValue++;
+    }
+  }
+  return slowAnswersValue;
+};
+
+const getCompletedLevelsValue = (arrayWithAnswers) => {
+  let completedLevelValue = 0;
+  for (let i = 0; i < arrayWithAnswers.length; i++) {
+    if (arrayWithAnswers[i].solved) {
+      completedLevelValue++;
+    }
+  }
+  return completedLevelValue;
+};
 
 const getScore = (userResult, remainingLifes) => {
   let userPoints = 0;
@@ -48,4 +102,26 @@ function createTimer(duration) {
   };
 }
 
-export {getElementsFromMarkup, getScore, createTimer};
+const getStatsTitle = (userAnswers, state) => {
+  if (getScore(userAnswers, state.lives) === -1) {
+    return `Проигрыш!`;
+  } else {
+    return `Победа!`;
+  }
+};
+
+const getStatsResult = (userAnswers, state) => {
+  if (getScore(userAnswers, state.lives) === -1) {
+    return `Fail!`;
+  } else {
+    return getScore(userAnswers, state.lives);
+  }
+};
+
+const getElementFromTemplate = (template) => {
+  const pageElement = document.createElement(`div`);
+  pageElement.innerHTML = template;
+  return pageElement.firstElementChild;
+};
+
+export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult, createUserdata, userState};

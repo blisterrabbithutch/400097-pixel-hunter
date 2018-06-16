@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {createTimer} from '../utils.js';
+import {createTimer} from './utils.js';
 
 
 describe(`Game timer`, () => {
