@@ -1,7 +1,7 @@
 import getHeader from './header.js';
 import getFooterMarkup from './footer.js';
 import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './utils.js';
-import {userState} from './game-settings.js';
+import {userState} from './utils.js';
 import {AnswerTime} from './enums.js';
 
 const findDifferentCard = (firstCard, secondCard, thirdCard) => {

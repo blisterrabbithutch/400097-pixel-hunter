@@ -1,11 +1,17 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
 import {levels} from './data.js';
-import {userState} from './game-settings.js';
+import {initialState} from './game-settings.js';
 import showScreen from './showscreen-function.js';
 import {getThreeCardsGameScreen} from './three-cards-game-screen.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import {getOneCardGameScreen} from './one-card-game-screen.js';
 import getStatsScreenElement from './stats-screen.js';
+
+let userState;
+const createUserdata = () => {
+  userState = Object.assign({}, initialState);
+  userState[`answers`] = [];
+};
 
 const getLevelProgressBar = (userAnswers) => {
   let userLevels;
@@ -118,10 +124,6 @@ const getStatsResult = (userAnswers, state) => {
   }
 };
 
-const resetGamedata = (userAnswers) => {
-  userAnswers.length = 0;
-};
-
 const enterNextLevel = (data) => {
   const numberOfScreen = Array.prototype.indexOf.call(levels, data);
   const nextLevel = levels[numberOfScreen + 1];
@@ -144,4 +146,4 @@ const getElementFromTemplate = (template) => {
   return pageElement.firstElementChild;
 };
 
-export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult, resetGamedata, enterNextLevel};
+export {getElementFromTemplate, getScore, createTimer, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult, enterNextLevel, createUserdata, userState};

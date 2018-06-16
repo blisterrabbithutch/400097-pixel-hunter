@@ -1,10 +1,9 @@
-import {getElementFromTemplate, resetGamedata, enterNextLevel} from './utils.js';
+import {getElementFromTemplate, userState, createUserdata} from './utils.js';
 import showScreen from './showscreen-function.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooterMarkup from './footer.js';
 import {levels} from './data.js';
-import {initialState, userState} from './game-settings.js';
 
 const template = `
   <main class="central">
@@ -48,8 +47,8 @@ export default () => {
 
   el.querySelector(`.rules__form`).addEventListener(`submit`, function (evt) {
     evt.preventDefault();
-    resetGamedata(userState.answers);
-    showScreen(getTwoCardsGameScreen(levels[0], initialState));
+    createUserdata();
+    showScreen(getTwoCardsGameScreen(levels[0], userState));
   });
 
   const backButton = el.querySelector(`.back`);
