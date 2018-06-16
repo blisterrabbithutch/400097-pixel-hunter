@@ -1,6 +1,7 @@
 import getHeader from './header.js';
 import getFooterMarkup from './footer.js';
-import {getElementFromTemplate, getLevelProgressBar, enterNextLevel} from './utils.js';
+import {getElementFromTemplate, getLevelProgressBar} from './utils.js';
+import enterNextLevel from './enter-next-level.js';
 import {userState} from './utils.js';
 import {AnswerTime} from './enums.js';
 
