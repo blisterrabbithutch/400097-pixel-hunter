@@ -4,7 +4,7 @@ import getFooterMarkup from './footer.js';
 import {userState} from './game-settings.js';
 import {AnswerTime} from './enums.js';
 
-const addLevelResult = (data, firstCardInputsValue) => {
+const handleResultOfLevel = (data, firstCardInputsValue) => {
   let answerIsSolved;
   if (firstCardInputsValue === data.cards[0].rightAnswer) {
     answerIsSolved = true;
@@ -21,13 +21,13 @@ const addLevelResult = (data, firstCardInputsValue) => {
 };
 
 
-const template = (level) => `
+const template = (currentLevelData) => `
   <main class="central">
   <div class="game">
     <p class="game__task">Угадай, фото или рисунок?</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${level.cards[0].cardContent}" alt="Option 1" width="705" height="455">
+        <img src="${currentLevelData.cards[0].cardContent}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -54,7 +54,7 @@ const getOneCardGameScreen = (data, state) => {
   const firstCardRadioInputs = formEl.elements.question1;
   const cardEl = el.querySelector(`.game__option`);
   cardEl.addEventListener(`change`, function () {
-    addLevelResult(data, firstCardRadioInputs.value);
+    handleResultOfLevel(data, firstCardRadioInputs.value);
     enterNextLevel(data);
   });
   return el;

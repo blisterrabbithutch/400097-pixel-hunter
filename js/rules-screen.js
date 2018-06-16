@@ -1,5 +1,5 @@
-import {getElementFromTemplate, resetGamedata} from './utils.js';
-import {showScreen} from './main.js';
+import {getElementFromTemplate, resetGamedata, enterNextLevel} from './utils.js';
+import showScreen from './showscreen-function.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import getGreetingScreenElement from './greeting-screen.js';
 import getFooterMarkup from './footer.js';

@@ -4,7 +4,7 @@ import getFooterMarkup from './footer.js';
 import {userState} from './game-settings.js';
 import {AnswerTime} from './enums.js';
 
-const addLevelResult = (data, firstCardInputsValue, secondCardInputsValue) => {
+const handleResultOfLevel = (data, firstCardInputsValue, secondCardInputsValue) => {
   let answerIsSolved;
   if (firstCardInputsValue === data.cards[0].rightAnswer && secondCardInputsValue === data.cards[1].rightAnswer) {
     answerIsSolved = true;
@@ -20,12 +20,12 @@ const addLevelResult = (data, firstCardInputsValue, secondCardInputsValue) => {
   return answerOnCard;
 };
 
-const template = (level) => `
+const template = (currentLevelData) => `
   <main class="central">
     <div class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
-    ${level.cards.map((card, i) => {
+    ${currentLevelData.cards.map((card, i) => {
     return `<div class="game__option">
       <img src="${card.cardContent}" alt="Option 1" width="468" height="458">
       <label class="game__answer game__answer--photo">
@@ -57,7 +57,7 @@ const getTwoCardsGameScreen = (data, state) => {
   const secondCardRadioInputs = form.elements.question2;
   form.addEventListener(`change`, function () {
     if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
-      addLevelResult(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
+      handleResultOfLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
       enterNextLevel(data);
     }
   });

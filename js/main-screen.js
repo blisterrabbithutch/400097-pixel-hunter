@@ -1,5 +1,5 @@
 import {getElementFromTemplate} from './utils.js';
-import {showScreen} from './main.js';
+import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
 import getGreetingScreenElement from './greeting-screen.js';
 

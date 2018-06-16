@@ -1,6 +1,8 @@
 const INITIAL_LEVEL = 1;
 const INITIAL_LIVES = 3;
-const INITIAL_TIME = 30
+const INITIAL_TIME = 30;
+let userTimer = 30;
+let userLives = 3;
 
 const initialState = {
   level: INITIAL_LEVEL,
@@ -9,8 +11,8 @@ const initialState = {
 };
 
 let userState = {
-  time: 30,
-  lives: 3,
+  time: userTimer,
+  lives: userLives,
   answers: []
 };
 

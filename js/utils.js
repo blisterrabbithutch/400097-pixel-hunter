@@ -1,7 +1,7 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
 import {levels} from './data.js';
 import {userState} from './game-settings.js';
-import {showScreen} from './main.js';
+import showScreen from './showscreen-function.js';
 import {getThreeCardsGameScreen} from './three-cards-game-screen.js';
 import {getTwoCardsGameScreen} from './two-cards-game-screen.js';
 import {getOneCardGameScreen} from './one-card-game-screen.js';

@@ -18,7 +18,7 @@ const findDifferentCard = (firstCard, secondCard, thirdCard) => {
   throw new Error(`Incorrect type of parameters. (need paint or photo string)`);
 };
 
-const addLevelResult = (evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) => {
+const handleResultOfLevel = (evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) => {
   let answerIsSolved;
   if (evt.target === findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer)) {
     answerIsSolved = true;
@@ -34,12 +34,12 @@ const addLevelResult = (evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer)
   return answerOnCard;
 };
 
-const template = (level) => `
+const template = (currentLevelData) => `
   <main class="central">
   <div class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">
-  ${level.cards.map((card) => {
+  ${currentLevelData.cards.map((card) => {
     return `<div class="game__option">
               <img src="${card.cardContent}" alt="Option 1" width="304" height="455">
             </div>`;
@@ -63,7 +63,7 @@ const getThreeCardsGameScreen = (data, state) => {
   const thirdCardAnswer = data.cards[2].rightAnswer;
   formEl.addEventListener(`click`, function (evt) {
     if (evt.target.classList.contains(`game__option`)) {
-      addLevelResult(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
+      handleResultOfLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
       enterNextLevel(data);
     }
   });

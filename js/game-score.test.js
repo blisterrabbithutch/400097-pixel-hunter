@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {getScore} from '../utils.js';
+import {getScore} from './utils.js';
 
 let resultFirst = [
   {
