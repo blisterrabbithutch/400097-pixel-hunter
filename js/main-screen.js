@@ -1,23 +1,36 @@
-import {getElementFromTemplate} from './utils.js';
 import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
+import AbstractView from './abstract-view.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
-const template = `
-  <main class="central">
-    <div id="intro" class="intro">
-      <h1 class="intro__asterisk">*</h1>
-      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-    </div>
-    ${getFooterMarkup()}
-  </main>
-`;
-export default () => {
-  const el = getElementFromTemplate(template);
+export default class LevelView extends AbstractView {
+  constructor(level) {
+    super();
+    this.level = level;
+  }
 
-  el.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
-  });
+  render() {
+    return `
+      <main class="central">
+        <div id="intro" class="intro">
+          <h1 class="intro__asterisk">*</h1>
+          <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
+        </div>
+        ${getFooterMarkup()}
+      </main>`;
+  }
 
-  return el;
+  onAnswer() { }
+
+  bind() {
+    this.element.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
+      this.onAnswer();
+    });
+  }
+
+}
+
+const levelView = new LevelView();
+levelView.onAnswer = () => {
+  showScreen(getGreetingScreenElement());
 };
