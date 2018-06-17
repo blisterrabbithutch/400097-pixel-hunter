@@ -1,15 +1,15 @@
 import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import getGreetingScreenElement from './greeting-screen.js';
+import GetGreetingScreenView from './greeting-screen-view.js';
 
-export default class LevelView extends AbstractView {
+export default class MainScreenView extends AbstractView {
   constructor(level) {
     super();
     this.level = level;
   }
 
-  render() {
+  template() {
     return `
       <main class="central">
         <div id="intro" class="intro">
@@ -20,17 +20,19 @@ export default class LevelView extends AbstractView {
       </main>`;
   }
 
-  onAnswer() { }
+  onClick() {
+    showScreen(new GetGreetingScreenView().element);
+  }
 
   bind() {
     this.element.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
-      this.onAnswer();
+      this.onClick();
     });
   }
 
 }
 
-const levelView = new LevelView();
-levelView.onAnswer = () => {
-  showScreen(getGreetingScreenElement());
+const mainScreenView = new MainScreenView();
+mainScreenView.onClick = () => {
+  showScreen(new GetGreetingScreenView().element);
 };
