@@ -5,9 +5,9 @@ import getFooterMarkup from './footer.js';
 import GetGreetingScreenView from './greeting-screen-view.js';
 
 export default () => {
-  const arrowNext = new GetGreetingScreenView();
-
-  arrowNext.onClick = () => {
-    showScreen(getRulesScreenElement());
+  const greetingScreenView = new GetGreetingScreenView();
+  greetingScreenView.onClick = () => {
+    showScreen(getRulesScreenElement().element);
   };
+  return greetingScreenView;
 };

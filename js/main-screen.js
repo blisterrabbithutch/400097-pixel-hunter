@@ -21,7 +21,8 @@ export default class MainScreenView extends AbstractView {
   }
 
   onClick() {
-    showScreen(new GetGreetingScreenView().element);
+    //showScreen(new GetGreetingScreenView().element);
+    console.log(`inners test`);
   }
 
   bind() {
@@ -31,8 +32,9 @@ export default class MainScreenView extends AbstractView {
   }
 
 }
-
-const mainScreenView = new MainScreenView();
-mainScreenView.onClick = () => {
-  showScreen(new GetGreetingScreenView().element);
-};
+//
+//const mainScreenView = new MainScreenView();
+//mainScreenView.onClick = () => {
+//  //showScreen(new GetGreetingScreenView().element);
+//  console.log(`test`);
+//};

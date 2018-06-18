@@ -30,7 +30,7 @@ export default class GreetingScreenView extends AbstractView {
   }
 
   onClick() {
-    showScreen(getRulesScreenView());
+    //showScreen(getRulesScreenView());
   }
 
   bind() {
