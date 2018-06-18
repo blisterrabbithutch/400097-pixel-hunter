@@ -32,13 +32,13 @@ export default class TwoCardsGameScreenView extends AbstractView {
     this.state = state;
   }
 
-  template(currentLevel) {
+  template() {
     return `
         <main class="central">
           <div class="game">
           <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
           <form class="game__content">
-          ${currentLevel.cards.map((card, i) => {
+          ${(this.currentLevel).cards.map((card, i) => {
           return `<div class="game__option">
             <img src="${card.cardContent}" alt="Option 1" width="468" height="458">
             <label class="game__answer game__answer--photo">
@@ -65,8 +65,7 @@ export default class TwoCardsGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind(currentLevel, state) {
-
-    this.element.insertAdjacentElement(`afterbegin`, getHeader(state));
+    this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const form = this.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     const secondCardRadioInputs = form.elements.question2;
