@@ -1,7 +1,5 @@
-import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import getRulesScreenView from './rules-screen.js';
 
 export default class GreetingScreenView extends AbstractView {
   constructor(level) {
@@ -29,9 +27,7 @@ export default class GreetingScreenView extends AbstractView {
       </main>`;
   }
 
-  onClick() {
-    //showScreen(getRulesScreenView());
-  }
+  onClick() { }
 
   bind() {
     this.element.querySelector(`.greeting__continue`).addEventListener(`click`, () => {

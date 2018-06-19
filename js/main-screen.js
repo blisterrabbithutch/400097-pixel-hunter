@@ -1,7 +1,5 @@
-import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import GetGreetingScreenView from './greeting-screen-view.js';
 
 export default class MainScreenView extends AbstractView {
   constructor(level) {
@@ -20,10 +18,7 @@ export default class MainScreenView extends AbstractView {
       </main>`;
   }
 
-  onClick() {
-    //showScreen(new GetGreetingScreenView().element);
-    console.log(`inners test`);
-  }
+  onClick() { }
 
   bind() {
     this.element.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
@@ -32,9 +27,3 @@ export default class MainScreenView extends AbstractView {
   }
 
 }
-//
-//const mainScreenView = new MainScreenView();
-//mainScreenView.onClick = () => {
-//  //showScreen(new GetGreetingScreenView().element);
-//  console.log(`test`);
-//};

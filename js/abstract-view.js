@@ -11,8 +11,9 @@ export default class AbstractView {
   }
 
   render() {
-    this._element.innerHTML = this.template();
-    return this._element.firstElementChild;
+    const wrapper = document.createElement(`div`);
+    wrapper.innerHTML = this.template();
+    return wrapper.firstElementChild;
   }
 
   bind() { }
@@ -21,10 +22,9 @@ export default class AbstractView {
     if (this._element) {
       return this._element;
     }
-    this._element = document.createElement(`div`);
-    this.render();
+    this._element = this.render();
     this.bind();
-    return this._element.firstElementChild;
+    return this._element;
   }
 
 }

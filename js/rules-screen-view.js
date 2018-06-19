@@ -1,7 +1,5 @@
-import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import getRulesScreenView from './rules-screen.js';
 import {createUserdata} from './utils.js';
 
 export default class RulesScreenView extends AbstractView {
@@ -46,12 +44,6 @@ export default class RulesScreenView extends AbstractView {
   onBackButton() { }
 
   bind() {
-    //this.element.querySelector(`.greeting__continue`).addEventListener(`click`, () => {
-    //  this.onClick();
-    //});
-
-    //const el = getElementFromTemplate(template);
-
     const inputEl = this.element.querySelector(`.rules__input`);
     const submitEl = this.element.querySelector(`.rules__button`);
 
@@ -62,13 +54,11 @@ export default class RulesScreenView extends AbstractView {
     this.element.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
       createUserdata();
-      //showScreen(getTwoCardsGameScreen(levels[0], userState));
       this.onFormSubmit();
     });
 
     const backButton = this.element.querySelector(`.back`);
     backButton.addEventListener(`click`, () => {
-      //showScreen(getGreetingScreenElement());
       this.onBackButton();
     });
   }
