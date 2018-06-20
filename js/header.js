@@ -22,7 +22,7 @@ export default (data) => {
   const el = getElementFromTemplate(template(data));
   const backButton = el.querySelector(`.back`);
   backButton.addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
+    showScreen(getGreetingScreenElement().element);
   });
 
   return el;

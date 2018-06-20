@@ -3,23 +3,6 @@ import AbstractView from './abstract-view.js';
 import {getLevelProgressBar} from './utils.js';
 import getHeader from './header.js';
 import {userState} from './utils.js';
-import {AnswerTime} from './enums.js';
-
-const handleResultOfLevel = (data, firstCardInputsValue) => {
-  let answerIsSolved;
-  if (firstCardInputsValue === data.cards[0].rightAnswer) {
-    answerIsSolved = true;
-  } else {
-    userState.lives = userState.lives - 1;
-    answerIsSolved = false;
-  }
-  let answerOnCard = {
-    time: AnswerTime.NORMAL,
-    solved: answerIsSolved
-  };
-  userState.answers.push(answerOnCard);
-  return answerOnCard;
-};
 
 export default class OneCardGameScreenView extends AbstractView {
   constructor(currentLevel, state) {
@@ -64,7 +47,6 @@ export default class OneCardGameScreenView extends AbstractView {
     const firstCardRadioInputs = formEl.elements.question1;
     const cardEl = this.element.querySelector(`.game__option`);
     cardEl.addEventListener(`change`, () => {
-      handleResultOfLevel(this.currentLevel, firstCardRadioInputs.value);
       this.onAnswer();
     });
   }

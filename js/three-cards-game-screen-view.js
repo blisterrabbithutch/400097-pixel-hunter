@@ -4,37 +4,6 @@ import {getLevelProgressBar} from './utils.js';
 import enterNextLevel from './enter-next-level.js';
 import getHeader from './header.js';
 import {userState} from './utils.js';
-import {AnswerTime} from './enums.js';
-
-const findDifferentCard = (firstCard, secondCard, thirdCard) => {
-  const firstCardEl = document.querySelector(`.game__option:first-child`);
-  const secondCardEl = document.querySelector(`.game__option:nth-child(2)`);
-  const thirdCardEl = document.querySelector(`.game__option:nth-child(3)`);
-  if (firstCard !== secondCard && firstCard !== thirdCard) {
-    return firstCardEl;
-  } else if (secondCard !== firstCard && secondCard !== thirdCard) {
-    return secondCardEl;
-  } else if (thirdCard !== firstCard && thirdCard !== firstCard) {
-    return thirdCardEl;
-  }
-  throw new Error(`Incorrect type of parameters. (need paint or photo string)`);
-};
-
-const handleResultOfLevel = (evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) => {
-  let answerIsSolved;
-  if (evt.target === findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer)) {
-    answerIsSolved = true;
-  } else {
-    userState.lives = userState.lives - 1;
-    answerIsSolved = false;
-  }
-  let answerOnCard = {
-    time: AnswerTime.NORMAL,
-    solved: answerIsSolved
-  };
-  userState.answers.push(answerOnCard);
-  return answerOnCard;
-};
 
 export default class ThreeCardsGameScreenView extends AbstractView {
   constructor(currentLevel, state) {
@@ -70,13 +39,9 @@ export default class ThreeCardsGameScreenView extends AbstractView {
   bind() {
     this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const formEl = this.element.querySelector(`.game__content`);
-    const firstCardAnswer = this.currentLevel.cards[0].rightAnswer;
-    const secondCardAnswer = this.currentLevel.cards[1].rightAnswer;
-    const thirdCardAnswer = this.currentLevel.cards[2].rightAnswer;
     formEl.addEventListener(`click`, (evt) => {
       if (evt.target.classList.contains(`game__option`)) {
-        handleResultOfLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
-        enterNextLevel(this.currentLevel);
+        this.onAnswer(evt);
       }
     });
   }
