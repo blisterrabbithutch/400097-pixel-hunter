@@ -1,8 +1,24 @@
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import {getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar, getStatsTitle, getStatsResult} from './utils.js';
 import getHeader from './header.js';
+import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './utils.js';
 import {AnswerPoints} from './enums.js';
+
+const getStatsTitle = (userAnswers, state) => {
+  if (getScore(userAnswers, state.lives) === -1) {
+    return `Проигрыш!`;
+  } else {
+    return `Победа!`;
+  }
+};
+
+const getStatsResult = (userAnswers, state) => {
+  if (getScore(userAnswers, state.lives) === -1) {
+    return `Fail!`;
+  } else {
+    return getScore(userAnswers, state.lives);
+  }
+};
 
 export default class StatsScreenView extends AbstractView {
   constructor(answers, state) {

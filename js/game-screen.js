@@ -1,8 +1,28 @@
-import enterNextLevel from './enter-next-level.js';
 import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
 import OneCardGameScreenView from './one-card-game-screen-view.js';
 import ThreeCardsGameScreenView from './three-cards-game-screen-view.js';
 import {handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel} from './utils.js';
+import {levels} from './data.js';
+import showScreen from './showscreen-function.js';
+import GetStatsScreenView from './stats-screen-view.js';
+import {userState} from './utils.js';
+
+const enterNextLevel = (data) => {
+  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const nextLevel = levels[numberOfScreen + 1];
+  if (nextLevel && userState.lives > 0) {
+    if (nextLevel.levelType === `one-card`) {
+      showScreen(getOneCardGameScreenView(nextLevel, userState).element);
+    } else if (nextLevel.levelType === `three-cards`) {
+      showScreen(getThreeCardsGameScreenView(nextLevel, userState).element);
+    } else if (nextLevel.levelType === `two-cards`) {
+      showScreen(getTwoCardsGameScreenView(nextLevel, userState).element);
+    }
+  } else {
+    const statsScreenView = new GetStatsScreenView(userState.answers, userState);
+    showScreen(statsScreenView.element);
+  }
+};
 
 const getTwoCardsGameScreenView = (data, state) => {
   const twoCardsGameScreenView = new TwoCardsGameScreenView(data, state);
@@ -39,4 +59,4 @@ const getThreeCardsGameScreenView = (data, state) => {
   return threeCardsGameScreenView;
 };
 
-export {getTwoCardsGameScreenView, getOneCardGameScreenView, getThreeCardsGameScreenView};
+export {getTwoCardsGameScreenView, getOneCardGameScreenView, getThreeCardsGameScreenView, enterNextLevel};

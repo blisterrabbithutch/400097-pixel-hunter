@@ -1,6 +1,5 @@
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import {createUserdata} from './utils.js';
 
 export default class RulesScreenView extends AbstractView {
   constructor(level) {
@@ -53,7 +52,6 @@ export default class RulesScreenView extends AbstractView {
 
     this.element.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
-      createUserdata();
       this.onFormSubmit();
     });
 
