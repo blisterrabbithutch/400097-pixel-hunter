@@ -1,9 +1,3 @@
-import MainScreenView from './main-screen.js';
-import showScreen from './showscreen-function.js';
-import getGreetingScreen from './greeting-screen.js';
+import getMainScreen from './main-screen.js';
 
-const mainScreenView = new MainScreenView();
-mainScreenView.onClick = () => {
-  showScreen(getGreetingScreen().element);
-};
-showScreen(mainScreenView.element);
+getMainScreen();

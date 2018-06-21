@@ -4,7 +4,7 @@ import ThreeCardsGameScreenView from './three-cards-game-screen-view.js';
 import {handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel} from './utils.js';
 import {levels} from './data.js';
 import showScreen from './showscreen-function.js';
-import GetStatsScreenView from './stats-screen-view.js';
+import getStatsScreenView from './stats-screen-view.js';
 import {userState} from './utils.js';
 
 const enterNextLevel = (data) => {
@@ -12,15 +12,14 @@ const enterNextLevel = (data) => {
   const nextLevel = levels[numberOfScreen + 1];
   if (nextLevel && userState.lives > 0) {
     if (nextLevel.levelType === `one-card`) {
-      showScreen(getOneCardGameScreenView(nextLevel, userState).element);
+      getOneCardGameScreenView(nextLevel, userState);
     } else if (nextLevel.levelType === `three-cards`) {
-      showScreen(getThreeCardsGameScreenView(nextLevel, userState).element);
+      getThreeCardsGameScreenView(nextLevel, userState);
     } else if (nextLevel.levelType === `two-cards`) {
-      showScreen(getTwoCardsGameScreenView(nextLevel, userState).element);
+      getTwoCardsGameScreenView(nextLevel, userState);
     }
   } else {
-    const statsScreenView = new GetStatsScreenView(userState.answers, userState);
-    showScreen(statsScreenView.element);
+    getStatsScreenView();
   }
 };
 
@@ -33,7 +32,7 @@ const getTwoCardsGameScreenView = (data, state) => {
     handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
     enterNextLevel(data);
   };
-  return twoCardsGameScreenView;
+  return showScreen(twoCardsGameScreenView.element);
 };
 
 const getOneCardGameScreenView = (data, state) => {
@@ -44,7 +43,7 @@ const getOneCardGameScreenView = (data, state) => {
     handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
     enterNextLevel(data);
   };
-  return oneCardGameScreenView;
+  return showScreen(oneCardGameScreenView.element);
 };
 
 const getThreeCardsGameScreenView = (data, state) => {
@@ -56,7 +55,7 @@ const getThreeCardsGameScreenView = (data, state) => {
     handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
     enterNextLevel(data);
   };
-  return threeCardsGameScreenView;
+  return showScreen(threeCardsGameScreenView.element);
 };
 
 export {getTwoCardsGameScreenView, getOneCardGameScreenView, getThreeCardsGameScreenView, enterNextLevel};

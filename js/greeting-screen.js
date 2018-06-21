@@ -5,7 +5,7 @@ import GetGreetingScreenView from './greeting-screen-view.js';
 export default () => {
   const greetingScreenView = new GetGreetingScreenView();
   greetingScreenView.onClick = () => {
-    showScreen(getRulesScreenElement().element);
+    getRulesScreenElement();
   };
-  return greetingScreenView;
+  return showScreen(greetingScreenView.element);
 };

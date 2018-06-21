@@ -11,7 +11,7 @@ export default () => {
     showGameScreen(levels[0]);
   };
   rulesScreenView.onBackButton = () => {
-    showScreen(getGreetingScreen().element);
+    getGreetingScreen();
   };
-  return rulesScreenView;
+  return showScreen(rulesScreenView.element);
 };

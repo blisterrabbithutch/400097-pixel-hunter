@@ -39,11 +39,11 @@ const showGameScreen = (data) => {
   const selectedGameScreen = levels[numberOfScreen];
   if (selectedGameScreen && userState.lives > 0) {
     if (selectedGameScreen.levelType === `one-card`) {
-      showScreen(getOneCardGameScreenView(selectedGameScreen, userState).element);
+      getOneCardGameScreenView(selectedGameScreen, userState);
     } else if (selectedGameScreen.levelType === `three-cards`) {
-      showScreen(getThreeCardsGameScreenView(selectedGameScreen, userState).element);
+      getThreeCardsGameScreenView(selectedGameScreen, userState);
     } else if (selectedGameScreen.levelType === `two-cards`) {
-      showScreen(getTwoCardsGameScreenView(selectedGameScreen, userState).element);
+      getTwoCardsGameScreenView(selectedGameScreen, userState);
     }
   }
 };
