@@ -1,8 +1,5 @@
 import {AnswerPoints, AnswerTime} from './enums.js';
 import {initialState} from './game-settings.js';
-import {levels} from './data.js';
-import showScreen from './showscreen-function.js';
-import {getOneCardGameScreenView, getTwoCardsGameScreenView, getThreeCardsGameScreenView} from './game-screen.js';
 
 let userState;
 const createUserdata = () => {
@@ -32,20 +29,6 @@ const getElementFromTemplate = (template) => {
   const pageElement = document.createElement(`div`);
   pageElement.innerHTML = template;
   return pageElement.firstElementChild;
-};
-
-const showGameScreen = (data) => {
-  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-  const selectedGameScreen = levels[numberOfScreen];
-  if (selectedGameScreen && userState.lives > 0) {
-    if (selectedGameScreen.levelType === `one-card`) {
-      getOneCardGameScreenView(selectedGameScreen, userState);
-    } else if (selectedGameScreen.levelType === `three-cards`) {
-      getThreeCardsGameScreenView(selectedGameScreen, userState);
-    } else if (selectedGameScreen.levelType === `two-cards`) {
-      getTwoCardsGameScreenView(selectedGameScreen, userState);
-    }
-  }
 };
 
 const handleResultOfOneCardLevel = (data, firstCardInputsValue) => {
@@ -187,4 +170,4 @@ const getLevelProgressBar = (userAnswers) => {
   return userLevels;
 };
 
-export {getElementFromTemplate, createTimer, createUserdata, userState, showGameScreen, handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel, findDifferentCard, getLevelProgressBar, getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue};
+export {getElementFromTemplate, createTimer, createUserdata, userState, handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel, findDifferentCard, getLevelProgressBar, getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue};

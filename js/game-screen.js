@@ -58,4 +58,16 @@ const getThreeCardsGameScreenView = (data, state) => {
   return showScreen(threeCardsGameScreenView.element);
 };
 
-export {getTwoCardsGameScreenView, getOneCardGameScreenView, getThreeCardsGameScreenView, enterNextLevel};
+export default (data) => {
+  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
+  const selectedGameScreen = levels[numberOfScreen];
+  if (selectedGameScreen && userState.lives > 0) {
+    if (selectedGameScreen.levelType === `one-card`) {
+      getOneCardGameScreenView(selectedGameScreen, userState);
+    } else if (selectedGameScreen.levelType === `three-cards`) {
+      getThreeCardsGameScreenView(selectedGameScreen, userState);
+    } else if (selectedGameScreen.levelType === `two-cards`) {
+      getTwoCardsGameScreenView(selectedGameScreen, userState);
+    }
+  }
+};
