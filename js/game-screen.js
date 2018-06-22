@@ -4,7 +4,7 @@ import ThreeCardsGameScreenView from './three-cards-game-screen-view.js';
 import {handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel} from './utils.js';
 import {levels} from './data.js';
 import showScreen from './showscreen-function.js';
-import getStatsScreenView from './stats-screen-view.js';
+import statsScreenView from './stats-screen-view.js';
 import {userState} from './utils.js';
 
 const enterNextLevel = (data) => {
@@ -12,50 +12,50 @@ const enterNextLevel = (data) => {
   const nextLevel = levels[numberOfScreen + 1];
   if (nextLevel && userState.lives > 0) {
     if (nextLevel.levelType === `one-card`) {
-      getOneCardGameScreenView(nextLevel, userState);
+      oneCardGameScreenView(nextLevel, userState);
     } else if (nextLevel.levelType === `three-cards`) {
-      getThreeCardsGameScreenView(nextLevel, userState);
+      threeCardsGameScreenView(nextLevel, userState);
     } else if (nextLevel.levelType === `two-cards`) {
-      getTwoCardsGameScreenView(nextLevel, userState);
+      twoCardsGameScreenView(nextLevel, userState);
     }
   } else {
-    getStatsScreenView();
+    statsScreenView();
   }
 };
 
-const getTwoCardsGameScreenView = (data, state) => {
-  const twoCardsGameScreenView = new TwoCardsGameScreenView(data, state);
-  const form = twoCardsGameScreenView.element.querySelector(`.game__content`);
+const twoCardsGameScreenView = (data, state) => {
+  const twoCardsScreenView = new TwoCardsGameScreenView(data, state);
+  const form = twoCardsScreenView.element.querySelector(`.game__content`);
   const firstCardRadioInputs = form.elements.question1;
   const secondCardRadioInputs = form.elements.question2;
-  twoCardsGameScreenView.onAnswer = () => {
+  twoCardsScreenView.onAnswer = () => {
     handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
     enterNextLevel(data);
   };
-  return showScreen(twoCardsGameScreenView.element);
+  return showScreen(twoCardsScreenView.element);
 };
 
-const getOneCardGameScreenView = (data, state) => {
-  const oneCardGameScreenView = new OneCardGameScreenView(data, state);
-  const form = oneCardGameScreenView.element.querySelector(`.game__content`);
+const oneCardGameScreenView = (data, state) => {
+  const oneCardScreenView = new OneCardGameScreenView(data, state);
+  const form = oneCardScreenView.element.querySelector(`.game__content`);
   const firstCardRadioInputs = form.elements.question1;
-  oneCardGameScreenView.onAnswer = () => {
+  oneCardScreenView.onAnswer = () => {
     handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
     enterNextLevel(data);
   };
-  return showScreen(oneCardGameScreenView.element);
+  return showScreen(oneCardScreenView.element);
 };
 
-const getThreeCardsGameScreenView = (data, state) => {
-  const threeCardsGameScreenView = new ThreeCardsGameScreenView(data, state);
+const threeCardsGameScreenView = (data, state) => {
+  const threeCardsScreenView = new ThreeCardsGameScreenView(data, state);
   const firstCardAnswer = data.cards[0].rightAnswer;
   const secondCardAnswer = data.cards[1].rightAnswer;
   const thirdCardAnswer = data.cards[2].rightAnswer;
-  threeCardsGameScreenView.onAnswer = (evt) => {
+  threeCardsScreenView.onAnswer = (evt) => {
     handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
     enterNextLevel(data);
   };
-  return showScreen(threeCardsGameScreenView.element);
+  return showScreen(threeCardsScreenView.element);
 };
 
 export default (data) => {
@@ -63,11 +63,11 @@ export default (data) => {
   const selectedGameScreen = levels[numberOfScreen];
   if (selectedGameScreen && userState.lives > 0) {
     if (selectedGameScreen.levelType === `one-card`) {
-      getOneCardGameScreenView(selectedGameScreen, userState);
+      oneCardGameScreenView(selectedGameScreen, userState);
     } else if (selectedGameScreen.levelType === `three-cards`) {
-      getThreeCardsGameScreenView(selectedGameScreen, userState);
+      threeCardsGameScreenView(selectedGameScreen, userState);
     } else if (selectedGameScreen.levelType === `two-cards`) {
-      getTwoCardsGameScreenView(selectedGameScreen, userState);
+      twoCardsGameScreenView(selectedGameScreen, userState);
     }
   }
 };

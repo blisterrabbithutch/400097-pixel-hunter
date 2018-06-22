@@ -1,3 +1,3 @@
-import getMainScreen from './main-screen.js';
+import mainScreen from './main-screen.js';
 
-getMainScreen();
+mainScreen();

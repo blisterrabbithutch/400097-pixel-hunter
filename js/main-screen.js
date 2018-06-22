@@ -1,6 +1,6 @@
 import getFooterMarkup from './footer.js';
 import AbstractView from './abstract-view.js';
-import getGreetingScreen from './greeting-screen.js';
+import greetingScreen from './greeting-screen.js';
 import showScreen from './showscreen-function.js';
 
 class MainScreenView extends AbstractView {
@@ -33,7 +33,7 @@ class MainScreenView extends AbstractView {
 export default () => {
   const mainScreenView = new MainScreenView();
   mainScreenView.onClick = () => {
-    getGreetingScreen();
+    greetingScreen();
   };
   return showScreen(mainScreenView.element);
 };
