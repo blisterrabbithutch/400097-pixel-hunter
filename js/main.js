@@ -1,4 +1,3 @@
-import getMainScreenElement from './main-screen.js';
-import showScreen from './showscreen-function.js';
+import mainScreen from './main-screen.js';
 
-showScreen(getMainScreenElement());
+mainScreen();

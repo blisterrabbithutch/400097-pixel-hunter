@@ -1,23 +1,40 @@
-import {getElementFromTemplate} from './utils.js';
-import showScreen from './showscreen-function.js';
 import getFooterMarkup from './footer.js';
-import getGreetingScreenElement from './greeting-screen.js';
+import AbstractView from './abstract-view.js';
+import greetingScreen from './greeting-screen.js';
+import showScreen from './showscreen-function.js';
 
-const template = `
-  <main class="central">
-    <div id="intro" class="intro">
-      <h1 class="intro__asterisk">*</h1>
-      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-    </div>
-    ${getFooterMarkup()}
-  </main>
-`;
+class MainScreenView extends AbstractView {
+  constructor(level) {
+    super();
+    this.level = level;
+  }
+
+  template() {
+    return `
+      <main class="central">
+        <div id="intro" class="intro">
+          <h1 class="intro__asterisk">*</h1>
+          <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
+        </div>
+        ${getFooterMarkup()}
+      </main>`;
+  }
+
+  onClick() { }
+
+  bind() {
+    this.element.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
+      this.onClick();
+    });
+  }
+
+}
+
 export default () => {
-  const el = getElementFromTemplate(template);
-
-  el.querySelector(`.intro__asterisk`).addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
-  });
-
-  return el;
+  const mainScreenView = new MainScreenView();
+  mainScreenView.onClick = () => {
+    greetingScreen();
+  };
+  return showScreen(mainScreenView.element);
 };
+

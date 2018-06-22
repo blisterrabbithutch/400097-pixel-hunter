@@ -1,5 +1,4 @@
 import {getElementFromTemplate} from './utils.js';
-import showScreen from './showscreen-function.js';
 import getGreetingScreenElement from './greeting-screen.js';
 
 const template = (state) => `
@@ -22,7 +21,7 @@ export default (data) => {
   const el = getElementFromTemplate(template(data));
   const backButton = el.querySelector(`.back`);
   backButton.addEventListener(`click`, function () {
-    showScreen(getGreetingScreenElement());
+    getGreetingScreenElement();
   });
 
   return el;
