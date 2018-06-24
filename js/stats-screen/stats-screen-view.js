@@ -1,10 +1,10 @@
-import getFooterMarkup from './footer.js';
-import AbstractView from './abstract-view.js';
-import getHeader from './header.js';
-import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './utils.js';
-import {AnswerPoints} from './enums.js';
-import showScreen from './showscreen-function.js';
-import {userState} from './utils.js';
+import getFooterMarkup from './../footer.js';
+import AbstractView from './../abstract-view.js';
+import getHeader from './../header.js';
+import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './../utils.js';
+import {AnswerPoints} from './../enums.js';
+import showScreen from './../showscreen-function.js';
+import {userState} from './../utils.js';
 
 const getStatsTitle = (userAnswers, state) => {
   if (getScore(userAnswers, state.lives) === -1) {
@@ -22,7 +22,7 @@ const getStatsResult = (userAnswers, state) => {
   }
 };
 
-class StatsScreenView extends AbstractView {
+export default class StatsScreenView extends AbstractView {
   constructor(answers, state) {
     super();
     this.answers = answers;
@@ -106,8 +106,3 @@ class StatsScreenView extends AbstractView {
   }
 
 }
-
-export default () => {
-  const statsScreenView = new StatsScreenView(userState.answers, userState);
-  return showScreen(statsScreenView.element);
-};

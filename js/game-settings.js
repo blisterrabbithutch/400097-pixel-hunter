@@ -1,4 +1,4 @@
-const INITIAL_LEVEL = 1;
+const INITIAL_LEVEL = 0;
 const INITIAL_LIVES = 3;
 const INITIAL_TIME = 30;
 const initialState = {

@@ -1,5 +1,5 @@
 import {getElementFromTemplate} from './utils.js';
-import getGreetingScreenElement from './greeting-screen.js';
+import getGreetingScreenElement from './greeting-screen/greeting-screen.js';
 
 const template = (state) => `
   <header class="header">

@@ -1,14 +1,15 @@
-import getFooterMarkup from './footer.js';
-import AbstractView from './abstract-view.js';
-import {getLevelProgressBar} from './utils.js';
-import getHeader from './header.js';
-import {userState} from './utils.js';
+import getFooterMarkup from './../footer.js';
+import AbstractView from './../abstract-view.js';
+import {getLevelProgressBar} from './../utils.js';
+import getHeader from './../header.js';
+import {userState} from './../utils.js';
 
 export default class ThreeCardsGameScreenView extends AbstractView {
-  constructor(currentLevel, state) {
+  constructor(currentLevel, state, answersProgress) {
     super();
     this.currentLevel = currentLevel;
     this.state = state;
+    this.answersProgress = answersProgress;
   }
 
   template() {
@@ -25,7 +26,7 @@ export default class ThreeCardsGameScreenView extends AbstractView {
           </form>
           <div class="stats">
             <ul class="stats">
-              ${getLevelProgressBar(userState.answers)}
+              ${getLevelProgressBar(this.answersProgress)}
             </ul>
           </div>
         </div>

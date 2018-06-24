@@ -1,10 +1,10 @@
-import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
-import OneCardGameScreenView from './one-card-game-screen-view.js';
-import ThreeCardsGameScreenView from './three-cards-game-screen-view.js';
+import TwoCardsGameScreenView from './game-screen/two-cards-game-screen-view.js';
+import OneCardGameScreenView from './game-screen/one-card-game-screen-view.js';
+import ThreeCardsGameScreenView from './game-screen/three-cards-game-screen-view.js';
 import {handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel} from './utils.js';
 import {levels} from './data.js';
 import showScreen from './showscreen-function.js';
-import statsScreenView from './stats-screen-view.js';
+import statsScreenView from './stats-screen/stats-screen-view.js';
 import {userState} from './utils.js';
 
 const enterNextLevel = (data) => {
