@@ -125,7 +125,7 @@ class GameScreen {
   showTwoCardsGameScreen(data, state, answersProgress) {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
     twoCardsScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
-    this.model.resetTime = initialState.time;
+    this.model.resetTime(initialState.time);
     this.startTimerTick(initialState.time);
     this.startLevelTimeDuration();
     const form = twoCardsScreenView.element.querySelector(`.game__content`);
@@ -143,7 +143,7 @@ class GameScreen {
   showThreeCardsGameScreen(data, state, answersProgress) {
     const threeCardsScreenView = new ThreeCardsGameScreenView(data, state, answersProgress);
     threeCardsScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
-    this.model.resetTime = initialState.time;
+    this.model.resetTime(initialState.time);
     this.startTimerTick(initialState.time);
     this.startLevelTimeDuration();
     const firstCardAnswer = data.cards[0].rightAnswer;
@@ -187,11 +187,11 @@ class GameScreen {
   startTimerTick(duration) {
     this.timer = setTimeout(() => {
       createTimer(duration).tick();
-      let remain = this.model.getCurrentTime() - 1;
-
+      let remain = duration;
       if (remain === 0) {
         Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state);
       } else {
+        remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
         this.updateHeader();
         this.startTimerTick(remain);
