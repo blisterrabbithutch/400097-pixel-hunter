@@ -1,6 +1,7 @@
 import {AnswerPoints, AnswerTime} from './../enums.js';
 import {initialState} from './../game-settings.js';
 import {levels} from '../data.js';
+import {createTimer} from '../utils.js';
 
 class GameModel {
   constructor(playerName) {
@@ -16,6 +17,7 @@ class GameModel {
       level: initialState.level,
       lives: initialState.lives,
       time: initialState.time,
+      levelTime: initialState.levelTime,
       answers: []
     };
   }
@@ -46,6 +48,30 @@ class GameModel {
 
   saveAnswers(value) {
     this._state.answers.push(value);
+  }
+
+  currentTime() {
+    return this._state.time;
+  }
+
+  set resetTime(newTime) {
+    this._state.time = newTime;
+  }
+
+  setLevelTime(time) {
+    this._state.levelTime = time;
+  }
+
+  getCurrentAnswerTime() {
+    return this._state.levelTime;
+  }
+
+  tick() {
+    this._state.time--;
+  }
+
+  saveResultTime(time) {
+    this._state.time = time;
   }
 
 }

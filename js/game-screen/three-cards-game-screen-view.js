@@ -37,7 +37,7 @@ export default class ThreeCardsGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind() {
-    this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
+    //this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const formEl = this.element.querySelector(`.game__content`);
     formEl.addEventListener(`click`, (evt) => {
       if (evt.target.classList.contains(`game__option`)) {

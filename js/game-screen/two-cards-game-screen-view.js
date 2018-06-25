@@ -45,7 +45,7 @@ export default class TwoCardsGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind() {
-    this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
+    //this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const form = this.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     const secondCardRadioInputs = form.elements.question2;

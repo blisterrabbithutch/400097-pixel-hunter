@@ -1,5 +1,6 @@
 import GameView from './game-view.js';
 import {levels} from '../data.js';
+import {initialState} from '../game-settings.js';
 import {AnswerPoints, AnswerTime} from '../enums.js';
 import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
 import OneCardGameScreenView from './one-card-game-screen-view.js';
@@ -7,12 +8,18 @@ import ThreeCardsGameScreenView from './three-cards-game-screen-view.js';
 //import {handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel} from '../utils.js';
 import showScreen from '../showscreen-function.js';
 import StatsScreenView from '../stats-screen/stats-screen-view.js';
-import {userState} from '../utils.js';
+import {userState, createTimer} from '../utils.js';
+import Application from '../application.js';
+import Header from './../header.js';
+
+const ONE_SECOND = 1000;
 
 class GameScreen {
   constructor(model) {
     this.model = model;
+    this.model.restart();
     this.view = new GameView();
+    this.header = new Header(this.model.state);
   }
 
   get element() {
@@ -31,8 +38,9 @@ class GameScreen {
         this.showThreeCardsGameScreen(nextLevel, this.model.state, this.model.currentAnswerProgress());
       }
     } else {
-      const statsScreenView = new StatsScreenView(this.model.currentAnswerProgress(), this.model.state);
-      showScreen(statsScreenView.element);
+      //const statsScreenView = new StatsScreenView(this.model.currentAnswerProgress(), this.model.state);
+      //showScreen(statsScreenView.element);
+      Application.showStats(this.model.currentAnswerProgress(), this.model.state);
     }
   }
 
@@ -45,7 +53,7 @@ class GameScreen {
       answerIsSolved = false;
     }
     let answerOnCard = {
-      time: AnswerTime.NORMAL,
+      time: this.model.getCurrentAnswerTime(),
       solved: answerIsSolved
     };
     this.model.saveAnswers(answerOnCard);
@@ -61,7 +69,7 @@ class GameScreen {
       answerIsSolved = false;
     }
     let answerOnCard = {
-      time: AnswerTime.NORMAL,
+      time: this.model.getCurrentAnswerTime(),
       solved: answerIsSolved
     };
     this.model.saveAnswers(answerOnCard);
@@ -91,19 +99,29 @@ class GameScreen {
       answerIsSolved = false;
     }
     let answerOnCard = {
-      time: AnswerTime.NORMAL,
+      time: this.model.getCurrentAnswerTime(),
       solved: answerIsSolved
     };
     this.model.saveAnswers(answerOnCard);
     return answerOnCard;
   };
 
+  updateHeader() {
+    this.header.updateTime(this.model.currentTime());
+  }
+
   showOneCardGameScreen(data, state, answersProgress) {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
+    oneCardScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
+    this.model.resetTime = initialState.time;
+    this.startTimerTick(initialState.time);
+    this.startLevelTimeDuration();
     const form = oneCardScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     oneCardScreenView.onAnswer = () => {
       this.handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
+      this.stopLevelTimeDuration();
+      this.stopTimer();
       this.enterNextLevel(data);
     };
     return showScreen(oneCardScreenView.element);
@@ -111,11 +129,17 @@ class GameScreen {
 
   showTwoCardsGameScreen(data, state, answersProgress) {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
+    twoCardsScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
+    this.model.resetTime = initialState.time;
+    this.startTimerTick(initialState.time);
+    this.startLevelTimeDuration();
     const form = twoCardsScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     const secondCardRadioInputs = form.elements.question2;
     twoCardsScreenView.onAnswer = () => {
       this.handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
+      this.stopLevelTimeDuration();
+      this.stopTimer();
       this.enterNextLevel(data);
     };
     return showScreen(twoCardsScreenView.element);
@@ -123,18 +147,23 @@ class GameScreen {
 
   showThreeCardsGameScreen(data, state, answersProgress) {
     const threeCardsScreenView = new ThreeCardsGameScreenView(data, state, answersProgress);
+    threeCardsScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
+    this.model.resetTime = initialState.time;
+    this.startTimerTick(initialState.time);
+    this.startLevelTimeDuration();
     const firstCardAnswer = data.cards[0].rightAnswer;
     const secondCardAnswer = data.cards[1].rightAnswer;
     const thirdCardAnswer = data.cards[2].rightAnswer;
     threeCardsScreenView.onAnswer = (evt) => {
       this.handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
+      this.stopLevelTimeDuration();
+      this.stopTimer();
       this.enterNextLevel(data);
     };
     return showScreen(threeCardsScreenView.element);
   }
 
   startGame() {
-    this.model.restart();
     const selectedGameScreen = levels[this.model.currentLevelNumber()];
     if (selectedGameScreen && this.model.currentLives() > 0) {
       if (selectedGameScreen.levelType === `one-card`) {
@@ -147,19 +176,37 @@ class GameScreen {
     }
   }
 
-  //startGame(data) {
-  //  const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-  //  const selectedGameScreen = levels[numberOfScreen];
-  //  if (selectedGameScreen && userState.lives > 0) {
-  //    if (selectedGameScreen.levelType === `one-card`) {
-  //      this.showOneCardGameScreen(selectedGameScreen, userState);
-  //    } else if (selectedGameScreen.levelType === `three-cards`) {
-  //      this.showTwoCardsGameScreen(selectedGameScreen, userState);
-  //    } else if (selectedGameScreen.levelType === `two-cards`) {
-  //      this.showThreeCardsGameScreen(selectedGameScreen, userState);
-  //    }
-  //  }
-  //}
+  startLevelTimeDuration() {
+    this.levelDuration = setTimeout(() => {
+      let remain = this.model.getCurrentAnswerTime() + 1000;
+      this.model.setLevelTime(remain);
+      this.startLevelTimeDuration(remain);
+    }, ONE_SECOND);
+  }
+
+  stopLevelTimeDuration() {
+    clearTimeout(this.levelDuration);
+    this.model.setLevelTime(0);
+  }
+
+  startTimerTick(duration) {
+    this.timer = setTimeout(() => {
+      createTimer(duration).tick();
+      let remain = this.model.currentTime() - 1;
+
+      if (remain === 0) {
+        Application.showStats(this.model.currentAnswerProgress(), this.model.state);
+      } else {
+        this.model.saveResultTime(remain);
+        this.updateHeader();
+        this.startTimerTick(remain);
+      }
+    }, ONE_SECOND);
+  }
+
+  stopTimer() {
+    clearTimeout(this.timer);
+  }
 
 }
 

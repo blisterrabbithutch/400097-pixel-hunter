@@ -43,7 +43,7 @@ export default class OneCardGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind() {
-    this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
+    //this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const formEl = this.element.querySelector(`.game__content`);
     const cardEl = this.element.querySelector(`.game__option`);
     cardEl.addEventListener(`change`, () => {

@@ -29,8 +29,8 @@ export default class Application {
     game.startGame();
   }
 
-  static showStats(stats) {
-    const statistics = new StatsScreen(stats);
+  static showStats(answers, state) {
+    const statistics = new StatsScreen(answers, state);
     showScreen(statistics.element);
   }
 

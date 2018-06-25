@@ -8,6 +8,7 @@ const createUserdata = () => {
 };
 
 function createTimer(duration) {
+
   let timeRemain = duration;
   return {
     tick() {
@@ -102,9 +103,9 @@ const getScore = (userResult, remainingLifes) => {
       let currentUser = userResult[i];
       if (currentUser.solved) {
         userPoints = userPoints + AnswerPoints.NORMAL;
-        if (currentUser.time < AnswerTime.FAST) {
+        if (currentUser.time <= AnswerTime.FAST) {
           userPoints = userPoints + AnswerPoints.BONUS;
-        } else if (currentUser.time > AnswerTime.SLOW && currentUser.time < AnswerTime.TIMEOUT) {
+        } else if (currentUser.time >= AnswerTime.SLOW && currentUser.time < AnswerTime.TIMEOUT) {
           userPoints = userPoints - AnswerPoints.BONUS;
         } else if (currentUser.time > AnswerTime.TIMEOUT) {
           userPoints = userPoints - AnswerPoints.NORMAL;
