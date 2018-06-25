@@ -1,5 +1,3 @@
-import showScreen from './../showscreen-function.js';
-import rulesScreen from './../rules-screen/rules-screen.js';
 import GreetingScreenView from './greeting-screen-view.js';
 import AbstractView from '../abstract-view.js';
 import Application from '../application.js';

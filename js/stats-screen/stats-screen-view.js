@@ -3,8 +3,6 @@ import AbstractView from './../abstract-view.js';
 import Header from './../header.js';
 import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './../utils.js';
 import {AnswerPoints} from './../enums.js';
-import showScreen from './../showscreen-function.js';
-import {userState} from './../utils.js';
 
 export default class StatsScreenView extends AbstractView {
   constructor(answers, state) {

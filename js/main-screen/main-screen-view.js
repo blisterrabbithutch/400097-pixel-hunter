@@ -1,7 +1,5 @@
 import getFooterMarkup from './../footer.js';
 import AbstractView from './../abstract-view.js';
-import greetingScreen from './../greeting-screen/greeting-screen.js';
-import showScreen from './../showscreen-function.js';
 import Application from '../application.js';
 
 export default class MainScreenView extends AbstractView {

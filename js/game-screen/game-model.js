@@ -20,19 +20,19 @@ class GameModel {
     };
   }
 
-  currentLevelNumber() {
+  getCurrentLevelNumber() {
     return this._state.level;
   }
 
-  currentLevelData() {
+  getCurrentLevelData() {
     return levels[this._state.level];
   }
 
-  currentLives() {
+  getCurrentLives() {
     return this._state.lives;
   }
 
-  currentAnswerProgress() {
+  getCurrentAnswerProgress() {
     return this._state.answers;
   }
 
@@ -48,11 +48,11 @@ class GameModel {
     this._state.answers.push(value);
   }
 
-  currentTime() {
+  getCurrentTime() {
     return this._state.time;
   }
 
-  set resetTime(newTime) {
+  resetTime(newTime) {
     this._state.time = newTime;
   }
 

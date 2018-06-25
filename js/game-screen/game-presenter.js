@@ -1,14 +1,11 @@
 import GameView from './game-view.js';
 import {levels} from '../data.js';
 import {initialState} from '../game-settings.js';
-import {AnswerPoints, AnswerTime} from '../enums.js';
 import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
 import OneCardGameScreenView from './one-card-game-screen-view.js';
 import ThreeCardsGameScreenView from './three-cards-game-screen-view.js';
-//import {handleResultOfTwoCardsLevel, handleResultOfOneCardLevel, handleResultOfThreeCardsLevel} from '../utils.js';
 import showScreen from '../showscreen-function.js';
-import StatsScreenView from '../stats-screen/stats-screen-view.js';
-import {userState, createTimer} from '../utils.js';
+import {createTimer} from '../utils.js';
 import Application from '../application.js';
 import Header from './../header.js';
 
@@ -29,18 +26,16 @@ class GameScreen {
   enterNextLevel(data) {
     const numberOfScreen = Array.prototype.indexOf.call(levels, data);
     const nextLevel = levels[numberOfScreen + 1];
-    if (nextLevel && this.model.currentLives() > 0) {
+    if (nextLevel && this.model.getCurrentLives() > 0) {
       if (nextLevel.levelType === `one-card`) {
-        this.showOneCardGameScreen(nextLevel, this.model.state, this.model.currentAnswerProgress());
+        this.showOneCardGameScreen(nextLevel, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (nextLevel.levelType === `two-cards`) {
-        this.showTwoCardsGameScreen(nextLevel, this.model.state, this.model.currentAnswerProgress());
+        this.showTwoCardsGameScreen(nextLevel, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (nextLevel.levelType === `three-cards`) {
-        this.showThreeCardsGameScreen(nextLevel, this.model.state, this.model.currentAnswerProgress());
+        this.showThreeCardsGameScreen(nextLevel, this.model.state, this.model.getCurrentAnswerProgress());
       }
     } else {
-      //const statsScreenView = new StatsScreenView(this.model.currentAnswerProgress(), this.model.state);
-      //showScreen(statsScreenView.element);
-      Application.showStats(this.model.currentAnswerProgress(), this.model.state);
+      Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state);
     }
   }
 
@@ -58,7 +53,7 @@ class GameScreen {
     };
     this.model.saveAnswers(answerOnCard);
     return answerOnCard;
-  };
+  }
 
   handleResultOfTwoCardsLevel(currentLevel, firstCardInputsValue, secondCardInputsValue) {
     let answerIsSolved;
@@ -74,7 +69,7 @@ class GameScreen {
     };
     this.model.saveAnswers(answerOnCard);
     return answerOnCard;
-  };
+  }
 
   findDifferentCard(firstCard, secondCard, thirdCard) {
     const firstCardEl = document.querySelector(`.game__option:first-child`);
@@ -88,7 +83,7 @@ class GameScreen {
       return thirdCardEl;
     }
     throw new Error(`Incorrect type of parameters. (need paint or photo string)`);
-  };
+  }
 
   handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) {
     let answerIsSolved;
@@ -104,16 +99,16 @@ class GameScreen {
     };
     this.model.saveAnswers(answerOnCard);
     return answerOnCard;
-  };
+  }
 
   updateHeader() {
-    this.header.updateTime(this.model.currentTime());
+    this.header.updateTime(this.model.getCurrentTime());
   }
 
   showOneCardGameScreen(data, state, answersProgress) {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
     oneCardScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
-    this.model.resetTime = initialState.time;
+    this.model.resetTime(initialState.time);
     this.startTimerTick(initialState.time);
     this.startLevelTimeDuration();
     const form = oneCardScreenView.element.querySelector(`.game__content`);
@@ -164,14 +159,14 @@ class GameScreen {
   }
 
   startGame() {
-    const selectedGameScreen = levels[this.model.currentLevelNumber()];
-    if (selectedGameScreen && this.model.currentLives() > 0) {
+    const selectedGameScreen = levels[this.model.getCurrentLevelNumber()];
+    if (selectedGameScreen && this.model.getCurrentLives() > 0) {
       if (selectedGameScreen.levelType === `one-card`) {
-        this.showOneCardGameScreen(selectedGameScreen, this.model.state, this.model.currentAnswerProgress());
+        this.showOneCardGameScreen(selectedGameScreen, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (selectedGameScreen.levelType === `two-cards`) {
-        this.showTwoCardsGameScreen(selectedGameScreen, this.model.state, this.model.currentAnswerProgress());
+        this.showTwoCardsGameScreen(selectedGameScreen, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (selectedGameScreen.levelType === `three-cards`) {
-        this.showThreeCardsGameScreen(selectedGameScreen, this.model.state, this.model.currentAnswerProgress());
+        this.showThreeCardsGameScreen(selectedGameScreen, this.model.state, this.model.getCurrentAnswerProgress());
       }
     }
   }
@@ -192,10 +187,10 @@ class GameScreen {
   startTimerTick(duration) {
     this.timer = setTimeout(() => {
       createTimer(duration).tick();
-      let remain = this.model.currentTime() - 1;
+      let remain = this.model.getCurrentTime() - 1;
 
       if (remain === 0) {
-        Application.showStats(this.model.currentAnswerProgress(), this.model.state);
+        Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state);
       } else {
         this.model.saveResultTime(remain);
         this.updateHeader();

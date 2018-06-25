@@ -1,8 +1,6 @@
 import getFooterMarkup from './../footer.js';
 import AbstractView from './../abstract-view.js';
 import {getLevelProgressBar} from './../utils.js';
-import getHeader from './../header.js';
-import {userState} from './../utils.js';
 
 export default class TwoCardsGameScreenView extends AbstractView {
   constructor(currentLevel, state, answersProgress) {
@@ -45,7 +43,6 @@ export default class TwoCardsGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind() {
-    //this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const form = this.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     const secondCardRadioInputs = form.elements.question2;

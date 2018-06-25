@@ -1,8 +1,6 @@
 import getFooterMarkup from './../footer.js';
 import AbstractView from './../abstract-view.js';
 import {getLevelProgressBar} from './../utils.js';
-import getHeader from './../header.js';
-import {userState} from './../utils.js';
 
 export default class ThreeCardsGameScreenView extends AbstractView {
   constructor(currentLevel, state, answersProgress) {
@@ -37,7 +35,6 @@ export default class ThreeCardsGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind() {
-    //this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
     const formEl = this.element.querySelector(`.game__content`);
     formEl.addEventListener(`click`, (evt) => {
       if (evt.target.classList.contains(`game__option`)) {
