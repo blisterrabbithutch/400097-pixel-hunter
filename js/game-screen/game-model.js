@@ -1,7 +1,5 @@
-import {AnswerPoints, AnswerTime} from './../enums.js';
 import {initialState} from './../game-settings.js';
 import {levels} from '../data.js';
-import {createTimer} from '../utils.js';
 
 class GameModel {
   constructor(playerName) {

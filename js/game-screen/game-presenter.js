@@ -178,7 +178,7 @@ class GameScreen {
 
   startLevelTimeDuration() {
     this.levelDuration = setTimeout(() => {
-      let remain = this.model.getCurrentAnswerTime() + 1000;
+      let remain = this.model.getCurrentAnswerTime() + ONE_SECOND;
       this.model.setLevelTime(remain);
       this.startLevelTimeDuration(remain);
     }, ONE_SECOND);
