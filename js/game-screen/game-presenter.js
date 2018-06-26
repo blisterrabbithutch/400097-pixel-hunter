@@ -101,15 +101,16 @@ class GameScreen {
     return answerOnCard;
   }
 
-  updateHeader() {
+  updateHeaderTime() {
     this.header.updateTime(this.model.getCurrentTime());
   }
 
   showOneCardGameScreen(data, state, answersProgress) {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
     oneCardScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
+    this.header.updateLives(this.model.state);
     this.model.resetTime(initialState.time);
-    this.startTimerTick(initialState.time);
+    this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
     const form = oneCardScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
@@ -125,8 +126,9 @@ class GameScreen {
   showTwoCardsGameScreen(data, state, answersProgress) {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
     twoCardsScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
+    this.header.updateLives(this.model.state);
     this.model.resetTime(initialState.time);
-    this.startTimerTick(initialState.time);
+    this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
     const form = twoCardsScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
@@ -143,8 +145,9 @@ class GameScreen {
   showThreeCardsGameScreen(data, state, answersProgress) {
     const threeCardsScreenView = new ThreeCardsGameScreenView(data, state, answersProgress);
     threeCardsScreenView.element.insertAdjacentElement(`afterbegin`, this.header.element);
+    this.header.updateLives(this.model.state);
     this.model.resetTime(initialState.time);
-    this.startTimerTick(initialState.time);
+    this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
     const firstCardAnswer = data.cards[0].rightAnswer;
     const secondCardAnswer = data.cards[1].rightAnswer;
@@ -184,23 +187,29 @@ class GameScreen {
     this.model.setLevelTime(0);
   }
 
-  startTimerTick(duration) {
-    this.timer = setTimeout(() => {
+  startTimerRemaining(duration) {
+    this.timerRemaining = setTimeout(() => {
       createTimer(duration).tick();
       let remain = duration;
       if (remain === 0) {
-        Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state);
+        this.model.reduceLives();
+        let answerOnCard = {
+          time: this.model.getCurrentAnswerTime(),
+          solved: false
+        };
+        this.model.saveAnswers(answerOnCard);
+        this.enterNextLevel(this.model.getCurrentLevelNumber());
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
-        this.updateHeader();
-        this.startTimerTick(remain);
+        this.updateHeaderTime();
+        this.startTimerRemaining(remain);
       }
     }, ONE_SECOND);
   }
 
   stopTimer() {
-    clearTimeout(this.timer);
+    clearTimeout(this.timerRemaining);
   }
 
 }

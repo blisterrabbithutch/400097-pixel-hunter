@@ -31,6 +31,15 @@ export default class Header extends AbstractView {
     });
   }
 
+  updateLives(state) {
+    this._livesEl = this.element.querySelector(`.game__lives`);
+    const livesValue = `
+      ${new Array(3 - state.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+      ${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+    `;
+    this._livesEl.innerHTML = livesValue;
+  }
+
   updateTime(time) {
     this._timeEl = this.element.querySelector(`.game__timer`);
     const formattedTime = time;

@@ -2,9 +2,8 @@ import getFooterMarkup from '../footer.js';
 import AbstractView from '../abstract-view.js';
 
 export default class GameView extends AbstractView {
-  constructor(currentLevel, state) {
+  constructor(state) {
     super();
-    this.currentLevel = currentLevel;
     this.state = state;
   }
 
@@ -15,8 +14,6 @@ export default class GameView extends AbstractView {
         ${getFooterMarkup()}
       </main>`;
   }
-
-  onAnswer() { }
 
   bind() { }
 
