@@ -1,4 +1,3 @@
-import GameView from './game-view.js';
 import {levels} from '../data.js';
 import {initialState} from '../game-settings.js';
 import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
@@ -15,13 +14,9 @@ class GameScreen {
   constructor(model) {
     this.model = model;
     this.model.restart();
-    this.view = new GameView();
     this.header = new Header(this.model.state);
   }
 
-  get element() {
-    return this.view.element;
-  }
 
   enterNextLevel(data) {
     this.model.nextLevel();

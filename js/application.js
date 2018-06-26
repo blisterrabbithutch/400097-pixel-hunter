@@ -25,7 +25,6 @@ export default class Application {
   static showGame(userName) {
     const model = new GameModel(userName);
     const game = new GamePresenter(model);
-    showScreen(game.element);
     game.startGame();
   }
 
