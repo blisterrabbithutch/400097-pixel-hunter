@@ -1,14 +1,13 @@
-import getFooterMarkup from './footer.js';
-import AbstractView from './abstract-view.js';
-import {getLevelProgressBar} from './utils.js';
-import getHeader from './header.js';
-import {userState} from './utils.js';
+import getFooterMarkup from './../footer.js';
+import AbstractView from './../abstract-view.js';
+import {getLevelProgressBar} from './../utils.js';
 
 export default class OneCardGameScreenView extends AbstractView {
-  constructor(currentLevel, state) {
+  constructor(currentLevel, state, answersProgress) {
     super();
     this.currentLevel = currentLevel;
     this.state = state;
+    this.answersProgress = answersProgress;
   }
 
   template() {
@@ -31,7 +30,7 @@ export default class OneCardGameScreenView extends AbstractView {
           </form>
           <div class="stats">
             <ul class="stats">
-              ${getLevelProgressBar(userState.answers)}
+              ${getLevelProgressBar(this.answersProgress)}
             </ul>
           </div>
         </div>
@@ -42,8 +41,6 @@ export default class OneCardGameScreenView extends AbstractView {
   onAnswer() { }
 
   bind() {
-    this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
-    const formEl = this.element.querySelector(`.game__content`);
     const cardEl = this.element.querySelector(`.game__option`);
     cardEl.addEventListener(`change`, () => {
       this.onAnswer();

@@ -1,39 +1,37 @@
-import getFooterMarkup from './footer.js';
-import AbstractView from './abstract-view.js';
-import getHeader from './header.js';
-import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './utils.js';
-import {AnswerPoints} from './enums.js';
-import showScreen from './showscreen-function.js';
-import {userState} from './utils.js';
+import getFooterMarkup from './../footer.js';
+import AbstractView from './../abstract-view.js';
+import Header from './../header.js';
+import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './../utils.js';
+import {AnswerPoints} from './../enums.js';
 
-const getStatsTitle = (userAnswers, state) => {
-  if (getScore(userAnswers, state.lives) === -1) {
-    return `Проигрыш!`;
-  } else {
-    return `Победа!`;
-  }
-};
-
-const getStatsResult = (userAnswers, state) => {
-  if (getScore(userAnswers, state.lives) === -1) {
-    return `Fail!`;
-  } else {
-    return getScore(userAnswers, state.lives);
-  }
-};
-
-class StatsScreenView extends AbstractView {
+export default class StatsScreenView extends AbstractView {
   constructor(answers, state) {
     super();
     this.answers = answers;
     this.state = state;
   }
 
+  getStatsTitle(userAnswers, state) {
+    if (getScore(userAnswers, state.lives) === -1) {
+      return `Проигрыш!`;
+    } else {
+      return `Победа!`;
+    }
+  }
+
+  getStatsResult(userAnswers, state) {
+    if (getScore(userAnswers, state.lives) === -1) {
+      return `Fail!`;
+    } else {
+      return getScore(userAnswers, state.lives);
+    }
+  }
+
   template() {
     return `
       <main class="central">
         <div class="result">
-          <h1>${getStatsTitle(this.answers, this.state)}</h1>
+          <h1>${this.getStatsTitle(this.answers, this.state)}</h1>
           <table class="result__table">
             <tr>
               <td class="result__number">1.</td>
@@ -90,7 +88,7 @@ class StatsScreenView extends AbstractView {
             </tr>
             <tr>
               <td colspan="5" class="result__total  result__total--final">
-              ${getStatsResult(this.answers, this.state)}
+              ${this.getStatsResult(this.answers, this.state)}
               </td>
             </tr>
           </table>
@@ -102,12 +100,7 @@ class StatsScreenView extends AbstractView {
   onClick() { }
 
   bind() {
-    this.element.insertAdjacentElement(`afterbegin`, getHeader(this.state));
+    this.element.insertAdjacentElement(`afterbegin`, new Header(this.state).element);
   }
 
 }
-
-export default () => {
-  const statsScreenView = new StatsScreenView(userState.answers, userState);
-  return showScreen(statsScreenView.element);
-};

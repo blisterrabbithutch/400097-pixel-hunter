@@ -47,11 +47,11 @@ let resultFirst = [
 let resultSecond = [
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
@@ -59,31 +59,31 @@ let resultSecond = [
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   },
   {
     solved: true,
-    time: 8000
+    time: 10000
   }
 ];
 

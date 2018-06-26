@@ -1,5 +1,5 @@
-import getFooterMarkup from './footer.js';
-import AbstractView from './abstract-view.js';
+import getFooterMarkup from './../footer.js';
+import AbstractView from './../abstract-view.js';
 
 export default class RulesScreenView extends AbstractView {
   constructor(level) {

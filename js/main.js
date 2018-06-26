@@ -1,3 +1,3 @@
-import mainScreen from './main-screen.js';
+import Application from './application.js';
 
-mainScreen();
+Application.showMain();
