@@ -198,7 +198,7 @@ class GameScreen {
           solved: false
         };
         this.model.saveAnswers(answerOnCard);
-        this.enterNextLevel(this.model.getCurrentLevelNumber());
+        this.enterNextLevel(this.model.getCurrentLevelData());
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
