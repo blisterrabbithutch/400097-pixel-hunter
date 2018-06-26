@@ -192,7 +192,7 @@ class GameScreen {
   }
 
   startTimerRemaining(duration) {
-    this._timerBlinkingLimit = 5;
+    this._timerBlinkingLimit = 6;
     this.timerRemaining = setTimeout(() => {
       createTimer(duration).tick();
       let remain = duration;
@@ -209,8 +209,8 @@ class GameScreen {
         this.header.startBlinkingTimer();
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
-        this.updateHeaderTime();
         this.startTimerRemaining(remain);
+        this.updateHeaderTime();
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
