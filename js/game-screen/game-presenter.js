@@ -112,12 +112,13 @@ class GameScreen {
     this.model.resetTime(initialState.time);
     this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
+    this.updateHeaderTime();
     const form = oneCardScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     oneCardScreenView.onAnswer = () => {
       this.handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
       this.stopLevelTimeDuration();
-      this.stopTimer();
+      this.stopTimerRemaining();
       this.enterNextLevel(data);
     };
     return showScreen(oneCardScreenView.element);
@@ -130,13 +131,14 @@ class GameScreen {
     this.model.resetTime(initialState.time);
     this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
+    this.updateHeaderTime();
     const form = twoCardsScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     const secondCardRadioInputs = form.elements.question2;
     twoCardsScreenView.onAnswer = () => {
       this.handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
       this.stopLevelTimeDuration();
-      this.stopTimer();
+      this.stopTimerRemaining();
       this.enterNextLevel(data);
     };
     return showScreen(twoCardsScreenView.element);
@@ -149,13 +151,14 @@ class GameScreen {
     this.model.resetTime(initialState.time);
     this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
+    this.updateHeaderTime();
     const firstCardAnswer = data.cards[0].rightAnswer;
     const secondCardAnswer = data.cards[1].rightAnswer;
     const thirdCardAnswer = data.cards[2].rightAnswer;
     threeCardsScreenView.onAnswer = (evt) => {
       this.handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
       this.stopLevelTimeDuration();
-      this.stopTimer();
+      this.stopTimerRemaining();
       this.enterNextLevel(data);
     };
     return showScreen(threeCardsScreenView.element);
@@ -208,7 +211,7 @@ class GameScreen {
     }, ONE_SECOND);
   }
 
-  stopTimer() {
+  stopTimerRemaining() {
     clearTimeout(this.timerRemaining);
   }
 
