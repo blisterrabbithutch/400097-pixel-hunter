@@ -1,8 +1,10 @@
 import getFooterMarkup from './../footer.js';
 import AbstractView from './../abstract-view.js';
 import Header from './../header.js';
-import {getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './../utils.js';
+import {getElementFromTemplate, getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './../utils.js';
 import {AnswerPoints} from './../enums.js';
+
+let archiveStats = [];
 
 export default class StatsScreenView extends AbstractView {
   constructor(answers, state) {
@@ -27,79 +29,100 @@ export default class StatsScreenView extends AbstractView {
     }
   }
 
+  renderAllStatistic(statsArr) {
+    this._statsTableContainer = this.element.querySelector(`.result`);
+    for (let i = 0; i < statsArr.length; i++) {
+      this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this.templateGameStats(statsArr[i], i))));
+    }
+  }
+
   template() {
     return `
       <main class="central">
         <div class="result">
           <h1>${this.getStatsTitle(this.answers, this.state)}</h1>
-          <table class="result__table">
-            <tr>
-              <td class="result__number">1.</td>
-              <td colspan="2">
-                <ul class="stats">
-                  ${getLevelProgressBar(this.answers)}
-                </ul>
-              </td>
-              <td class="result__points">×&nbsp;
-              ${AnswerPoints.NORMAL}
-              </td>
-              <td class="result__total">
-              ${getCompletedLevelsValue(this.answers) * AnswerPoints.NORMAL}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="result__extra">Бонус за скорость:</td>
-              <td class="result__extra">
-              ${getFastAnswersValue(this.answers)}
-              &nbsp;<span class="stats__result stats__result--fast"></span></td>
-              <td class="result__points">×&nbsp;
-              ${AnswerPoints.BONUS}
-              </td>
-              <td class="result__total">
-              ${getFastAnswersValue(this.answers) * AnswerPoints.BONUS}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="result__extra">Бонус за жизни:</td>
-              <td class="result__extra">
-              ${this.state.lives}
-              &nbsp;<span class="stats__result stats__result--alive"></span></td>
-              <td class="result__points">×&nbsp;
-              ${AnswerPoints.BONUS}
-              </td>
-              <td class="result__total">
-              ${this.state.lives * AnswerPoints.BONUS}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="result__extra">Штраф за медлительность:</td>
-              <td class="result__extra">
-              ${getSlowAnswersValue(this.answers)}
-              &nbsp;<span class="stats__result stats__result--slow"></span></td>
-              <td class="result__points">×&nbsp;
-              ${AnswerPoints.BONUS}
-              </td>
-              <td class="result__total">
-              ${-(getSlowAnswersValue(this.answers) * AnswerPoints.BONUS)}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="5" class="result__total  result__total--final">
-              ${this.getStatsResult(this.answers, this.state)}
-              </td>
-            </tr>
-          </table>
+
         </div>
         ${getFooterMarkup()}
       </main>`;
   }
 
+  templateGameStats(state, i) {
+    console.log(state);
+    console.log(i);
+    return `
+      <table class="result__table">
+        <tr>
+          <td class="result__number">${i + 1}</td>
+          <td colspan="2">
+            <ul class="stats">
+              ${getLevelProgressBar(state.answers)}
+            </ul>
+          </td>
+          <td class="result__points">×&nbsp;
+          ${AnswerPoints.NORMAL}
+          </td>
+          <td class="result__total">
+          ${getCompletedLevelsValue(state.answers) * AnswerPoints.NORMAL}
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="result__extra">Бонус за скорость:</td>
+          <td class="result__extra">
+          ${getFastAnswersValue(state.answers)}
+          &nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__points">×&nbsp;
+          ${AnswerPoints.BONUS}
+          </td>
+          <td class="result__total">
+          ${getFastAnswersValue(state.answers) * AnswerPoints.BONUS}
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="result__extra">Бонус за жизни:</td>
+          <td class="result__extra">
+          ${state.lives}
+          &nbsp;<span class="stats__result stats__result--alive"></span></td>
+          <td class="result__points">×&nbsp;
+          ${AnswerPoints.BONUS}
+          </td>
+          <td class="result__total">
+          ${state.lives * AnswerPoints.BONUS}
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="result__extra">Штраф за медлительность:</td>
+          <td class="result__extra">
+          ${getSlowAnswersValue(state.answers)}
+          &nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__points">×&nbsp;
+          ${AnswerPoints.BONUS}
+          </td>
+          <td class="result__total">
+          ${-(getSlowAnswersValue(state.answers) * AnswerPoints.BONUS)}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" class="result__total  result__total--final">
+          ${this.getStatsResult(state.answers, state)}
+          </td>
+        </tr>
+      </table>
+    `;
+  }
+
+  saveNewGameStatistics(state) {
+    archiveStats.push(state);
+  }
+
   onClick() { }
 
   bind() {
+    this.saveNewGameStatistics(this.state);
+    this.renderAllStatistic(archiveStats);
     this.element.insertAdjacentElement(`afterbegin`, new Header(this.state).element);
   }
 
