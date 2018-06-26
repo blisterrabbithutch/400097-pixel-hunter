@@ -24,6 +24,7 @@ class GameScreen {
   }
 
   enterNextLevel(data) {
+    this.model.nextLevel();
     this.header.stopBlinkingTimer();
     const numberOfScreen = Array.prototype.indexOf.call(levels, data);
     const nextLevel = levels[numberOfScreen + 1];
@@ -209,8 +210,8 @@ class GameScreen {
         this.header.startBlinkingTimer();
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
-        this.startTimerRemaining(remain);
         this.updateHeaderTime();
+        this.startTimerRemaining(remain);
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
