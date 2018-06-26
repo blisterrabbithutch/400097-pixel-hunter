@@ -1,6 +1,6 @@
 const INITIAL_LEVEL = 0;
 const INITIAL_LIVES = 3;
-const INITIAL_TIME = 30;
+const INITIAL_TIME = 10;
 const INITIAL_LEVELTIME = 0;
 const initialState = {
   level: INITIAL_LEVEL,

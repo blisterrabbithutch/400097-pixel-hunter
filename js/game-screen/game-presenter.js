@@ -24,6 +24,7 @@ class GameScreen {
   }
 
   enterNextLevel(data) {
+    this.header.stopBlinkingTimer();
     const numberOfScreen = Array.prototype.indexOf.call(levels, data);
     const nextLevel = levels[numberOfScreen + 1];
     if (nextLevel && this.model.getCurrentLives() > 0) {
@@ -191,6 +192,7 @@ class GameScreen {
   }
 
   startTimerRemaining(duration) {
+    this._timerBlinkingLimit = 5;
     this.timerRemaining = setTimeout(() => {
       createTimer(duration).tick();
       let remain = duration;
@@ -202,6 +204,13 @@ class GameScreen {
         };
         this.model.saveAnswers(answerOnCard);
         this.enterNextLevel(this.model.getCurrentLevelData());
+        this.header.stopBlinkingTimer();
+      } else if (remain === this._timerBlinkingLimit) {
+        this.header.startBlinkingTimer();
+        remain = this.model.getCurrentTime() - 1;
+        this.model.saveResultTime(remain);
+        this.updateHeaderTime();
+        this.startTimerRemaining(remain);
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
