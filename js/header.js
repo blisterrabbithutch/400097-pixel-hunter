@@ -1,10 +1,15 @@
 import Application from './application.js';
 import AbstractView from './abstract-view.js';
+import {getElementFromTemplate} from './utils.js';
+import ModalConfirm from './modal-confirm.js';
+
+const BLINKING_INTERVAL = 250;
 
 export default class Header extends AbstractView {
   constructor(state) {
     super();
     this.state = state;
+    this.modal = new ModalConfirm();
   }
 
   template() {
@@ -24,10 +29,16 @@ export default class Header extends AbstractView {
       </header>`;
   }
 
+  addModal() {
+    this.element.insertAdjacentElement(`afterbegin`, this.modal.element);
+  }
+
   bind() {
+    this.addModal();
+    this.modal.hideModal();
     const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`click`, function () {
-      Application.showGreeting();
+    backButton.addEventListener(`click`, () => {
+      this.modal.showModal();
     });
   }
 
@@ -38,6 +49,21 @@ export default class Header extends AbstractView {
       ${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
     `;
     this._livesEl.innerHTML = livesValue;
+  }
+
+  startBlinkingTimer() {
+    this._timeEl = this.element.querySelector(`.game__timer`);
+    this.blinkingTimer = setTimeout(() => {
+      this._timeEl.style.opacity = 1 - (this._timeEl.style.opacity || 1);
+      this.startBlinkingTimer();
+    }, BLINKING_INTERVAL);
+
+  }
+
+  stopBlinkingTimer() {
+    clearTimeout(this.blinkingTimer);
+    this._timeEl = this.element.querySelector(`.game__timer`);
+    this._timeEl.style.opacity = 1;
   }
 
   updateTime(time) {

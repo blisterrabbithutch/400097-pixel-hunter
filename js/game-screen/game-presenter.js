@@ -1,4 +1,3 @@
-import GameView from './game-view.js';
 import {levels} from '../data.js';
 import {initialState} from '../game-settings.js';
 import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
@@ -15,15 +14,13 @@ class GameScreen {
   constructor(model) {
     this.model = model;
     this.model.restart();
-    this.view = new GameView();
     this.header = new Header(this.model.state);
   }
 
-  get element() {
-    return this.view.element;
-  }
 
   enterNextLevel(data) {
+    this.model.nextLevel();
+    this.header.stopBlinkingTimer();
     const numberOfScreen = Array.prototype.indexOf.call(levels, data);
     const nextLevel = levels[numberOfScreen + 1];
     if (nextLevel && this.model.getCurrentLives() > 0) {
@@ -191,6 +188,7 @@ class GameScreen {
   }
 
   startTimerRemaining(duration) {
+    this._timerBlinkingLimit = 6;
     this.timerRemaining = setTimeout(() => {
       createTimer(duration).tick();
       let remain = duration;
@@ -202,6 +200,13 @@ class GameScreen {
         };
         this.model.saveAnswers(answerOnCard);
         this.enterNextLevel(this.model.getCurrentLevelData());
+        this.header.stopBlinkingTimer();
+      } else if (remain === this._timerBlinkingLimit) {
+        this.header.startBlinkingTimer();
+        remain = this.model.getCurrentTime() - 1;
+        this.model.saveResultTime(remain);
+        this.updateHeaderTime();
+        this.startTimerRemaining(remain);
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
