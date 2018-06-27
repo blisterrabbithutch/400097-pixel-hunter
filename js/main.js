@@ -1,3 +1,4 @@
 import Application from './application.js';
 
-Application.showMain();
+//Application.showMain();
+Application.start();

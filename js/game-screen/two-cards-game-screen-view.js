@@ -16,9 +16,9 @@ export default class TwoCardsGameScreenView extends AbstractView {
           <div class="game">
           <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
           <form class="game__content">
-          ${(this.currentLevel).cards.map((card, i) => {
+          ${(this.currentLevel).answers.map((card, i) => {
     return `<div class="game__option">
-            <img src="${card.cardContent}" alt="Option 1" width="468" height="458">
+            <img src="${card.image.url}" alt="Option 1" width="468" height="458">
             <label class="game__answer game__answer--photo">
               <input name="${`question` + (i + 1)}" type="radio" value="photo">
               <span>Фото</span>
