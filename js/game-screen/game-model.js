@@ -1,9 +1,8 @@
 import {initialState} from './../game-settings.js';
-import {levels} from '../data.js';
 
 class GameModel {
-  constructor(playerName) {
-    this.playerName = playerName;
+  constructor(data) {
+    this.data = data;
   }
 
   get state() {
@@ -24,8 +23,12 @@ class GameModel {
     return this._state.level;
   }
 
+  getGameLevels() {
+    return this.data;
+  }
+
   getCurrentLevelData() {
-    return levels[this._state.level];
+    return this.getGameLevels()[this._state.level];
   }
 
   getCurrentLives() {

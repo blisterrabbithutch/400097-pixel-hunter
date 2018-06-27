@@ -1,4 +1,3 @@
-import {levels} from '../data.js';
 import {initialState} from '../game-settings.js';
 import TwoCardsGameScreenView from './two-cards-game-screen-view.js';
 import OneCardGameScreenView from './one-card-game-screen-view.js';
@@ -21,14 +20,14 @@ class GameScreen {
   enterNextLevel(data) {
     this.model.nextLevel();
     this.header.stopBlinkingTimer();
-    const numberOfScreen = Array.prototype.indexOf.call(levels, data);
-    const nextLevel = levels[numberOfScreen + 1];
+    const numberOfScreen = Array.prototype.indexOf.call(this.model.getGameLevels(), data);
+    const nextLevel = this.model.getGameLevels()[numberOfScreen + 1];
     if (nextLevel && this.model.getCurrentLives() > 0) {
-      if (nextLevel.levelType === `one-card`) {
+      if (nextLevel.type === `tinder-like`) {
         this.showOneCardGameScreen(nextLevel, this.model.state, this.model.getCurrentAnswerProgress());
-      } else if (nextLevel.levelType === `two-cards`) {
+      } else if (nextLevel.type === `two-of-two`) {
         this.showTwoCardsGameScreen(nextLevel, this.model.state, this.model.getCurrentAnswerProgress());
-      } else if (nextLevel.levelType === `three-cards`) {
+      } else if (nextLevel.type === `one-of-three`) {
         this.showThreeCardsGameScreen(nextLevel, this.model.state, this.model.getCurrentAnswerProgress());
       }
     } else {
@@ -38,7 +37,7 @@ class GameScreen {
 
   handleResultOfOneCardLevel(data, firstCardInputsValue) {
     let answerIsSolved;
-    if (firstCardInputsValue === data.cards[0].rightAnswer) {
+    if (firstCardInputsValue === data.answers[0].type) {
       answerIsSolved = true;
     } else {
       this.model.reduceLives();
@@ -54,7 +53,7 @@ class GameScreen {
 
   handleResultOfTwoCardsLevel(currentLevel, firstCardInputsValue, secondCardInputsValue) {
     let answerIsSolved;
-    if (firstCardInputsValue === currentLevel.cards[0].rightAnswer && secondCardInputsValue === currentLevel.cards[1].rightAnswer) {
+    if (firstCardInputsValue === currentLevel.answers[0].type && secondCardInputsValue === currentLevel.answers[1].type) {
       answerIsSolved = true;
     } else {
       this.model.reduceLives();
@@ -149,9 +148,9 @@ class GameScreen {
     this.startTimerRemaining(initialState.time);
     this.startLevelTimeDuration();
     this.updateHeaderTime();
-    const firstCardAnswer = data.cards[0].rightAnswer;
-    const secondCardAnswer = data.cards[1].rightAnswer;
-    const thirdCardAnswer = data.cards[2].rightAnswer;
+    const firstCardAnswer = data.answers[0].type;
+    const secondCardAnswer = data.answers[1].type;
+    const thirdCardAnswer = data.answers[2].type;
     threeCardsScreenView.onAnswer = (evt) => {
       this.handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
       this.stopLevelTimeDuration();
@@ -162,13 +161,13 @@ class GameScreen {
   }
 
   startGame() {
-    const selectedGameScreen = levels[this.model.getCurrentLevelNumber()];
+    const selectedGameScreen = this.model.getGameLevels()[this.model.getCurrentLevelNumber()];
     if (selectedGameScreen && this.model.getCurrentLives() > 0) {
-      if (selectedGameScreen.levelType === `one-card`) {
+      if (selectedGameScreen.type === `tinder-like`) {
         this.showOneCardGameScreen(selectedGameScreen, this.model.state, this.model.getCurrentAnswerProgress());
-      } else if (selectedGameScreen.levelType === `two-cards`) {
+      } else if (selectedGameScreen.type === `two-of-two`) {
         this.showTwoCardsGameScreen(selectedGameScreen, this.model.state, this.model.getCurrentAnswerProgress());
-      } else if (selectedGameScreen.levelType === `three-cards`) {
+      } else if (selectedGameScreen.type === `one-of-three`) {
         this.showThreeCardsGameScreen(selectedGameScreen, this.model.state, this.model.getCurrentAnswerProgress());
       }
     }

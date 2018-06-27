@@ -5,8 +5,28 @@ import GamePresenter from './game-screen/game-presenter.js';
 import StatsScreen from './stats-screen/stats-screen-view.js';
 import showScreen from './showscreen-function.js';
 import GameModel from './game-screen/game-model.js';
+import adaptServerData from './game-data-adapter.js';
+
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
+let gameData;
 
 export default class Application {
+
+  static start() {
+    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+      then(checkStatus).
+      then((response) => response.json()).
+      then((data) => gameData = adaptServerData(data)).
+      then((response) => Application.showMain()).
+      catch((err) => console.error(err));
+  }
+
   static showMain() {
     const main = new MainScreenView();
     showScreen(main.element);
@@ -22,8 +42,8 @@ export default class Application {
     showScreen(rules.element);
   }
 
-  static showGame(userName) {
-    const model = new GameModel(userName);
+  static showGame() {
+    const model = new GameModel(gameData);
     const game = new GamePresenter(model);
     game.startGame();
   }

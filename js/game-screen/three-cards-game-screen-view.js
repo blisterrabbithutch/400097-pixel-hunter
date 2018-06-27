@@ -16,9 +16,9 @@ export default class ThreeCardsGameScreenView extends AbstractView {
         <div class="game">
           <p class="game__task">Найдите рисунок среди изображений</p>
           <form class="game__content  game__content--triple">
-        ${this.currentLevel.cards.map((card) => {
+        ${this.currentLevel.answers.map((card) => {
     return `<div class="game__option">
-                    <img src="${card.cardContent}" alt="Option 1" width="304" height="455">
+                    <img src="${card.image.url}" alt="Option 1" width="304" height="455">
                   </div>`;
   }).join(``)}
           </form>
