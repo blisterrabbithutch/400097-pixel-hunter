@@ -48,8 +48,6 @@ export default class StatsScreenView extends AbstractView {
   }
 
   templateGameStats(state, i) {
-    console.log(state);
-    console.log(i);
     return `
       <table class="result__table">
         <tr>
