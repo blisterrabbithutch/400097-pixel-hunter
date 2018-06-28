@@ -39,7 +39,7 @@ class GameModel {
     return this._state.answers;
   }
 
-  nextLevel() {
+  changeNextLevel() {
     this._state.level++;
   }
 

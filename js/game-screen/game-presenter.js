@@ -18,7 +18,7 @@ class GameScreen {
 
 
   enterNextLevel(data) {
-    this.model.nextLevel();
+    this.model.changeNextLevel();
     this.header.stopBlinkingTimer();
     const numberOfScreen = Array.prototype.indexOf.call(this.model.getGameLevels(), data);
     const nextLevel = this.model.getGameLevels()[numberOfScreen + 1];
