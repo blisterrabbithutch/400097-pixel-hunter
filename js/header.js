@@ -1,6 +1,4 @@
-import Application from './application.js';
 import AbstractView from './abstract-view.js';
-import {getElementFromTemplate} from './utils.js';
 import ModalConfirm from './modal-confirm.js';
 
 const BLINKING_INTERVAL = 250;

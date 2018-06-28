@@ -16,8 +16,8 @@ const toJSON = (res) => res.json();
 export default class Loader {
   static loadData() {
     return window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
-            then(checkStatus).
-            then((response) => response.json());
+        then(checkStatus).
+        then((response) => response.json());
   }
 
   static loadResults(name = DEFAULT_NAME) {
