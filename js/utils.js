@@ -37,8 +37,7 @@ const getScore = (userResult, remainingLifes) => {
   if (userResult.length < 10) {
     return -1;
   } else {
-    for (let i = 0; i < userResult.length; i++) {
-      let currentUser = userResult[i];
+    for (const currentUser of userResult) {
       if (currentUser.solved) {
         userPoints = userPoints + AnswerPoints.NORMAL;
         if (currentUser.time <= AnswerTime.FAST) {
@@ -55,30 +54,30 @@ const getScore = (userResult, remainingLifes) => {
   return userPoints;
 };
 
-const getFastAnswersValue = (arrayWithAnswers) => {
+const getFastAnswersValue = (userAnswers) => {
   let fastAnswersValue = 0;
-  for (let i = 0; i < arrayWithAnswers.length; i++) {
-    if (arrayWithAnswers[i].time < AnswerTime.FAST && arrayWithAnswers[i].solved) {
+  for (const userAnswer of userAnswers) {
+    if (userAnswer.time < AnswerTime.FAST && userAnswer.solved) {
       fastAnswersValue++;
     }
   }
   return fastAnswersValue;
 };
 
-const getSlowAnswersValue = (arrayWithAnswers) => {
+const getSlowAnswersValue = (userAnswers) => {
   let slowAnswersValue = 0;
-  for (let i = 0; i < arrayWithAnswers.length; i++) {
-    if (arrayWithAnswers[i].time > AnswerTime.SLOW && arrayWithAnswers[i].time < AnswerTime.TIMEOUT && arrayWithAnswers[i].solved) {
+  for (const userAnswer of userAnswers) {
+    if (userAnswer.time > AnswerTime.SLOW && userAnswer.time < AnswerTime.TIMEOUT && userAnswer.solved) {
       slowAnswersValue++;
     }
   }
   return slowAnswersValue;
 };
 
-const getCompletedLevelsValue = (arrayWithAnswers) => {
+const getCompletedLevelsValue = (userAnswers) => {
   let completedLevelValue = 0;
-  for (let i = 0; i < arrayWithAnswers.length; i++) {
-    if (arrayWithAnswers[i].solved) {
+  for (const userAnswer of userAnswers) {
+    if (userAnswer.solved) {
       completedLevelValue++;
     }
   }
