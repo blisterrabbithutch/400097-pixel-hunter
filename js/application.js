@@ -14,9 +14,9 @@ export default class Application {
 
   static start() {
     Loader.loadData().
-      then((data) => gameData = adaptServerData(data)).
-      then((response) => Application.showMain()).
-      catch((err) => console.error(err));
+        then((data) => (gameData = adaptServerData(data))).
+        then(() => Application.showMain()).
+        catch((err) => new Error(err));
   }
 
   static showMain() {
@@ -44,8 +44,8 @@ export default class Application {
     const statistics = new StatsScreen(answers, state);
     showScreen(statistics.element);
     Loader.saveResults(state).
-      then(() => Loader.loadResults()).
-      catch(Application.showError);
+        then(() => Loader.loadResults()).
+        catch(Application.showError);
   }
 
 }
