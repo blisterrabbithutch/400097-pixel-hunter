@@ -41,10 +41,11 @@ export default class Application {
   }
 
   static showStats(answers, state, username) {
-    const statistics = new StatsScreen(answers, state);
+    const statistics = new StatsScreen(answers, state, username);
     showScreen(statistics.element);
     Loader.saveResults(state, username).
         then(() => Loader.loadResults(username)).
+        then((data) => statistics.renderAllStatistic(data)).
         catch(Application.showError);
   }
 

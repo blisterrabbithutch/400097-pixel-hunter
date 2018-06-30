@@ -7,10 +7,11 @@ import {AnswerPoints} from './../enums.js';
 let archiveStats = [];
 
 export default class StatsScreenView extends AbstractView {
-  constructor(answers, state) {
+  constructor(answers, state, username) {
     super();
     this.answers = answers;
     this.state = state;
+    this.username = username;
   }
 
   _getStatsTitle(userAnswers, state) {
@@ -29,7 +30,7 @@ export default class StatsScreenView extends AbstractView {
     }
   }
 
-  _renderAllStatistic(statsArr) {
+  renderAllStatistic(statsArr) {
     this._statsTableContainer = this.element.querySelector(`.result`);
     for (let i = 0; i < statsArr.length; i++) {
       this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this._templateGameStats(statsArr[i], i))));
@@ -120,7 +121,7 @@ export default class StatsScreenView extends AbstractView {
 
   bind() {
     this._saveNewGameStatistics(this.state);
-    this._renderAllStatistic(archiveStats);
+    //this.renderAllStatistic(archiveStats);
     this.element.insertAdjacentElement(`afterbegin`, new Header(this.state).element);
   }
 
