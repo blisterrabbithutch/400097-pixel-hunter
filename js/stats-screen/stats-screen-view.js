@@ -127,9 +127,7 @@ export default class StatsScreenView extends AbstractView {
               ${getLevelProgressBar(state.answers)}
             </ul>
           </td>
-          <td class="result__points">×&nbsp;
-          ${AnswerPoints.NORMAL}
-          </td>
+          <td class="result__points"></td>
           <td class="result__total">
           ${this._getStatsResult(state.answers, state)}
           </td>
