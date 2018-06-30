@@ -33,7 +33,11 @@ export default class StatsScreenView extends AbstractView {
   renderAllStatistic(statsArr) {
     this._statsTableContainer = this.element.querySelector(`.result`);
     for (let i = 0; i < statsArr.length; i++) {
-      this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this._templateGameStats(statsArr[i], i))));
+      if (statsArr[i].lives > 0) {
+        this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this._templateGameSuccessStats(statsArr[i], i))));
+      } else {
+        this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this._templateGameFailedStats(statsArr[i], i))));
+      }
     }
   }
 
@@ -48,7 +52,7 @@ export default class StatsScreenView extends AbstractView {
       </main>`;
   }
 
-  _templateGameStats(state, i) {
+  _templateGameSuccessStats(state, i) {
     return `
       <table class="result__table">
         <tr>
@@ -113,6 +117,27 @@ export default class StatsScreenView extends AbstractView {
     `;
   }
 
+  _templateGameFailedStats(state, i) {
+    return `
+      <table class="result__table">
+        <tr>
+          <td class="result__number">${i + 1}</td>
+          <td colspan="2">
+            <ul class="stats">
+              ${getLevelProgressBar(state.answers)}
+            </ul>
+          </td>
+          <td class="result__points">×&nbsp;
+          ${AnswerPoints.NORMAL}
+          </td>
+          <td class="result__total">
+          ${this._getStatsResult(state.answers, state)}
+          </td>
+        </tr>
+      </table>
+    `;
+  }
+
   _saveNewGameStatistics(state) {
     archiveStats.push(state);
   }
@@ -121,7 +146,6 @@ export default class StatsScreenView extends AbstractView {
 
   bind() {
     this._saveNewGameStatistics(this.state);
-    //this.renderAllStatistic(archiveStats);
     this.element.insertAdjacentElement(`afterbegin`, new Header(this.state).element);
   }
 
