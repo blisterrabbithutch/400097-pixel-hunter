@@ -10,7 +10,7 @@ export default class ThreeCardsGameScreenView extends AbstractView {
     this.answersProgress = answersProgress;
   }
 
-  template() {
+  get template() {
     return `
       <main class="central">
         <div class="game">

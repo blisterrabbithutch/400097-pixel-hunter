@@ -7,7 +7,7 @@ export default class GreetingScreenView extends AbstractView {
     this.level = level;
   }
 
-  template() {
+  get template() {
     return `
       <main class="central">
         <div class="greeting central--blur">

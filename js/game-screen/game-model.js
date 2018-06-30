@@ -1,8 +1,9 @@
 import {initialState} from './../game-settings.js';
 
 class GameModel {
-  constructor(data) {
+  constructor(data, username) {
     this.data = data;
+    this.username = username;
   }
 
   get state() {
@@ -17,6 +18,10 @@ class GameModel {
       levelTime: initialState.levelTime,
       answers: []
     };
+  }
+
+  getUsername() {
+    return this.username;
   }
 
   getCurrentLevelNumber() {

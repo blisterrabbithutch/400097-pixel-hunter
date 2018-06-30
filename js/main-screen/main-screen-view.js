@@ -8,7 +8,7 @@ export default class MainScreenView extends AbstractView {
     this.level = level;
   }
 
-  template() {
+  get template() {
     return `
       <main class="central">
         <div id="intro" class="intro">

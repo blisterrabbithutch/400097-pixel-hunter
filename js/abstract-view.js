@@ -12,7 +12,7 @@ export default class AbstractView {
 
   render() {
     const wrapper = document.createElement(`div`);
-    wrapper.innerHTML = this.template();
+    wrapper.innerHTML = this.template;
     return wrapper.firstElementChild;
   }
 
