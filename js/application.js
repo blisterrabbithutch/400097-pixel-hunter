@@ -34,17 +34,17 @@ export default class Application {
     showScreen(rules.element);
   }
 
-  static showGame() {
-    const model = new GameModel(gameData);
+  static showGame(username) {
+    const model = new GameModel(gameData, username);
     const game = new GamePresenter(model);
     game.startGame();
   }
 
-  static showStats(answers, state) {
+  static showStats(answers, state, username) {
     const statistics = new StatsScreen(answers, state);
     showScreen(statistics.element);
-    Loader.saveResults(state).
-        then(() => Loader.loadResults()).
+    Loader.saveResults(state, username).
+        then(() => Loader.loadResults(username)).
         catch(Application.showError);
   }
 

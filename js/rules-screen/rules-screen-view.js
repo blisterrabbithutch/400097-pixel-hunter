@@ -7,7 +7,7 @@ export default class RulesScreenView extends AbstractView {
     this.level = level;
   }
 
-  template() {
+  get template() {
     return `
       <main class="central">
         <header class="header">
@@ -41,6 +41,11 @@ export default class RulesScreenView extends AbstractView {
   onFormSubmit() { }
 
   onBackButton() { }
+
+  getUsername() {
+    const username = this.element.querySelector(`.rules__input`).value;
+    return username;
+  }
 
   bind() {
     const inputEl = this.element.querySelector(`.rules__input`);

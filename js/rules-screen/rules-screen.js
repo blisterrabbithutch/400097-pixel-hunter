@@ -15,7 +15,7 @@ export default class RulesScreen extends AbstractView {
   }
 
   onFormSubmit() {
-    Application.showGame();
+    Application.showGame(this.view.getUsername());
   }
 
   onBackButton() {

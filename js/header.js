@@ -10,7 +10,7 @@ export default class Header extends AbstractView {
     this.modal = new ModalConfirm();
   }
 
-  template() {
+  get template() {
     return `
       <header class="header">
         <div class="header__back">
@@ -27,12 +27,12 @@ export default class Header extends AbstractView {
       </header>`;
   }
 
-  addModal() {
+  _addModal() {
     this.element.insertAdjacentElement(`afterbegin`, this.modal.element);
   }
 
   bind() {
-    this.addModal();
+    this._addModal();
     this.modal.hideModal();
     const backButton = this.element.querySelector(`.back`);
     backButton.addEventListener(`click`, () => {

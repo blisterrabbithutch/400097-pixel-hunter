@@ -13,7 +13,7 @@ export default class StatsScreenView extends AbstractView {
     this.state = state;
   }
 
-  getStatsTitle(userAnswers, state) {
+  _getStatsTitle(userAnswers, state) {
     if (getScore(userAnswers, state.lives) === -1) {
       return `Проигрыш!`;
     } else {
@@ -21,7 +21,7 @@ export default class StatsScreenView extends AbstractView {
     }
   }
 
-  getStatsResult(userAnswers, state) {
+  _getStatsResult(userAnswers, state) {
     if (getScore(userAnswers, state.lives) === -1) {
       return `Fail!`;
     } else {
@@ -29,25 +29,25 @@ export default class StatsScreenView extends AbstractView {
     }
   }
 
-  renderAllStatistic(statsArr) {
+  _renderAllStatistic(statsArr) {
     this._statsTableContainer = this.element.querySelector(`.result`);
     for (let i = 0; i < statsArr.length; i++) {
-      this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this.templateGameStats(statsArr[i], i))));
+      this._statsTableContainer.insertAdjacentElement(`afterend`, (getElementFromTemplate(this._templateGameStats(statsArr[i], i))));
     }
   }
 
-  template() {
+  get template() {
     return `
       <main class="central">
         <div class="result">
-          <h1>${this.getStatsTitle(this.answers, this.state)}</h1>
+          <h1>${this._getStatsTitle(this.answers, this.state)}</h1>
 
         </div>
         ${getFooterMarkup()}
       </main>`;
   }
 
-  templateGameStats(state, i) {
+  _templateGameStats(state, i) {
     return `
       <table class="result__table">
         <tr>
@@ -105,22 +105,22 @@ export default class StatsScreenView extends AbstractView {
         </tr>
         <tr>
           <td colspan="5" class="result__total  result__total--final">
-          ${this.getStatsResult(state.answers, state)}
+          ${this._getStatsResult(state.answers, state)}
           </td>
         </tr>
       </table>
     `;
   }
 
-  saveNewGameStatistics(state) {
+  _saveNewGameStatistics(state) {
     archiveStats.push(state);
   }
 
   onClick() { }
 
   bind() {
-    this.saveNewGameStatistics(this.state);
-    this.renderAllStatistic(archiveStats);
+    this._saveNewGameStatistics(this.state);
+    this._renderAllStatistic(archiveStats);
     this.element.insertAdjacentElement(`afterbegin`, new Header(this.state).element);
   }
 

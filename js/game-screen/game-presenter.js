@@ -17,29 +17,29 @@ class GameScreen {
   }
 
 
-  enterNextLevel(data) {
+  _enterNextLevel(data) {
     this.model.changeNextLevel();
     this.header.stopBlinkingTimer();
     const numberOfScreen = Array.prototype.indexOf.call(this.model.getGameLevels(), data);
     const nextLevel = this.model.getGameLevels()[numberOfScreen + 1];
-    this.chooseLevelType(nextLevel);
+    this._chooseLevelType(nextLevel);
   }
 
-  chooseLevelType(level) {
+  _chooseLevelType(level) {
     if (level && this.model.getCurrentLives() > 0) {
       if (level.type === `tinder-like`) {
-        this.showOneCardGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
+        this._showOneCardGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (level.type === `two-of-two`) {
-        this.showTwoCardsGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
+        this._showTwoCardsGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (level.type === `one-of-three`) {
-        this.showThreeCardsGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
+        this._showThreeCardsGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
       }
     } else {
-      Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state);
+      Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state, this.model.getUsername());
     }
   }
 
-  handleResultOfOneCardLevel(data, firstCardInputsValue) {
+  _handleResultOfOneCardLevel(data, firstCardInputsValue) {
     let answerIsSolved;
     if (firstCardInputsValue === data.answers[0].type) {
       answerIsSolved = true;
@@ -55,7 +55,7 @@ class GameScreen {
     return answerOnCard;
   }
 
-  handleResultOfTwoCardsLevel(currentLevel, firstCardInputsValue, secondCardInputsValue) {
+  _handleResultOfTwoCardsLevel(currentLevel, firstCardInputsValue, secondCardInputsValue) {
     let answerIsSolved;
     if (firstCardInputsValue === currentLevel.answers[0].type && secondCardInputsValue === currentLevel.answers[1].type) {
       answerIsSolved = true;
@@ -71,7 +71,7 @@ class GameScreen {
     return answerOnCard;
   }
 
-  findDifferentCard(firstCard, secondCard, thirdCard) {
+  _findDifferentCard(firstCard, secondCard, thirdCard) {
     const firstCardEl = document.querySelector(`.game__option:first-child`);
     const secondCardEl = document.querySelector(`.game__option:nth-child(2)`);
     const thirdCardEl = document.querySelector(`.game__option:nth-child(3)`);
@@ -85,9 +85,9 @@ class GameScreen {
     throw new Error(`Incorrect type of parameters. (need paint or photo string)`);
   }
 
-  handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) {
+  _handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer) {
     let answerIsSolved;
-    if (evt.target === this.findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer)) {
+    if (evt.target === this._findDifferentCard(firstCardAnswer, secondCardAnswer, thirdCardAnswer)) {
       answerIsSolved = true;
     } else {
       this.model.reduceLives();
@@ -101,82 +101,82 @@ class GameScreen {
     return answerOnCard;
   }
 
-  updateHeader(view) {
+  _updateHeader(view) {
     view.element.insertAdjacentElement(`afterbegin`, this.header.element);
     this.header.updateLives(this.model.state);
     this.model.resetTime(initialState.time);
-    this.startTimerRemaining(initialState.time);
-    this.startLevelTimeDuration();
+    this._startTimerRemaining(initialState.time);
+    this._startLevelTimeDuration();
     this.header.updateTime(this.model.getCurrentTime());
   }
 
-  updateHeaderTime() {
+  _updateHeaderTime() {
     this.header.updateTime(this.model.getCurrentTime());
   }
 
-  showOneCardGameScreen(data, state, answersProgress) {
+  _showOneCardGameScreen(data, state, answersProgress) {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
-    this.updateHeader(oneCardScreenView);
+    this._updateHeader(oneCardScreenView);
     const form = oneCardScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     oneCardScreenView.onAnswer = () => {
-      this.handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
-      this.stopLevelTimeDuration();
-      this.stopTimerRemaining();
-      this.enterNextLevel(data);
+      this._handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
+      this._stopLevelTimeDuration();
+      this._stopTimerRemaining();
+      this._enterNextLevel(data);
     };
     return showScreen(oneCardScreenView.element);
   }
 
-  showTwoCardsGameScreen(data, state, answersProgress) {
+  _showTwoCardsGameScreen(data, state, answersProgress) {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
-    this.updateHeader(twoCardsScreenView);
+    this._updateHeader(twoCardsScreenView);
     const form = twoCardsScreenView.element.querySelector(`.game__content`);
     const firstCardRadioInputs = form.elements.question1;
     const secondCardRadioInputs = form.elements.question2;
     twoCardsScreenView.onAnswer = () => {
-      this.handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
-      this.stopLevelTimeDuration();
-      this.stopTimerRemaining();
-      this.enterNextLevel(data);
+      this._handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
+      this._stopLevelTimeDuration();
+      this._stopTimerRemaining();
+      this._enterNextLevel(data);
     };
     return showScreen(twoCardsScreenView.element);
   }
 
-  showThreeCardsGameScreen(data, state, answersProgress) {
+  _showThreeCardsGameScreen(data, state, answersProgress) {
     const threeCardsScreenView = new ThreeCardsGameScreenView(data, state, answersProgress);
-    this.updateHeader(threeCardsScreenView);
+    this._updateHeader(threeCardsScreenView);
     const firstCardAnswer = data.answers[0].type;
     const secondCardAnswer = data.answers[1].type;
     const thirdCardAnswer = data.answers[2].type;
     threeCardsScreenView.onAnswer = (evt) => {
-      this.handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
-      this.stopLevelTimeDuration();
-      this.stopTimerRemaining();
-      this.enterNextLevel(data);
+      this._handleResultOfThreeCardsLevel(evt, firstCardAnswer, secondCardAnswer, thirdCardAnswer);
+      this._stopLevelTimeDuration();
+      this._stopTimerRemaining();
+      this._enterNextLevel(data);
     };
     return showScreen(threeCardsScreenView.element);
   }
 
   startGame() {
     const selectedGameScreen = this.model.getGameLevels()[this.model.getCurrentLevelNumber()];
-    this.chooseLevelType(selectedGameScreen);
+    this._chooseLevelType(selectedGameScreen);
   }
 
-  startLevelTimeDuration() {
+  _startLevelTimeDuration() {
     this.levelDuration = setTimeout(() => {
       let remain = this.model.getCurrentAnswerTime() + ONE_SECOND;
       this.model.setLevelTime(remain);
-      this.startLevelTimeDuration(remain);
+      this._startLevelTimeDuration(remain);
     }, ONE_SECOND);
   }
 
-  stopLevelTimeDuration() {
+  _stopLevelTimeDuration() {
     clearTimeout(this.levelDuration);
     this.model.setLevelTime(0);
   }
 
-  startTimerRemaining(duration) {
+  _startTimerRemaining(duration) {
     this._timerBlinkingLimit = 6;
     this.timerRemaining = setTimeout(() => {
       createTimer(duration).tick();
@@ -188,24 +188,24 @@ class GameScreen {
           solved: false
         };
         this.model.saveAnswers(answerOnCard);
-        this.enterNextLevel(this.model.getCurrentLevelData());
+        this._enterNextLevel(this.model.getCurrentLevelData());
         this.header.stopBlinkingTimer();
       } else if (remain === this._timerBlinkingLimit) {
         this.header.startBlinkingTimer();
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
-        this.updateHeaderTime();
-        this.startTimerRemaining(remain);
+        this._updateHeaderTime();
+        this._startTimerRemaining(remain);
       } else {
         remain = this.model.getCurrentTime() - 1;
         this.model.saveResultTime(remain);
-        this.updateHeaderTime();
-        this.startTimerRemaining(remain);
+        this._updateHeaderTime();
+        this._startTimerRemaining(remain);
       }
     }, ONE_SECOND);
   }
 
-  stopTimerRemaining() {
+  _stopTimerRemaining() {
     clearTimeout(this.timerRemaining);
   }
 
