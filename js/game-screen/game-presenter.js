@@ -18,15 +18,19 @@ class GameScreen {
 
 
   _enterNextLevel(data) {
-    this.model.changeNextLevel();
-    this.header.stopBlinkingTimer();
-    const numberOfScreen = Array.prototype.indexOf.call(this.model.getGameLevels(), data);
-    const nextLevel = this.model.getGameLevels()[numberOfScreen + 1];
-    this._chooseLevelType(nextLevel);
+    if (this.model.getCurrentLives() > 0) {
+      this.model.changeNextLevel();
+      this.header.stopBlinkingTimer();
+      const numberOfScreen = Array.prototype.indexOf.call(this.model.getGameLevels(), data);
+      const nextLevel = this.model.getGameLevels()[numberOfScreen + 1];
+      this._chooseLevelType(nextLevel);
+    } else {
+      Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state, this.model.getUsername());
+    }
   }
 
   _chooseLevelType(level) {
-    if (level && this.model.getCurrentLives() > 0) {
+    if (level) {
       if (level.type === `tinder-like`) {
         this._showOneCardGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
       } else if (level.type === `two-of-two`) {
@@ -34,8 +38,6 @@ class GameScreen {
       } else if (level.type === `one-of-three`) {
         this._showThreeCardsGameScreen(level, this.model.state, this.model.getCurrentAnswerProgress());
       }
-    } else {
-      Application.showStats(this.model.getCurrentAnswerProgress(), this.model.state, this.model.getUsername());
     }
   }
 
