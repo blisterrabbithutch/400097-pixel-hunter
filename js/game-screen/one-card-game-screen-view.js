@@ -42,8 +42,18 @@ export default class OneCardGameScreenView extends AbstractView {
 
   bind() {
     const cardEl = this.element.querySelector(`.game__option`);
+    const form = this.element.querySelector(`.game__content`);
+    const firstCardRadioInputs = form.querySelectorAll(`input`);
     cardEl.addEventListener(`change`, () => {
-      this.onAnswer();
+      let checkedInputValue;
+      for (const cardInput of firstCardRadioInputs) {
+        if (cardInput.hasAttribute(`value`)) {
+          if (cardInput.checked) {
+            checkedInputValue = cardInput.value;
+          }
+        }
+      }
+      this.onAnswer(checkedInputValue);
     });
   }
 

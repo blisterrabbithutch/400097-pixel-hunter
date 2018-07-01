@@ -119,10 +119,8 @@ class GameScreen {
   _showOneCardGameScreen(data, state, answersProgress) {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
     this._updateHeader(oneCardScreenView);
-    const form = oneCardScreenView.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.elements.question1;
-    oneCardScreenView.onAnswer = () => {
-      this._handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
+    oneCardScreenView.onAnswer = (selectedInputValue) => {
+      this._handleResultOfOneCardLevel(data, selectedInputValue);
       this._stopLevelTimeDuration();
       this._stopTimerRemaining();
       this._enterNextLevel(data);
@@ -133,11 +131,8 @@ class GameScreen {
   _showTwoCardsGameScreen(data, state, answersProgress) {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
     this._updateHeader(twoCardsScreenView);
-    const form = twoCardsScreenView.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.elements.question1;
-    const secondCardRadioInputs = form.elements.question2;
-    twoCardsScreenView.onAnswer = () => {
-      this._handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
+    twoCardsScreenView.onAnswer = (leftCardValue, rightCardValue) => {
+      this._handleResultOfTwoCardsLevel(data, leftCardValue, rightCardValue);
       this._stopLevelTimeDuration();
       this._stopTimerRemaining();
       this._enterNextLevel(data);
