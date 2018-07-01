@@ -44,10 +44,26 @@ export default class TwoCardsGameScreenView extends AbstractView {
 
   bind() {
     const form = this.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.elements.question1;
-    const secondCardRadioInputs = form.elements.question2;
+    const firstCardRadioInputs = form.querySelectorAll(`.game__option:first-child input`);
+    const secondCardRadioInputs = form.querySelectorAll(`.game__option:last-child input`);
     form.addEventListener(`change`, () => {
-      if (firstCardRadioInputs.value && secondCardRadioInputs.value) {
+      let leftCardInputValue;
+      for (const cardInput of firstCardRadioInputs) {
+        if (cardInput.hasAttribute(`value`)) {
+          if (cardInput.checked) {
+            leftCardInputValue = cardInput.value;
+          }
+        }
+      }
+      let rightCardInputValue;
+      for (const cardInput of secondCardRadioInputs) {
+        if (cardInput.hasAttribute(`value`)) {
+          if (cardInput.checked) {
+            rightCardInputValue = cardInput.value;
+          }
+        }
+      }
+      if (leftCardInputValue && rightCardInputValue) {
         this.onAnswer();
       }
     });
