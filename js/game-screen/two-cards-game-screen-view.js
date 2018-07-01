@@ -64,7 +64,7 @@ export default class TwoCardsGameScreenView extends AbstractView {
         }
       }
       if (leftCardInputValue && rightCardInputValue) {
-        this.onAnswer();
+        this.onAnswer(leftCardInputValue, rightCardInputValue);
       }
     });
   }

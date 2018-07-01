@@ -119,18 +119,8 @@ class GameScreen {
   _showOneCardGameScreen(data, state, answersProgress) {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
     this._updateHeader(oneCardScreenView);
-    const form = oneCardScreenView.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.querySelectorAll(`input`);
-    oneCardScreenView.onAnswer = () => {
-      let checkedInput;
-      for (const cardInput of firstCardRadioInputs) {
-        if (cardInput.hasAttribute(`value`)) {
-          if (cardInput.checked) {
-            checkedInput = cardInput;
-          }
-        }
-      }
-      this._handleResultOfOneCardLevel(data, checkedInput.value);
+    oneCardScreenView.onAnswer = (selectedInputValue) => {
+      this._handleResultOfOneCardLevel(data, selectedInputValue);
       this._stopLevelTimeDuration();
       this._stopTimerRemaining();
       this._enterNextLevel(data);
@@ -141,28 +131,8 @@ class GameScreen {
   _showTwoCardsGameScreen(data, state, answersProgress) {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
     this._updateHeader(twoCardsScreenView);
-    const form = twoCardsScreenView.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.querySelectorAll(`.game__option:first-child input`);
-    const secondCardRadioInputs = form.querySelectorAll(`.game__option:last-child input`);
-    twoCardsScreenView.onAnswer = () => {
-      let leftCardInput;
-      for (const cardInput of firstCardRadioInputs) {
-        if (cardInput.hasAttribute(`value`)) {
-          if (cardInput.checked) {
-            leftCardInput = cardInput;
-          }
-        }
-      }
-
-      let rightCardInput;
-      for (const cardInput of secondCardRadioInputs) {
-        if (cardInput.hasAttribute(`value`)) {
-          if (cardInput.checked) {
-            rightCardInput = cardInput;
-          }
-        }
-      }
-      this._handleResultOfTwoCardsLevel(data, leftCardInput.value, rightCardInput.value);
+    twoCardsScreenView.onAnswer = (leftCardValue, rightCardValue) => {
+      this._handleResultOfTwoCardsLevel(data, leftCardValue, rightCardValue);
       this._stopLevelTimeDuration();
       this._stopTimerRemaining();
       this._enterNextLevel(data);
