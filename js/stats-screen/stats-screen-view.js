@@ -4,7 +4,7 @@ import Header from './../header.js';
 import {getElementFromTemplate, getScore, getFastAnswersValue, getSlowAnswersValue, getCompletedLevelsValue, getLevelProgressBar} from './../utils.js';
 import {AnswerPoints} from './../enums.js';
 
-let archiveStats = [];
+const archiveStats = [];
 
 export default class StatsScreenView extends AbstractView {
   constructor(answers, state, username) {

@@ -120,9 +120,17 @@ class GameScreen {
     const oneCardScreenView = new OneCardGameScreenView(data, state, answersProgress);
     this._updateHeader(oneCardScreenView);
     const form = oneCardScreenView.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.elements.question1;
+    const firstCardRadioInputs = form.querySelectorAll(`input`);
     oneCardScreenView.onAnswer = () => {
-      this._handleResultOfOneCardLevel(data, firstCardRadioInputs.value);
+      let checkedInput;
+      for (const cardInput of firstCardRadioInputs) {
+        if (cardInput.hasAttribute(`value`)) {
+          if (cardInput.checked) {
+            checkedInput = cardInput;
+          }
+        }
+      }
+      this._handleResultOfOneCardLevel(data, checkedInput.value);
       this._stopLevelTimeDuration();
       this._stopTimerRemaining();
       this._enterNextLevel(data);
@@ -134,10 +142,27 @@ class GameScreen {
     const twoCardsScreenView = new TwoCardsGameScreenView(data, state, answersProgress);
     this._updateHeader(twoCardsScreenView);
     const form = twoCardsScreenView.element.querySelector(`.game__content`);
-    const firstCardRadioInputs = form.elements.question1;
-    const secondCardRadioInputs = form.elements.question2;
+    const firstCardRadioInputs = form.querySelectorAll(`.game__option:first-child input`);
+    const secondCardRadioInputs = form.querySelectorAll(`.game__option:last-child input`);
     twoCardsScreenView.onAnswer = () => {
-      this._handleResultOfTwoCardsLevel(data, firstCardRadioInputs.value, secondCardRadioInputs.value);
+      let leftCardInput;
+      for (const cardInput of firstCardRadioInputs) {
+        if (cardInput.hasAttribute(`value`)) {
+          if (cardInput.checked) {
+            leftCardInput = cardInput;
+          }
+        }
+      }
+
+      let rightCardInput;
+      for (const cardInput of secondCardRadioInputs) {
+        if (cardInput.hasAttribute(`value`)) {
+          if (cardInput.checked) {
+            rightCardInput = cardInput;
+          }
+        }
+      }
+      this._handleResultOfTwoCardsLevel(data, leftCardInput.value, rightCardInput.value);
       this._stopLevelTimeDuration();
       this._stopTimerRemaining();
       this._enterNextLevel(data);
